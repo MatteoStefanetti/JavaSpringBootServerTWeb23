@@ -10,7 +10,7 @@ public class ClubService {
         this.clubRepository = clubRepository;
     }
 
-    public Club saveClub(Club club){
+    public Club saveClub(Club club) {
         return clubRepository.save(club);
     }
 }
