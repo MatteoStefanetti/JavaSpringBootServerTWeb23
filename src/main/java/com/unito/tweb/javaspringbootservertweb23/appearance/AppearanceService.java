@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 public class AppearanceService {
     private final AppearanceRepository appearanceRepository;
 
-    public AppearanceService(AppearanceRepository appearanceRepository){
-        this.appearanceRepository=appearanceRepository;
+    public AppearanceService(AppearanceRepository appearanceRepository) {
+        this.appearanceRepository = appearanceRepository;
     }
 
-    public Appearance saveAppearance(Appearance appearance){
+    public Appearance saveAppearance(Appearance appearance) {
         return appearanceRepository.save(appearance);
     }
 }

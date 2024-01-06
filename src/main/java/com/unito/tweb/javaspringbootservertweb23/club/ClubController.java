@@ -8,7 +8,7 @@ public class ClubController {
     private final ClubService clubService;
 
     @Autowired
-    public ClubController(ClubService clubService){
+    public ClubController(ClubService clubService) {
         this.clubService = clubService;
     }
 }

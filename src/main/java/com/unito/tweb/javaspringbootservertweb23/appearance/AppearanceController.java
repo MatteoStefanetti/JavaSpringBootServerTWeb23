@@ -8,7 +8,7 @@ public class AppearanceController {
     private final AppearanceService appearanceService;
 
     @Autowired
-    public AppearanceController(AppearanceService appearanceService){
+    public AppearanceController(AppearanceService appearanceService) {
         this.appearanceService = appearanceService;
     }
 
