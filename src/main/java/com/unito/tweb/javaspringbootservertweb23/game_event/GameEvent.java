@@ -5,7 +5,7 @@ import com.unito.tweb.javaspringbootservertweb23.player.Player;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name ="game_events")
+@Table(name = "game_events")
 public class GameEvent {
     @Id
     @Column(name = "game_event_id")
@@ -23,10 +23,10 @@ public class GameEvent {
     @Column(name = "game_event_description")
     private String gameEventDescription;
 
-    @Column(name="player_in_id")
+    @Column(name = "player_in_id")
     private Long playerInId;
 
-    @Column(name="player_assist_id")
+    @Column(name = "player_assist_id")
     private Long playerAssistId;
 
     @ManyToOne

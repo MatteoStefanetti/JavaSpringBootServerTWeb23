@@ -6,11 +6,11 @@ import org.springframework.stereotype.Service;
 public class GameEventService {
     private final GameEventRepository gameEventRepository;
 
-    public GameEventService(GameEventRepository gameEventRepository){
+    public GameEventService(GameEventRepository gameEventRepository) {
         this.gameEventRepository = gameEventRepository;
     }
 
-    public GameEvent saveGameEvent(GameEvent gameEvent){
+    public GameEvent saveGameEvent(GameEvent gameEvent) {
         return gameEventRepository.save(gameEvent);
     }
 }

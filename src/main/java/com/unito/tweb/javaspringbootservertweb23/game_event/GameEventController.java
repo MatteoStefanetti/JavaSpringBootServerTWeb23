@@ -8,7 +8,7 @@ public class GameEventController {
     private final GameEventService gameEventService;
 
     @Autowired
-    public GameEventController(GameEventService gameEventService){
+    public GameEventController(GameEventService gameEventService) {
         this.gameEventService = gameEventService;
     }
 }
