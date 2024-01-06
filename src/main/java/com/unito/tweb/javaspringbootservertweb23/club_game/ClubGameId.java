@@ -1,19 +1,24 @@
 package com.unito.tweb.javaspringbootservertweb23.club_game;
 
-import jakarta.persistence.Column;
+import com.unito.tweb.javaspringbootservertweb23.club.Club;
+import com.unito.tweb.javaspringbootservertweb23.game.Game;
 import jakarta.persistence.Embeddable;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 import java.io.Serializable;
 
 @Embeddable
 public class ClubGameId implements Serializable {
-    @Column(name = "game_id")
-    private Long gameId;
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game gameId;
 
-    @Column(name = "club_id")
-    private Long clubId;
+    @ManyToOne
+    @JoinColumn(name = "club_id")
+    private Club clubId;
 
-    public ClubGameId(Long gameId, Long clubId) {
+    public ClubGameId(Game gameId, Club clubId) {
         this.gameId = gameId;
         this.clubId = clubId;
     }
@@ -22,19 +27,19 @@ public class ClubGameId implements Serializable {
 
     }
 
-    public Long getGameId() {
+    public Game getGameId() {
         return gameId;
     }
 
-    public void setGameId(Long gameId) {
+    public void setGameId(Game gameId) {
         this.gameId = gameId;
     }
 
-    public Long getClubId() {
+    public Club getClubId() {
         return clubId;
     }
 
-    public void setClubId(Long clubId) {
+    public void setClubId(Club clubId) {
         this.clubId = clubId;
     }
 }
