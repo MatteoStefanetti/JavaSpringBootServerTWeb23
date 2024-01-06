@@ -1,5 +1,7 @@
 package com.unito.tweb.javaspringbootservertweb23.appearance;
 
+import com.unito.tweb.javaspringbootservertweb23.game.Game;
+import com.unito.tweb.javaspringbootservertweb23.player.Player;
 import jakarta.persistence.*;
 
 @Entity
@@ -29,13 +31,15 @@ public class Appearance {
     @Column(name = "player_current_club_id")
     private int playerCurrentClubId;
 
-    @Column(name = "game_id")
-    private int gameId;
+    @ManyToOne
+    @JoinColumn(name = "game_id")
+    private Game gameId;
 
-    @Column(name = "player_id")
-    private int playerId;
+    @ManyToOne
+    @JoinColumn(name = "player_id")
+    private Player playerId;
 
-    public Appearance(String appearanceId, int yellowCards, boolean redCards, int goals, int assists, int minutesPlayed, int playerClubId, int playerCurrentClubId, int gameId, int playerId) {
+    public Appearance(String appearanceId, int yellowCards, boolean redCards, int goals, int assists, int minutesPlayed, int playerClubId, int playerCurrentClubId, Game gameId, Player playerId) {
         this.appearanceId = appearanceId;
         this.yellowCards = yellowCards;
         this.redCards = redCards;
@@ -116,19 +120,19 @@ public class Appearance {
         this.playerCurrentClubId = playerCurrentClubId;
     }
 
-    public int getGameId() {
+    public Game getGameId() {
         return gameId;
     }
 
-    public void setGameId(int gameId) {
+    public void setGameId(Game gameId) {
         this.gameId = gameId;
     }
 
-    public int getPlayerId() {
+    public Player getPlayerId() {
         return playerId;
     }
 
-    public void setPlayerId(int playerId) {
+    public void setPlayerId(Player playerId) {
         this.playerId = playerId;
     }
 }
