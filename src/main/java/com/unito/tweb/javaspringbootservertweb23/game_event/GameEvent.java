@@ -8,20 +8,20 @@ import jakarta.persistence.*;
 @Table(name = "game_events")
 public class GameEvent {
     @Id
-    @Column(name = "game_event_id")
+    @Column(name = "game_event_id", nullable = false)
     private String gameEventId;
 
-    @Column(name = "minute")
+    @Column(name = "minute", nullable = false)
     private Integer minute;
 
-    @Column(name = "game_event_type")
-    private String gameEventType;
+    @Column(name = "event_type", nullable = false)
+    private String eventType;
 
-    @Column(name = "club_id")
+    @Column(name = "club_id", nullable = false)
     private Long clubId;
 
-    @Column(name = "game_event_description")
-    private String gameEventDescription;
+    @Column(name = "event_description")
+    private String eventDescription;
 
     @Column(name = "player_in_id")
     private Long playerInId;
@@ -30,19 +30,19 @@ public class GameEvent {
     private Long playerAssistId;
 
     @ManyToOne
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "game_id", nullable = false)
     private Game gameId;
 
     @ManyToOne
-    @JoinColumn(name = "player_id")
+    @JoinColumn(name = "player_id", nullable = false)
     private Player playerId;
 
-    public GameEvent(String gameEventId, Integer minute, String gameEventType, Long clubId, String gameEventDescription, Long playerInId, Long playerAssistId, Game gameId, Player playerId) {
+    public GameEvent(String gameEventId, Integer minute, String eventType, Long clubId, String eventDescription, Long playerInId, Long playerAssistId, Game gameId, Player playerId) {
         this.gameEventId = gameEventId;
         this.minute = minute;
-        this.gameEventType = gameEventType;
+        this.eventType = eventType;
         this.clubId = clubId;
-        this.gameEventDescription = gameEventDescription;
+        this.eventDescription = eventDescription;
         this.playerInId = playerInId;
         this.playerAssistId = playerAssistId;
         this.gameId = gameId;
@@ -69,12 +69,12 @@ public class GameEvent {
         this.minute = minute;
     }
 
-    public String getGameEventType() {
-        return gameEventType;
+    public String getEventType() {
+        return eventType;
     }
 
-    public void setGameEventType(String gameEventType) {
-        this.gameEventType = gameEventType;
+    public void setEventType(String eventType) {
+        this.eventType = eventType;
     }
 
     public Long getClubId() {
@@ -85,12 +85,12 @@ public class GameEvent {
         this.clubId = clubId;
     }
 
-    public String getGameEventDescription() {
-        return gameEventDescription;
+    public String getEventDescription() {
+        return eventDescription;
     }
 
-    public void setGameEventDescription(String gameEventDescription) {
-        this.gameEventDescription = gameEventDescription;
+    public void setEventDescription(String eventDescription) {
+        this.eventDescription = eventDescription;
     }
 
     public Long getPlayerInId() {

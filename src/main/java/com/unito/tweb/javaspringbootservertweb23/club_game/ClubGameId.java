@@ -11,11 +11,11 @@ import java.io.Serializable;
 @Embeddable
 public class ClubGameId implements Serializable {
     @ManyToOne
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "game_id", nullable = false)
     private Game gameId;
 
     @ManyToOne
-    @JoinColumn(name = "club_id")
+    @JoinColumn(name = "club_id", nullable = false)
     private Club clubId;
 
     public ClubGameId(Game gameId, Club clubId) {

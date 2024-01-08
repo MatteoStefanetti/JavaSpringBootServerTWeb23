@@ -10,42 +10,43 @@ import jakarta.persistence.Table;
 public class Club {
 
     @Id
+    @Column(name = "club_id", nullable = false)
     private Long clubId;
 
-    @Column(name = "club_name")
+    @Column(name = "club_name", nullable = false)
     private String clubName;
 
-    @Column(name = "squad_size")
+    @Column(name = "squad_size", nullable = false)
     private Integer squadSize;
 
     @Column(name = "average_age")
     private Float averageAge;
 
-    @Column(name = "foreigners_number")
+    @Column(name = "foreigners_number", nullable = false)
     private Integer foreignersNumber;
 
-    @Column(name = "foreigners_percentage")
+    @Column(name = "foreigners_percentage", nullable = false)
     private Float foreignersPercentage;
 
-    @Column(name = "national_team_players")
+    @Column(name = "national_team_players", nullable = false)
     private Integer nationalTeamPlayer;
 
-    @Column(name = "stadium_name")
+    @Column(name = "stadium_name", nullable = false)
     private String stadiumName;
 
-    @Column(name = "stadium_seats")
+    @Column(name = "stadium_seats", nullable = false)
     private Integer stadiumSeats;
 
-    @Column(name = "net_transfer_record")
+    @Column(name = "net_transfer_record", nullable = false)
     private String netTransferRecord;
 
-    @Column(name = "last_season")
+    @Column(name = "last_season", nullable = false)
     private Integer lastSeason;
 
-    @Column(name = "club_url")
+    @Column(name = "club_url", nullable = false)
     private String clubUrl;
 
-    @Column(name = "local_competition_code")
+    @Column(name = "local_competition_code", nullable = false)
     private String localCompetitionCode;
 
     public Club(Long clubId, String clubName, Integer squadSize, Float averageAge, Integer foreignersNumber, Float foreignersPercentage, Integer nationalTeamPlayer, String stadiumName, Integer stadiumSeats, String netTransferRecord, Integer lastSeason, String clubUrl, String localCompetitionCode) {
