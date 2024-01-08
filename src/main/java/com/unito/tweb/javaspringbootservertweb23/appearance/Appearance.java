@@ -8,35 +8,36 @@ import jakarta.persistence.*;
 @Table(name = "appearance")
 public class Appearance {
     @Id
+    @Column(name = "appearance_id", nullable = false)
     private String appearanceId;
 
-    @Column(name = "yellow_cards")
+    @Column(name = "yellow_cards", nullable = false)
     private int yellowCards;
 
-    @Column(name = "red_cards")
+    @Column(name = "red_cards", nullable = false)
     private boolean redCards;
 
-    @Column(name = "goals")
+    @Column(name = "goals", nullable = false)
     private int goals;
 
-    @Column(name = "assists")
+    @Column(name = "assists", nullable = false)
     private int assists;
 
-    @Column(name = "minutes_played")
+    @Column(name = "minutes_played", nullable = false)
     private int minutesPlayed;
 
-    @Column(name = "player_club_id")
+    @Column(name = "player_club_id", nullable = false)
     private int playerClubId;
 
-    @Column(name = "player_current_club_id")
+    @Column(name = "player_current_club_id", nullable = false)
     private int playerCurrentClubId;
 
     @ManyToOne
-    @JoinColumn(name = "game_id")
+    @JoinColumn(name = "game_id", nullable = false)
     private Game gameId;
 
     @ManyToOne
-    @JoinColumn(name = "player_id")
+    @JoinColumn(name = "player_id", nullable = false)
     private Player playerId;
 
     public Appearance(String appearanceId, int yellowCards, boolean redCards, int goals, int assists, int minutesPlayed, int playerClubId, int playerCurrentClubId, Game gameId, Player playerId) {

@@ -9,17 +9,17 @@ import java.util.Date;
 @Table(name = "players")
 public class Player {
     @Id
-    @Column(name = "player_id")
+    @Column(name = "player_id", nullable = false)
     private Long playerId;
 
-    @Column(name = "player_name")
+    @Column(name = "player_name", nullable = false)
     private String playerName;
 
-    @Column(name = "last_season")
+    @Column(name = "last_season", nullable = false)
     private Integer lastSeason;
 
     @ManyToOne
-    @JoinColumn(name = "current_club_id")
+    @JoinColumn(name = "current_club_id", nullable = false)
     private Club currentClubId;
 
     @Column(name = "country_of_birth")
@@ -58,10 +58,10 @@ public class Player {
     @Column(name = "agent_name")
     private String agentName;
 
-    @Column(name = "image_url")
+    @Column(name = "image_url", nullable = false)
     private String imageUrl;
 
-    @Column(name = "player_url")
+    @Column(name = "player_url", nullable = false)
     private String playerUrl;
 
     public Player(Long playerId, String playerName, Integer lastSeason, Club currentClubId, String countryOfBirth, String cityOfBirth, String countryOfCitizenship, Date dateOfBirth, String foot, Short heightInCm, String subPosition, String position, Integer valueEur, Integer topValueEur, Date contractExpirationDate, String agentName, String imageUrl, String playerUrl) {

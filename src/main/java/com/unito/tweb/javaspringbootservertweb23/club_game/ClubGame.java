@@ -9,19 +9,19 @@ public class ClubGame {
     @EmbeddedId
     private ClubGameId clubGameId;
 
-    @Column(name = "own_goal")
+    @Column(name = "own_goal", nullable = false)
     private Integer ownGoal;
 
-    @Column(name = "own_position")
+    @Column(name = "own_position", nullable = false)
     private Integer ownPosition;
 
     @Column(name = "own_manager_name")
     private String ownManagerName;
 
-    @Column(name = "hosting")
+    @Column(name = "hosting", nullable = false)
     private boolean hosting;
 
-    @Column(name = "is_win")
+    @Column(name = "is_win", nullable = false)
     private boolean isWin;
 
     @Column(name = "club_formation")

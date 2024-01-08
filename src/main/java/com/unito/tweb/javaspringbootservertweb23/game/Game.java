@@ -11,31 +11,31 @@ import java.util.Date;
 @Table(name = "games")
 public class Game {
     @Id
-    @Column(name = "game_id")
+    @Column(name = "game_id", nullable = false)
     private Long gameId;
 
-    @Column(name = "competition_id")
+    @Column(name = "competition_id", nullable = false)
     private String competitionId;
 
-    @Column(name = "season")
+    @Column(name = "season", nullable = false)
     private Integer season;
 
-    @Column(name = "round")
+    @Column(name = "round", nullable = false)
     private String round;
 
-    @Column(name = "game_date")
+    @Column(name = "game_date", nullable = false)
     private Date gameDate;
 
-    @Column(name = "stadium")
+    @Column(name = "stadium", nullable = false)
     private String stadium;
 
     @Column(name = "attendance")
     private Integer attendance;
 
-    @Column(name = "referee")
+    @Column(name = "referee", nullable = false)
     private String referee;
 
-    @Column(name = "game_url")
+    @Column(name = "game_url", nullable = false)
     private String gameUrl;
 
     public Game(Long gameId, String competitionId, Integer season, String round, Date gameDate, String stadium, Integer attendance, String referee, String gameUrl) {
