@@ -1,5 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.player;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.unito.tweb.javaspringbootservertweb23.club.Club;
 import jakarta.persistence.*;
 
@@ -10,61 +11,78 @@ import java.util.Date;
 public class Player {
     @Id
     @Column(name = "player_id", nullable = false)
+    @JsonProperty("player_id")
     private Long playerId;
 
     @Column(name = "player_name", nullable = false)
+    @JsonProperty("player_name")
     private String playerName;
 
     @Column(name = "last_season", nullable = false)
+    @JsonProperty("last_season")
     private Integer lastSeason;
 
-    @ManyToOne
-    @JoinColumn(name = "current_club_id", nullable = false)
-    private Club currentClubId;
+    @Column(name = "current_club_id", nullable = false)
+    @JsonProperty("current_club_id")
+    private Long currentClubId;
 
     @Column(name = "country_of_birth")
+    @JsonProperty("country_of_birth")
     private String countryOfBirth;
 
     @Column(name = "city_of_birth")
+    @JsonProperty("city_of_birth")
     private String cityOfBirth;
 
     @Column(name = "country_of_citizenship")
+    @JsonProperty("country_of_citizenship")
     private String countryOfCitizenship;
 
     @Column(name = "date_of_birth")
+    @JsonProperty("date_of_birth")
     private Date dateOfBirth;
 
     @Column(name = "foot")
+    @JsonProperty("foot")
     private String foot;
 
     @Column(name = "height_in_cm")
+    @JsonProperty("height_in_cm")
     private Short heightInCm;
 
     @Column(name = "sub_position")
+    @JsonProperty("sub_position")
     private String subPosition;
 
     @Column(name = "position")
+    @JsonProperty("position")
     private String position;
 
     @Column(name = "value_eur")
+    @JsonProperty("value_eur")
     private Integer valueEur;
 
     @Column(name = "top_value_eur")
+    @JsonProperty("top_value_eur")
     private Integer topValueEur;
 
     @Column(name = "contract_expiration_date")
+    @JsonProperty("contract_expiration_date")
     private Date contractExpirationDate;
 
     @Column(name = "agent_name")
+    @JsonProperty("agent_name")
     private String agentName;
 
     @Column(name = "image_url", nullable = false)
+    @JsonProperty("image_url")
     private String imageUrl;
 
     @Column(name = "player_url", nullable = false)
+    @JsonProperty("player_url")
     private String playerUrl;
 
-    public Player(Long playerId, String playerName, Integer lastSeason, Club currentClubId, String countryOfBirth, String cityOfBirth, String countryOfCitizenship, Date dateOfBirth, String foot, Short heightInCm, String subPosition, String position, Integer valueEur, Integer topValueEur, Date contractExpirationDate, String agentName, String imageUrl, String playerUrl) {
+    public Player(Long playerId, String playerName, Integer lastSeason, Long currentClubId, String countryOfBirth, String cityOfBirth, String countryOfCitizenship, Date dateOfBirth, String foot, Short heightInCm, String subPosition, String position, Integer valueEur, Integer topValueEur, Date contractExpirationDate, String agentName, String imageUrl, String playerUrl) {
         this.playerId = playerId;
         this.playerName = playerName;
         this.lastSeason = lastSeason;
@@ -113,11 +131,11 @@ public class Player {
         this.lastSeason = lastSeason;
     }
 
-    public Club getCurrentClubId() {
+    public Long getCurrentClubId() {
         return currentClubId;
     }
 
-    public void setCurrentClubId(Club currentClubId) {
+    public void setCurrentClubId(Long currentClubId) {
         this.currentClubId = currentClubId;
     }
 
