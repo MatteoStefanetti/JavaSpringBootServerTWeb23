@@ -1,8 +1,10 @@
 package com.unito.tweb.javaspringbootservertweb23.player;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.unito.tweb.javaspringbootservertweb23.club.Club;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 import java.util.Date;
 
