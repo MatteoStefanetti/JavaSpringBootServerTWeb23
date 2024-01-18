@@ -1,5 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.club;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -11,47 +12,62 @@ public class Club {
 
     @Id
     @Column(name = "club_id", nullable = false)
+    @JsonProperty("club_id")
     private Long clubId;
 
     @Column(name = "club_name", nullable = false)
+    @JsonProperty("club_name")
     private String clubName;
 
+    @Column(name = "local_competition_code", nullable = false)
+    @JsonProperty("local_competition_code")
+    private String localCompetitionCode;
+
     @Column(name = "squad_size", nullable = false)
+    @JsonProperty("squad_size")
     private Integer squadSize;
 
     @Column(name = "average_age")
+    @JsonProperty("average_age")
     private Float averageAge;
 
     @Column(name = "foreigners_number", nullable = false)
+    @JsonProperty("foreigners_number")
     private Integer foreignersNumber;
 
     @Column(name = "foreigners_percentage", nullable = false)
+    @JsonProperty("foreigners_percentage")
     private Float foreignersPercentage;
 
     @Column(name = "national_team_players", nullable = false)
+    @JsonProperty("national_team_players")
     private Integer nationalTeamPlayer;
 
     @Column(name = "stadium_name", nullable = false)
+    @JsonProperty("stadium_name")
     private String stadiumName;
 
     @Column(name = "stadium_seats", nullable = false)
+    @JsonProperty("stadium_seats")
     private Integer stadiumSeats;
 
     @Column(name = "net_transfer_record", nullable = false)
+    @JsonProperty("net_transfer_record")
     private String netTransferRecord;
 
     @Column(name = "last_season", nullable = false)
+    @JsonProperty("last_season")
     private Integer lastSeason;
 
     @Column(name = "club_url", nullable = false)
+    @JsonProperty("club_url")
     private String clubUrl;
 
-    @Column(name = "local_competition_code", nullable = false)
-    private String localCompetitionCode;
 
-    public Club(Long clubId, String clubName, Integer squadSize, Float averageAge, Integer foreignersNumber, Float foreignersPercentage, Integer nationalTeamPlayer, String stadiumName, Integer stadiumSeats, String netTransferRecord, Integer lastSeason, String clubUrl, String localCompetitionCode) {
+    public Club(Long clubId, String clubName, String localCompetitionCode, Integer squadSize, Float averageAge, Integer foreignersNumber, Float foreignersPercentage, Integer nationalTeamPlayer, String stadiumName, Integer stadiumSeats, String netTransferRecord, Integer lastSeason, String clubUrl) {
         this.clubId = clubId;
         this.clubName = clubName;
+        this.localCompetitionCode = localCompetitionCode;
         this.squadSize = squadSize;
         this.averageAge = averageAge;
         this.foreignersNumber = foreignersNumber;
@@ -62,7 +78,6 @@ public class Club {
         this.netTransferRecord = netTransferRecord;
         this.lastSeason = lastSeason;
         this.clubUrl = clubUrl;
-        this.localCompetitionCode = localCompetitionCode;
     }
 
     public Club() {
