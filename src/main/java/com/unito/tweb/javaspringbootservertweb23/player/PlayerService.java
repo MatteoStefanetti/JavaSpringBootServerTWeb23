@@ -2,6 +2,7 @@ package com.unito.tweb.javaspringbootservertweb23.player;
 
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 @Service
 public class PlayerService {
     private final PlayerRepository playerRepository;
@@ -12,5 +13,9 @@ public class PlayerService {
 
     public Player savePlayer(Player player) {
         return playerRepository.save(player);
+    }
+
+    public List<Player> savePlayers(List<Player> players) {
+        return playerRepository.saveAll(players);
     }
 }
