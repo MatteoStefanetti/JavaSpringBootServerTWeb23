@@ -1,5 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.game;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -12,30 +13,39 @@ import java.util.Date;
 public class Game {
     @Id
     @Column(name = "game_id", nullable = false)
+    @JsonProperty("game_id")
     private Long gameId;
 
     @Column(name = "competition_id", nullable = false)
+    @JsonProperty("competition_id")
     private String competitionId;
 
     @Column(name = "season", nullable = false)
+    @JsonProperty("season")
     private Integer season;
 
     @Column(name = "round", nullable = false)
+    @JsonProperty("round")
     private String round;
 
     @Column(name = "game_date", nullable = false)
+    @JsonProperty("date")
     private Date gameDate;
 
-    @Column(name = "stadium", nullable = false)
+    @Column(name = "stadium")
+    @JsonProperty("stadium")
     private String stadium;
 
     @Column(name = "attendance")
+    @JsonProperty("attendance")
     private Integer attendance;
 
-    @Column(name = "referee", nullable = false)
+    @Column(name = "referee")
+    @JsonProperty("referee")
     private String referee;
 
     @Column(name = "game_url", nullable = false)
+    @JsonProperty("url")
     private String gameUrl;
 
     public Game(Long gameId, String competitionId, Integer season, String round, Date gameDate, String stadium, Integer attendance, String referee, String gameUrl) {

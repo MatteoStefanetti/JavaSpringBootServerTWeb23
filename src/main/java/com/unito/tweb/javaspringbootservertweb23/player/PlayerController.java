@@ -1,6 +1,7 @@
 package com.unito.tweb.javaspringbootservertweb23.player;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +18,8 @@ public class PlayerController {
     }
 
     @PostMapping("/addPlayers")
-    public List<Player> addPlayers(@RequestBody List<Player> players){
-        return playerService.savePlayers(players);
+    public ResponseEntity<String> addPlayers(@RequestBody List<Player> players){
+        playerService.savePlayers(players);
+        return ResponseEntity.ok("Player successfully loaded!");
     }
 }

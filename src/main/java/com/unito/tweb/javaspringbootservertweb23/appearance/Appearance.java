@@ -1,46 +1,58 @@
 package com.unito.tweb.javaspringbootservertweb23.appearance;
 
-import com.unito.tweb.javaspringbootservertweb23.game.Game;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.unito.tweb.javaspringbootservertweb23.player.Player;
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "appearance")
 public class Appearance {
     @Id
     @Column(name = "appearance_id", nullable = false)
+    @JsonProperty("appearance_id")
     private String appearanceId;
 
     @Column(name = "yellow_cards", nullable = false)
+    @JsonProperty("yellow_cards")
     private int yellowCards;
 
     @Column(name = "red_cards", nullable = false)
+    @JsonProperty("red_cards")
     private boolean redCards;
 
     @Column(name = "goals", nullable = false)
+    @JsonProperty("goals")
     private int goals;
 
     @Column(name = "assists", nullable = false)
+    @JsonProperty("assists")
     private int assists;
 
     @Column(name = "minutes_played", nullable = false)
+    @JsonProperty("minutes_played")
     private int minutesPlayed;
 
     @Column(name = "player_club_id", nullable = false)
+    @JsonProperty("player_club_id")
     private int playerClubId;
 
     @Column(name = "player_current_club_id", nullable = false)
+    @JsonProperty("player_current_club_id")
     private int playerCurrentClubId;
 
-    @ManyToOne
-    @JoinColumn(name = "game_id", nullable = false)
-    private Game gameId;
+    @Column(name = "game_id", nullable = false)
+    @JsonProperty("game_id")
+    private Long gameId;
 
-    @ManyToOne
-    @JoinColumn(name = "player_id", nullable = false)
-    private Player playerId;
 
-    public Appearance(String appearanceId, int yellowCards, boolean redCards, int goals, int assists, int minutesPlayed, int playerClubId, int playerCurrentClubId, Game gameId, Player playerId) {
+    @Column(name = "player_id", nullable = false)
+    @JsonProperty("player_id")
+    private Long playerId;
+
+    public Appearance(String appearanceId, int yellowCards, boolean redCards, int goals, int assists, int minutesPlayed, int playerClubId, int playerCurrentClubId, Long gameId, Long playerId) {
         this.appearanceId = appearanceId;
         this.yellowCards = yellowCards;
         this.redCards = redCards;
@@ -121,19 +133,19 @@ public class Appearance {
         this.playerCurrentClubId = playerCurrentClubId;
     }
 
-    public Game getGameId() {
+    public Long getGameId() {
         return gameId;
     }
 
-    public void setGameId(Game gameId) {
+    public void setGameId(Long gameId) {
         this.gameId = gameId;
     }
 
-    public Player getPlayerId() {
+    public Long getPlayerId() {
         return playerId;
     }
 
-    public void setPlayerId(Player playerId) {
+    public void setPlayerId(Long playerId) {
         this.playerId = playerId;
     }
 }
