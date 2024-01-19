@@ -17,7 +17,7 @@ public class AppearanceController {
         this.appearanceService = appearanceService;
     }
 
-    @PostMapping("addAppearances")
+    @PostMapping("/addAppearances")
     public ResponseEntity<String> addAppearances(@RequestBody List<Appearance> appearances){
         appearanceService.saveAppearances(appearances);
         return ResponseEntity.ok("Appearances successfully loaded!");
