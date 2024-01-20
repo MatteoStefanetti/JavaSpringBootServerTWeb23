@@ -2,14 +2,12 @@ package com.unito.tweb.javaspringbootservertweb23.club;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/clubs")
 public class ClubController {
     private final ClubService clubService;
 
@@ -18,10 +16,22 @@ public class ClubController {
         this.clubService = clubService;
     }
 
-    @GetMapping("/clubByLocal")
-    public ResponseEntity<String> findClubsByLocalCompetitionCode(@RequestBody String localCompetitionCode) {
-        List<Long> squad = clubService.findClubsByLocalCompetitionCode(localCompetitionCode);
+    @GetMapping("/clubByLetter")
+    public ResponseEntity<String> findClubsByLetter(@RequestBody String letter){
+        List<Long> squad = clubService.findClubsByLetter(letter);
         return ResponseEntity.ok(squad.toString());
+    }
+
+    @GetMapping("/clubByLocal")
+    public ResponseEntity<List<Long>> findClubsByLocalCompetitionCode(@RequestBody String localCompetitionCode) {
+        List<Long> squad = clubService.findClubsByLocalCompetitionCode(localCompetitionCode);
+        return ResponseEntity.ok(squad);
+    }
+
+    @GetMapping("/clubByName")
+    public ResponseEntity<List<Long>> findClubsByClubName (@RequestBody String name){
+        List<Long> squad = clubService.findClubsByClubName(name);
+        return ResponseEntity.ok(squad);
     }
 
     @PostMapping("/addClubs")
