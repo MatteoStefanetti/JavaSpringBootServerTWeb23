@@ -19,4 +19,16 @@ public class ClubService {
     public List<Club> saveClubs(List<Club> clubs) {
         return clubRepository.saveAll(clubs);
     }
+
+    public List<Long> findClubsByLocalCompetitionCode(String localCompetitionCode) {
+        return clubRepository.findClubsByLocalCompetitionCode(localCompetitionCode);
+    }
+
+    public List<Long> findClubsByLetter(String letter){
+        return clubRepository.findClubsByLetter(letter);
+    }
+
+    public List<Long> findClubsByClubName(String name){
+        return clubRepository.findClubsByClubName(name);
+    }
 }

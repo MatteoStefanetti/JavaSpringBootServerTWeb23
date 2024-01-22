@@ -59,12 +59,8 @@ public class Club {
     @JsonProperty("last_season")
     private Integer lastSeason;
 
-    @Column(name = "club_url", nullable = false)
-    @JsonProperty("club_url")
-    private String clubUrl;
 
-
-    public Club(Long clubId, String clubName, String localCompetitionCode, Integer squadSize, Float averageAge, Integer foreignersNumber, Float foreignersPercentage, Integer nationalTeamPlayer, String stadiumName, Integer stadiumSeats, String netTransferRecord, Integer lastSeason, String clubUrl) {
+    public Club(Long clubId, String clubName, String localCompetitionCode, Integer squadSize, Float averageAge, Integer foreignersNumber, Float foreignersPercentage, Integer nationalTeamPlayer, String stadiumName, Integer stadiumSeats, String netTransferRecord, Integer lastSeason) {
         this.clubId = clubId;
         this.clubName = clubName;
         this.localCompetitionCode = localCompetitionCode;
@@ -77,7 +73,6 @@ public class Club {
         this.stadiumSeats = stadiumSeats;
         this.netTransferRecord = netTransferRecord;
         this.lastSeason = lastSeason;
-        this.clubUrl = clubUrl;
     }
 
     public Club() {
@@ -170,14 +165,6 @@ public class Club {
 
     public void setLastSeason(Integer lastSeason) {
         this.lastSeason = lastSeason;
-    }
-
-    public String getClubUrl() {
-        return clubUrl;
-    }
-
-    public void setClubUrl(String clubUrl) {
-        this.clubUrl = clubUrl;
     }
 
     public String getLocalCompetitionCode() {

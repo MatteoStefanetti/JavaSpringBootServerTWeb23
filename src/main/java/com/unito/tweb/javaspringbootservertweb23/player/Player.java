@@ -16,6 +16,10 @@ public class Player {
     @JsonProperty("player_id")
     private Long playerId;
 
+    @Column(name = "last_name", nullable = false)
+    @JsonProperty("last_name")
+    private String lastName;
+
     @Column(name = "player_name", nullable = false)
     @JsonProperty("player_name")
     private String playerName;
@@ -80,12 +84,10 @@ public class Player {
     @JsonProperty("image_url")
     private String imageUrl;
 
-    @Column(name = "player_url", nullable = false)
-    @JsonProperty("player_url")
-    private String playerUrl;
 
-    public Player(Long playerId, String playerName, Integer lastSeason, Long currentClubId, String countryOfBirth, String cityOfBirth, String countryOfCitizenship, Date dateOfBirth, String foot, Short heightInCm, String subPosition, String position, Integer valueEur, Integer topValueEur, Date contractExpirationDate, String agentName, String imageUrl, String playerUrl) {
+    public Player(Long playerId, String lastName, String playerName, Integer lastSeason, Long currentClubId, String countryOfBirth, String cityOfBirth, String countryOfCitizenship, Date dateOfBirth, String foot, Short heightInCm, String subPosition, String position, Integer valueEur, Integer topValueEur, Date contractExpirationDate, String agentName, String imageUrl) {
         this.playerId = playerId;
+        this.lastName = lastName;
         this.playerName = playerName;
         this.lastSeason = lastSeason;
         this.currentClubId = currentClubId;
@@ -102,7 +104,6 @@ public class Player {
         this.contractExpirationDate = contractExpirationDate;
         this.agentName = agentName;
         this.imageUrl = imageUrl;
-        this.playerUrl = playerUrl;
     }
 
     public Player() {
@@ -115,6 +116,14 @@ public class Player {
 
     public void setPlayerId(Long playerId) {
         this.playerId = playerId;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPlayerName() {
@@ -243,13 +252,5 @@ public class Player {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public String getPlayerUrl() {
-        return playerUrl;
-    }
-
-    public void setPlayerUrl(String playerUrl) {
-        this.playerUrl = playerUrl;
     }
 }
