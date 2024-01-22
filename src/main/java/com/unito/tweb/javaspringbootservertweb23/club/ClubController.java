@@ -16,25 +16,25 @@ public class ClubController {
         this.clubService = clubService;
     }
 
-    @GetMapping("/clubByLetter")
+    @GetMapping("/club_by_letter")
     public ResponseEntity<String> findClubsByLetter(@RequestBody String letter){
         List<Long> squad = clubService.findClubsByLetter(letter);
         return ResponseEntity.ok(squad.toString());
     }
 
-    @GetMapping("/clubByLocal")
+    @GetMapping("/clubs_by_nation")
     public ResponseEntity<List<Long>> findClubsByLocalCompetitionCode(@RequestBody String localCompetitionCode) {
         List<Long> squad = clubService.findClubsByLocalCompetitionCode(localCompetitionCode);
         return ResponseEntity.ok(squad);
     }
 
-    @GetMapping("/clubByName")
+    @GetMapping("/clubs_by_name")
     public ResponseEntity<List<Long>> findClubsByClubName (@RequestBody String name){
         List<Long> squad = clubService.findClubsByClubName(name);
         return ResponseEntity.ok(squad);
     }
 
-    @PostMapping("/addClubs")
+    @PostMapping("/add_clubs")
     public ResponseEntity<String> addClubs(@RequestBody List<Club> clubs) {
         clubService.saveClubs(clubs);
         return ResponseEntity.ok("Clubs successfully loaded!");

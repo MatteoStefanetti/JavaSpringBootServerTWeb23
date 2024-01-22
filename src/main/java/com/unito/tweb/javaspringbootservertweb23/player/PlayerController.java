@@ -16,13 +16,13 @@ public class PlayerController {
         this.playerService = playerService;
     }
 
-    @PostMapping("/addPlayers")
+    @PostMapping("/add_players")
     public ResponseEntity<String> addPlayers(@RequestBody List<Player> players){
         playerService.savePlayers(players);
         return ResponseEntity.ok("Player successfully loaded!");
     }
 
-    @GetMapping("/getPlayersByLetter")
+    @GetMapping("/get_players_by_letter")
     public ResponseEntity<List<Long>> getPlayerByLetterInPlayerName(@RequestBody List<String> letter){
         return ResponseEntity.ok(playerService.getPlayerByLetterInPlayerName(letter.get(0), letter.get(1)));
     }
