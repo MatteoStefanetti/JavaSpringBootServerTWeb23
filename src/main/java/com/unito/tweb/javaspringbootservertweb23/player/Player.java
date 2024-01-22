@@ -80,11 +80,8 @@ public class Player {
     @JsonProperty("image_url")
     private String imageUrl;
 
-    @Column(name = "player_url", nullable = false)
-    @JsonProperty("player_url")
-    private String playerUrl;
 
-    public Player(Long playerId, String playerName, Integer lastSeason, Long currentClubId, String countryOfBirth, String cityOfBirth, String countryOfCitizenship, Date dateOfBirth, String foot, Short heightInCm, String subPosition, String position, Integer valueEur, Integer topValueEur, Date contractExpirationDate, String agentName, String imageUrl, String playerUrl) {
+    public Player(Long playerId, String playerName, Integer lastSeason, Long currentClubId, String countryOfBirth, String cityOfBirth, String countryOfCitizenship, Date dateOfBirth, String foot, Short heightInCm, String subPosition, String position, Integer valueEur, Integer topValueEur, Date contractExpirationDate, String agentName, String imageUrl) {
         this.playerId = playerId;
         this.playerName = playerName;
         this.lastSeason = lastSeason;
@@ -102,7 +99,6 @@ public class Player {
         this.contractExpirationDate = contractExpirationDate;
         this.agentName = agentName;
         this.imageUrl = imageUrl;
-        this.playerUrl = playerUrl;
     }
 
     public Player() {
@@ -243,13 +239,5 @@ public class Player {
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-    }
-
-    public String getPlayerUrl() {
-        return playerUrl;
-    }
-
-    public void setPlayerUrl(String playerUrl) {
-        this.playerUrl = playerUrl;
     }
 }

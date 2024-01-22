@@ -44,11 +44,7 @@ public class Game {
     @JsonProperty("referee")
     private String referee;
 
-    @Column(name = "game_url", nullable = false)
-    @JsonProperty("url")
-    private String gameUrl;
-
-    public Game(Long gameId, String competitionId, Integer season, String round, Date gameDate, String stadium, Integer attendance, String referee, String gameUrl) {
+    public Game(Long gameId, String competitionId, Integer season, String round, Date gameDate, String stadium, Integer attendance, String referee) {
         this.gameId = gameId;
         this.competitionId = competitionId;
         this.season = season;
@@ -57,7 +53,6 @@ public class Game {
         this.stadium = stadium;
         this.attendance = attendance;
         this.referee = referee;
-        this.gameUrl = gameUrl;
     }
 
     public Game() {
@@ -126,13 +121,5 @@ public class Game {
 
     public void setReferee(String referee) {
         this.referee = referee;
-    }
-
-    public String getGameUrl() {
-        return gameUrl;
-    }
-
-    public void setGameUrl(String gameUrl) {
-        this.gameUrl = gameUrl;
     }
 }
