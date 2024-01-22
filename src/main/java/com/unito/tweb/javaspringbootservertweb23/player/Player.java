@@ -16,6 +16,10 @@ public class Player {
     @JsonProperty("player_id")
     private Long playerId;
 
+    @Column(name = "last_name", nullable = false)
+    @JsonProperty("last_name")
+    private String lastName;
+
     @Column(name = "player_name", nullable = false)
     @JsonProperty("player_name")
     private String playerName;
@@ -81,8 +85,9 @@ public class Player {
     private String imageUrl;
 
 
-    public Player(Long playerId, String playerName, Integer lastSeason, Long currentClubId, String countryOfBirth, String cityOfBirth, String countryOfCitizenship, Date dateOfBirth, String foot, Short heightInCm, String subPosition, String position, Integer valueEur, Integer topValueEur, Date contractExpirationDate, String agentName, String imageUrl) {
+    public Player(Long playerId, String lastName, String playerName, Integer lastSeason, Long currentClubId, String countryOfBirth, String cityOfBirth, String countryOfCitizenship, Date dateOfBirth, String foot, Short heightInCm, String subPosition, String position, Integer valueEur, Integer topValueEur, Date contractExpirationDate, String agentName, String imageUrl) {
         this.playerId = playerId;
+        this.lastName = lastName;
         this.playerName = playerName;
         this.lastSeason = lastSeason;
         this.currentClubId = currentClubId;
@@ -111,6 +116,14 @@ public class Player {
 
     public void setPlayerId(Long playerId) {
         this.playerId = playerId;
+    }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getPlayerName() {
