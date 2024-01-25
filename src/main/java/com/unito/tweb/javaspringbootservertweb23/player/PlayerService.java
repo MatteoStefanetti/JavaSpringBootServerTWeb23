@@ -23,4 +23,8 @@ public class PlayerService {
     public List<Player> getPlayerByPlayerName(String name) {
         return playerRepository.getPlayerByPlayerName(name);
     }
+
+    public List<Player> getPlayerByCountryOfCitizenship(String country){
+        return playerRepository.getPlayerByCountryOfCitizenship(country);
+    }
 }
