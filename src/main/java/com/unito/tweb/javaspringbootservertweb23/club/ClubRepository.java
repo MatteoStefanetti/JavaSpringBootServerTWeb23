@@ -15,7 +15,10 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
     List<Long> findClubsByLetter(String letter);
 
     @Query(value = "select c.club_id from clubs c where c.club_name like %:name%", nativeQuery = true)
-    List<Long> findClubsByClubName(String name);
+    List<Long> findClubsByString(String name);
+
+    @Query(value = "select * from clubs c where c.club_name like :name", nativeQuery = true)
+    Club findClubByClubName(String name);
 }
 
 

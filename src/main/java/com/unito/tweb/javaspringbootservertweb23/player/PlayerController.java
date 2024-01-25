@@ -18,28 +18,28 @@ public class PlayerController {
     }
 
     @PostMapping("/add_players")
-    public ResponseEntity<String> addPlayers(@RequestBody List<Player> players){
+    public ResponseEntity<String> addPlayers(@RequestBody List<Player> players) {
         playerService.savePlayers(players);
         return ResponseEntity.ok("Player successfully loaded!");
     }
 
     @GetMapping("/get_players_by_name")
-    public ResponseEntity<List<Player>> getPlayerByLetterInPlayerName(@RequestBody String name){
+    public ResponseEntity<List<Player>> getPlayerByLetterInPlayerName(@RequestBody String name) {
         return ResponseEntity.ok(playerService.getPlayerByPlayerName(name));
     }
 
     @GetMapping("/get_players_by_nation")
-    public ResponseEntity<List<Player>> getPlayerByCountryOfCitizenship(@RequestBody String country){
+    public ResponseEntity<List<Player>> getPlayerByCountryOfCitizenship(@RequestBody String country) {
         return ResponseEntity.ok(playerService.getPlayerByCountryOfCitizenship(country));
     }
 
     @GetMapping("/get_players_by_ids")
-    public ResponseEntity<List<Player>> getPlayersByIds(@RequestBody List<Long> ids){
+    public ResponseEntity<List<Player>> getPlayersByIds(@RequestBody List<Long> ids) {
         return ResponseEntity.ok(playerService.getPlayersByIds(ids));
     }
 
     @GetMapping("/get_player_by_id")
-    public ResponseEntity<Optional<Player>> getPlayerById(@RequestBody Long id){
+    public ResponseEntity<Optional<Player>> getPlayerById(@RequestBody Long id) {
         return ResponseEntity.ok(playerService.getPlayerById(id));
     }
 }

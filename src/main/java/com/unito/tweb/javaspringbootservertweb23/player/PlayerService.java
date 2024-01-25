@@ -25,15 +25,15 @@ public class PlayerService {
         return playerRepository.getPlayerByPlayerName(name);
     }
 
-    public List<Player> getPlayerByCountryOfCitizenship(String country){
+    public List<Player> getPlayerByCountryOfCitizenship(String country) {
         return playerRepository.getPlayerByCountryOfCitizenship(country);
     }
 
-    public List<Player> getPlayersByIds(List<Long> ids){
+    public List<Player> getPlayersByIds(List<Long> ids) {
         return playerRepository.findAllById(ids);
     }
 
-    public Optional<Player> getPlayerById(Long id){
+    public Optional<Player> getPlayerById(Long id) {
         return playerRepository.findById(id);
     }
 }

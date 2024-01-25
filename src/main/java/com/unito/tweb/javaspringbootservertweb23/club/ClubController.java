@@ -17,7 +17,7 @@ public class ClubController {
     }
 
     @GetMapping("/club_by_letter")
-    public ResponseEntity<String> findClubsByLetter(@RequestBody String letter){
+    public ResponseEntity<String> findClubsByLetter(@RequestBody String letter) {
         List<Long> squad = clubService.findClubsByLetter(letter);
         return ResponseEntity.ok(squad.toString());
     }
@@ -28,9 +28,9 @@ public class ClubController {
         return ResponseEntity.ok(squad);
     }
 
-    @GetMapping("/clubs_by_name")
-    public ResponseEntity<List<Long>> findClubsByClubName (@RequestBody String name){
-        List<Long> squad = clubService.findClubsByClubName(name);
+    @GetMapping("/clubs_by_string")
+    public ResponseEntity<List<Long>> findClubsByString(@RequestBody String name) {
+        List<Long> squad = clubService.findClubsByString(name);
         return ResponseEntity.ok(squad);
     }
 
@@ -38,5 +38,10 @@ public class ClubController {
     public ResponseEntity<String> addClubs(@RequestBody List<Club> clubs) {
         clubService.saveClubs(clubs);
         return ResponseEntity.ok("Clubs successfully loaded!");
+    }
+
+    @GetMapping("/club_by_name")
+    public ResponseEntity<Club> findClubByClubName(@RequestBody String name) {
+        return ResponseEntity.ok(clubService.findClubByClubName(name));
     }
 }

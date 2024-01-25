@@ -24,11 +24,15 @@ public class ClubService {
         return clubRepository.findClubsByLocalCompetitionCode(localCompetitionCode);
     }
 
-    public List<Long> findClubsByLetter(String letter){
+    public List<Long> findClubsByLetter(String letter) {
         return clubRepository.findClubsByLetter(letter);
     }
 
-    public List<Long> findClubsByClubName(String name){
-        return clubRepository.findClubsByClubName(name);
+    public List<Long> findClubsByString(String name) {
+        return clubRepository.findClubsByString(name);
+    }
+
+    public Club findClubByClubName(String name){
+        return clubRepository.findClubByClubName(name);
     }
 }
