@@ -53,14 +53,14 @@ public class Club {
 
     @Column(name = "net_transfer_record", nullable = false)
     @JsonProperty("net_transfer_record")
-    private String netTransferRecord;
+    private Long netTransferRecord;
 
     @Column(name = "last_season", nullable = false)
     @JsonProperty("last_season")
     private Integer lastSeason;
 
 
-    public Club(Long clubId, String clubName, String localCompetitionCode, Integer squadSize, Float averageAge, Integer foreignersNumber, Float foreignersPercentage, Integer nationalTeamPlayer, String stadiumName, Integer stadiumSeats, String netTransferRecord, Integer lastSeason) {
+    public Club(Long clubId, String clubName, String localCompetitionCode, Integer squadSize, Float averageAge, Integer foreignersNumber, Float foreignersPercentage, Integer nationalTeamPlayer, String stadiumName, Integer stadiumSeats, Long netTransferRecord, Integer lastSeason) {
         this.clubId = clubId;
         this.clubName = clubName;
         this.localCompetitionCode = localCompetitionCode;
@@ -151,11 +151,11 @@ public class Club {
         this.stadiumSeats = stadiumSeats;
     }
 
-    public String getNetTransferRecord() {
+    public Long getNetTransferRecord() {
         return netTransferRecord;
     }
 
-    public void setNetTransferRecord(String netTransferRecord) {
+    public void setNetTransferRecord(Long netTransferRecord) {
         this.netTransferRecord = netTransferRecord;
     }
 

@@ -20,7 +20,7 @@ public class PlayerService {
         return playerRepository.saveAll(players);
     }
 
-    public List<Long> getPlayerByLetterInPlayerName(String letter, String capitalLetter) {
-        return playerRepository.getPlayerByLetterInPlayerName(letter, capitalLetter);
+    public List<Player> getPlayerByPlayerName(String name) {
+        return playerRepository.getPlayerByPlayerName(name);
     }
 }

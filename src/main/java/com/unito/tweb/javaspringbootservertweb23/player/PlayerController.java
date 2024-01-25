@@ -22,8 +22,8 @@ public class PlayerController {
         return ResponseEntity.ok("Player successfully loaded!");
     }
 
-    @GetMapping("/get_players_by_letter")
-    public ResponseEntity<List<Long>> getPlayerByLetterInPlayerName(@RequestBody List<String> letter){
-        return ResponseEntity.ok(playerService.getPlayerByLetterInPlayerName(letter.get(0), letter.get(1)));
+    @GetMapping("/get_players_by_name")
+    public ResponseEntity<List<Player>> getPlayerByLetterInPlayerName(@RequestBody String name){
+        return ResponseEntity.ok(playerService.getPlayerByPlayerName(name));
     }
 }
