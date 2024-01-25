@@ -31,4 +31,10 @@ public class PlayerController {
     public ResponseEntity<List<Player>> getPlayerByCountryOfCitizenship(@RequestBody String country){
         return ResponseEntity.ok(playerService.getPlayerByCountryOfCitizenship(country));
     }
+
+    @GetMapping("/get_players_by_ids")
+    public ResponseEntity<List<Player>> getPlayersByIds(@RequestBody List<Long> ids){
+        return ResponseEntity.ok(playerService.getPlayersByIds(ids));
+    }
+
 }
