@@ -24,13 +24,13 @@ public class PlayerController {
     }
 
     @GetMapping("/get_players_by_name")
-    public ResponseEntity<List<Player>> getPlayerByLetterInPlayerName(@RequestBody String name) {
-        return ResponseEntity.ok(playerService.getPlayerByPlayerName(name));
+    public ResponseEntity<List<Player>> getPlayersByPlayerNameIsContainingOrderByLastName(@RequestBody String name) {
+        return ResponseEntity.ok(playerService.getPlayersByPlayerNameIsContainingOrderByLastName(name));
     }
 
     @GetMapping("/get_players_by_nation")
-    public ResponseEntity<List<Player>> getPlayerByCountryOfCitizenship(@RequestBody String country) {
-        return ResponseEntity.ok(playerService.getPlayerByCountryOfCitizenship(country));
+    public ResponseEntity<List<Player>> getPlayersByCountryOfCitizenshipOrderByLastName(@RequestBody String country) {
+        return ResponseEntity.ok(playerService.getPlayersByCountryOfCitizenshipOrderByLastName(country));
     }
 
     @GetMapping("/get_players_by_ids")

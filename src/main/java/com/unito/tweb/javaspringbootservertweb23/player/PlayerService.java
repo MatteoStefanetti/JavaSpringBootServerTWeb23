@@ -21,12 +21,12 @@ public class PlayerService {
         return playerRepository.saveAll(players);
     }
 
-    public List<Player> getPlayerByPlayerName(String name) {
-        return playerRepository.getPlayerByPlayerName(name);
+    public List<Player> getPlayersByPlayerNameIsContainingOrderByLastName(String name) {
+        return playerRepository.getPlayersByPlayerNameIsContainingOrderByLastName(name);
     }
 
-    public List<Player> getPlayerByCountryOfCitizenship(String country) {
-        return playerRepository.getPlayerByCountryOfCitizenship(country);
+    public List<Player> getPlayersByCountryOfCitizenshipOrderByLastName(String country) {
+        return playerRepository.getPlayersByCountryOfCitizenshipOrderByLastName(country);
     }
 
     public List<Player> getPlayersByIds(List<Long> ids) {
