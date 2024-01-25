@@ -23,14 +23,14 @@ public class ClubController {
     }
 
     @GetMapping("/clubs_by_nation")
-    public ResponseEntity<List<Long>> findClubsByLocalCompetitionCode(@RequestBody String localCompetitionCode) {
-        List<Long> squad = clubService.findClubsByLocalCompetitionCode(localCompetitionCode);
+    public ResponseEntity<List<Club>> findClubsByLocalCompetitionCode(@RequestBody String localCompetitionCode) {
+        List<Club> squad = clubService.findClubsByLocalCompetitionCode(localCompetitionCode);
         return ResponseEntity.ok(squad);
     }
 
     @GetMapping("/clubs_by_string")
-    public ResponseEntity<List<Long>> findClubsByString(@RequestBody String name) {
-        List<Long> squad = clubService.findClubsByString(name);
+    public ResponseEntity<List<Club>> findClubsByClubNameContaining(@RequestBody String name) {
+        List<Club> squad = clubService.findClubsByClubNameContaining(name);
         return ResponseEntity.ok(squad);
     }
 

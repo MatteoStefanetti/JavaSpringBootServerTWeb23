@@ -8,17 +8,11 @@ import java.util.List;
 
 @Repository
 public interface ClubRepository extends JpaRepository<Club, Long> {
-    @Query(value = "select c.club_id from clubs c where c.local_competition_code = :localCompetitionCode", nativeQuery = true)
-    List<Long> findClubsByLocalCompetitionCode(String localCompetitionCode);
-
+    List<Club> getClubsByLocalCompetitionCode(String localCompetitionCode);
+    List<Club> findClubsByClubNameContaining(String name);
+    Club findClubByClubName(String name);
     @Query(value = "select c.club_id from clubs c where c.club_name like :letter%", nativeQuery = true)
     List<Long> findClubsByLetter(String letter);
-
-    @Query(value = "select c.club_id from clubs c where c.club_name like %:name%", nativeQuery = true)
-    List<Long> findClubsByString(String name);
-
-    @Query(value = "select * from clubs c where c.club_name like :name", nativeQuery = true)
-    Club findClubByClubName(String name);
 }
 
 

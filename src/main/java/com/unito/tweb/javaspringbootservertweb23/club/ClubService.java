@@ -20,16 +20,16 @@ public class ClubService {
         return clubRepository.saveAll(clubs);
     }
 
-    public List<Long> findClubsByLocalCompetitionCode(String localCompetitionCode) {
-        return clubRepository.findClubsByLocalCompetitionCode(localCompetitionCode);
+    public List<Club> findClubsByLocalCompetitionCode(String localCompetitionCode) {
+        return clubRepository.getClubsByLocalCompetitionCode(localCompetitionCode);
     }
 
     public List<Long> findClubsByLetter(String letter) {
         return clubRepository.findClubsByLetter(letter);
     }
 
-    public List<Long> findClubsByString(String name) {
-        return clubRepository.findClubsByString(name);
+    public List<Club> findClubsByClubNameContaining(String name) {
+        return clubRepository.findClubsByClubNameContaining(name);
     }
 
     public Club findClubByClubName(String name){
