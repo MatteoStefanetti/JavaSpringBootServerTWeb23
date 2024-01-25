@@ -5,6 +5,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/players")
@@ -37,4 +38,8 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.getPlayersByIds(ids));
     }
 
+    @GetMapping("/get_player_by_id")
+    public ResponseEntity<Optional<Player>> getPlayerById(@RequestBody Long id){
+        return ResponseEntity.ok(playerService.getPlayerById(id));
+    }
 }

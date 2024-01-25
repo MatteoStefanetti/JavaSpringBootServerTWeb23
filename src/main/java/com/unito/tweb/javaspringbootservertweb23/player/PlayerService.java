@@ -3,6 +3,7 @@ package com.unito.tweb.javaspringbootservertweb23.player;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class PlayerService {
@@ -30,5 +31,9 @@ public class PlayerService {
 
     public List<Player> getPlayersByIds(List<Long> ids){
         return playerRepository.findAllById(ids);
+    }
+
+    public Optional<Player> getPlayerById(Long id){
+        return playerRepository.findById(id);
     }
 }
