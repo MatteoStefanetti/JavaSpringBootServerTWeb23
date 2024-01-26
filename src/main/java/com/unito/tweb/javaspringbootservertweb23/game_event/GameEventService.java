@@ -1,7 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.game_event;
 
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

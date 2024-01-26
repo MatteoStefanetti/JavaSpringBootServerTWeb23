@@ -1,7 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.club_game;
 
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 
 @Service

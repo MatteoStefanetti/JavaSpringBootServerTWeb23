@@ -3,7 +3,6 @@ package com.unito.tweb.javaspringbootservertweb23.club_game;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
-
 @Entity
 @Table(name = "club_games")
 public class ClubGame {
