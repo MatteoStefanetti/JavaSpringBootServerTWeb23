@@ -1,5 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.game;
 
+import com.unito.tweb.javaspringbootservertweb23.dto.TopGameResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,5 +28,10 @@ public class GameController {
         Optional<Game> result = gameService.getGameById(id);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    @GetMapping("/get_top_20_game")
+    public ResponseEntity<List<TopGameResults>> findTop20Games(){
+        return ResponseEntity.ok(gameService.findTop20Games());
     }
 }
