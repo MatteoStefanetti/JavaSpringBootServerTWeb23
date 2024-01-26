@@ -1,10 +1,10 @@
 package com.unito.tweb.javaspringbootservertweb23.game;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/games")
@@ -18,7 +18,14 @@ public class GameController {
 
     @PostMapping("/add_games")
     public ResponseEntity<String> addGames(@RequestBody List<Game> games){
-        gameService.saveGames(games);
-        return ResponseEntity.ok("Games successfully loaded!");
+        return gameService.saveGames(games) != null ? ResponseEntity.ok("Games successfully loaded!")
+                : ResponseEntity.internalServerError().body("Error occurred while loading Games!");
+    }
+
+    @GetMapping("/get_game_by_id")
+    public ResponseEntity<Optional<Game>> getGameById(@RequestBody Long id){
+        Optional<Game> result = gameService.getGameById(id);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

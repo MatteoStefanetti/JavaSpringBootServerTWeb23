@@ -17,7 +17,7 @@ public class ClubGameController {
 
     @PostMapping("/add_club_games")
     public ResponseEntity<String> addClubGames(@RequestBody List<ClubGame> clubGames){
-        clubGameService.saveClubGames(clubGames);
-        return ResponseEntity.ok("ClubGames successfully loaded!");
+        return clubGameService.saveClubGames(clubGames) != null ? ResponseEntity.ok("ClubGames successfully loaded!")
+                : ResponseEntity.internalServerError().body("Error occurred while loading ClubGames!");
     }
 }

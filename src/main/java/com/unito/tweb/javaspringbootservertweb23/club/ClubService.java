@@ -1,7 +1,7 @@
 package com.unito.tweb.javaspringbootservertweb23.club;
 
 import org.springframework.stereotype.Service;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ClubService {
@@ -33,5 +33,9 @@ public class ClubService {
 
     public Club findClubByClubName(String name){
         return clubRepository.findClubByClubName(name);
+    }
+
+    public Optional<Club> getClubById(Long id){
+        return clubRepository.findByClubId(id);
     }
 }

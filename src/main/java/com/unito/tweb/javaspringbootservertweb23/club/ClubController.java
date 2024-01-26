@@ -1,9 +1,9 @@
 package com.unito.tweb.javaspringbootservertweb23.club;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/clubs")
@@ -35,12 +35,19 @@ public class ClubController {
 
     @PostMapping("/add_clubs")
     public ResponseEntity<String> addClubs(@RequestBody List<Club> clubs) {
-        clubService.saveClubs(clubs);
-        return ResponseEntity.ok("Clubs successfully loaded!");
+        return clubService.saveClubs(clubs) != null ? ResponseEntity.ok("Clubs successfully loaded!")
+                : ResponseEntity.internalServerError().body("Error occurred while loading Clubs!");
     }
 
     @GetMapping("/club_by_name")
     public ResponseEntity<Club> findClubByClubName(@RequestBody String name) {
         return ResponseEntity.ok(clubService.findClubByClubName(name));
+    }
+
+    @GetMapping("/get_club_by_id")
+    public ResponseEntity<Optional<Club>> getClubById(@RequestBody Long id){
+        Optional<Club> result = clubService.getClubById(id);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }

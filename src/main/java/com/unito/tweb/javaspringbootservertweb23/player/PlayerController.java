@@ -17,8 +17,8 @@ public class PlayerController {
 
     @PostMapping("/add_players")
     public ResponseEntity<String> addPlayers(@RequestBody List<Player> players) {
-        playerService.savePlayers(players);
-        return ResponseEntity.ok("Player successfully loaded!");
+        return playerService.savePlayers(players) != null ? ResponseEntity.ok("Players successfully loaded!")
+                : ResponseEntity.internalServerError().body("Error occurred while loading Players!");
     }
 
     @GetMapping("/get_players_by_name")
@@ -31,7 +31,7 @@ public class PlayerController {
         return ResponseEntity.ok(playerService.getPlayersByCountryOfCitizenshipOrderByLastName(country));
     }
 
-    @GetMapping("/get_players_by_ids")
+    @GetMapping("/query_players_by_ids")
     public ResponseEntity<List<Player>> getPlayersByIds(@RequestBody List<Long> ids) {
         return ResponseEntity.ok(playerService.getPlayersByIds(ids));
     }
