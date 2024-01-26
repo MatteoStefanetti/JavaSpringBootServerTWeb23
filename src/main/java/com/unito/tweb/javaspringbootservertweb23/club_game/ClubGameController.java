@@ -2,11 +2,7 @@ package com.unito.tweb.javaspringbootservertweb23.club_game;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
@@ -21,7 +17,7 @@ public class ClubGameController {
 
     @PostMapping("/add_club_games")
     public ResponseEntity<String> addClubGames(@RequestBody List<ClubGame> clubGames){
-        clubGameService.saveClubGames(clubGames);
-        return ResponseEntity.ok("ClubGames successfully loaded!");
+        return clubGameService.saveClubGames(clubGames) != null ? ResponseEntity.ok("ClubGames successfully loaded!")
+                : ResponseEntity.internalServerError().body("Error occurred while loading ClubGames!");
     }
 }

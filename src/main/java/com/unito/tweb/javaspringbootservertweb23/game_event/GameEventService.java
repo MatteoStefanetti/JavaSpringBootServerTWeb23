@@ -1,8 +1,7 @@
 package com.unito.tweb.javaspringbootservertweb23.game_event;
 
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import java.util.*;
 
 @Service
 public class GameEventService {
@@ -18,5 +17,9 @@ public class GameEventService {
 
     public List<GameEvent> saveGameEvents(List<GameEvent> gameEvents) {
         return gameEventRepository.saveAll(gameEvents);
+    }
+
+    public Optional<GameEvent> getGameEventByGameId(Long id){
+        return gameEventRepository.findByGameId(id);
     }
 }

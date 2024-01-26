@@ -1,8 +1,7 @@
 package com.unito.tweb.javaspringbootservertweb23.game;
 
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import java.util.*;
 
 @Service
 public class GameService {
@@ -18,5 +17,9 @@ public class GameService {
 
     public List<Game> saveGames(List<Game> games) {
         return gameRepository.saveAll(games);
+    }
+
+    public Optional<Game> getGameById(Long id){
+        return gameRepository.findByGameId(id);
     }
 }

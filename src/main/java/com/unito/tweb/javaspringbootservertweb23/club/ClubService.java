@@ -1,8 +1,7 @@
 package com.unito.tweb.javaspringbootservertweb23.club;
 
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import java.util.*;
 
 @Service
 public class ClubService {
@@ -20,15 +19,23 @@ public class ClubService {
         return clubRepository.saveAll(clubs);
     }
 
-    public List<Long> findClubsByLocalCompetitionCode(String localCompetitionCode) {
-        return clubRepository.findClubsByLocalCompetitionCode(localCompetitionCode);
+    public List<Club> findClubsByLocalCompetitionCode(String localCompetitionCode) {
+        return clubRepository.getClubsByLocalCompetitionCode(localCompetitionCode);
     }
 
-    public List<Long> findClubsByLetter(String letter){
+    public List<Long> findClubsByLetter(String letter) {
         return clubRepository.findClubsByLetter(letter);
     }
 
-    public List<Long> findClubsByClubName(String name){
-        return clubRepository.findClubsByClubName(name);
+    public List<Club> findClubsByClubNameContaining(String name) {
+        return clubRepository.findClubsByClubNameContaining(name);
+    }
+
+    public Club findClubByClubName(String name){
+        return clubRepository.findClubByClubName(name);
+    }
+
+    public Optional<Club> getClubById(Long id){
+        return clubRepository.findByClubId(id);
     }
 }

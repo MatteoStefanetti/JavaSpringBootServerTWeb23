@@ -3,8 +3,7 @@ package com.unito.tweb.javaspringbootservertweb23.player;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/players")
@@ -17,13 +16,28 @@ public class PlayerController {
     }
 
     @PostMapping("/add_players")
-    public ResponseEntity<String> addPlayers(@RequestBody List<Player> players){
-        playerService.savePlayers(players);
-        return ResponseEntity.ok("Player successfully loaded!");
+    public ResponseEntity<String> addPlayers(@RequestBody List<Player> players) {
+        return playerService.savePlayers(players) != null ? ResponseEntity.ok("Players successfully loaded!")
+                : ResponseEntity.internalServerError().body("Error occurred while loading Players!");
     }
 
-    @GetMapping("/get_players_by_letter")
-    public ResponseEntity<List<Long>> getPlayerByLetterInPlayerName(@RequestBody List<String> letter){
-        return ResponseEntity.ok(playerService.getPlayerByLetterInPlayerName(letter.get(0), letter.get(1)));
+    @GetMapping("/get_players_by_name")
+    public ResponseEntity<List<Player>> getPlayersByPlayerNameIsContainingOrderByLastName(@RequestBody String name) {
+        return ResponseEntity.ok(playerService.getPlayersByPlayerNameIsContainingOrderByLastName(name));
+    }
+
+    @GetMapping("/get_players_by_nation")
+    public ResponseEntity<List<Player>> getPlayersByCountryOfCitizenshipOrderByLastName(@RequestBody String country) {
+        return ResponseEntity.ok(playerService.getPlayersByCountryOfCitizenshipOrderByLastName(country));
+    }
+
+    @GetMapping("/query_players_by_ids")
+    public ResponseEntity<List<Player>> getPlayersByIds(@RequestBody List<Long> ids) {
+        return ResponseEntity.ok(playerService.getPlayersByIds(ids));
+    }
+
+    @GetMapping("/get_player_by_id")
+    public ResponseEntity<Optional<Player>> getPlayerById(@RequestBody Long id) {
+        return ResponseEntity.ok(playerService.getPlayerById(id));
     }
 }

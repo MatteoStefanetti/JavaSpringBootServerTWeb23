@@ -1,8 +1,7 @@
 package com.unito.tweb.javaspringbootservertweb23.player;
 
 import org.springframework.stereotype.Service;
-
-import java.util.List;
+import java.util.*;
 
 @Service
 public class PlayerService {
@@ -20,7 +19,19 @@ public class PlayerService {
         return playerRepository.saveAll(players);
     }
 
-    public List<Long> getPlayerByLetterInPlayerName(String letter, String capitalLetter) {
-        return playerRepository.getPlayerByLetterInPlayerName(letter, capitalLetter);
+    public List<Player> getPlayersByPlayerNameIsContainingOrderByLastName(String name) {
+        return playerRepository.getPlayersByPlayerNameIsContainingOrderByLastName(name);
+    }
+
+    public List<Player> getPlayersByCountryOfCitizenshipOrderByLastName(String country) {
+        return playerRepository.getPlayersByCountryOfCitizenshipOrderByLastName(country);
+    }
+
+    public List<Player> getPlayersByIds(List<Long> ids) {
+        return playerRepository.findAllById(ids);
+    }
+
+    public Optional<Player> getPlayerById(Long id) {
+        return playerRepository.findById(id);
     }
 }
