@@ -1,9 +1,11 @@
 package com.unito.tweb.javaspringbootservertweb23.player;
 
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerByCitizenship;
+import com.unito.tweb.javaspringbootservertweb23.dto.PlayerName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @RestController
@@ -33,7 +35,7 @@ public class PlayerController {
     }
 
     @GetMapping("/query_players_by_ids")
-    public ResponseEntity<List<Player>> getPlayersByIds(@RequestBody List<Long> ids) {
+    public ResponseEntity<List<PlayerName>> getPlayersByIds(@RequestBody List<Long> ids) {
         return ResponseEntity.ok(playerService.getPlayersByIds(ids));
     }
 
