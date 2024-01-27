@@ -1,5 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.player;
 
+import com.unito.tweb.javaspringbootservertweb23.dto.PlayerByCitizenship;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class PlayerController {
     }
 
     @GetMapping("/get_players_by_nation")
-    public ResponseEntity<List<Player>> getPlayersByCountryOfCitizenshipOrderByLastName(@RequestBody String country) {
+    public ResponseEntity<List<PlayerByCitizenship>> getPlayersByCountryOfCitizenshipOrderByLastName(@RequestBody String country) {
         return ResponseEntity.ok(playerService.getPlayersByCountryOfCitizenshipOrderByLastName(country));
     }
 
