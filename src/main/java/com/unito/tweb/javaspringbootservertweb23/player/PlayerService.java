@@ -19,8 +19,13 @@ public class PlayerService {
         return playerRepository.saveAll(players);
     }
 
-    public List<Player> getPlayersByPlayerNameIsContainingOrderByLastName(String name) {
-        return playerRepository.getPlayersByPlayerNameIsContainingOrderByLastName(name);
+    public List<Long> getPlayersByPlayerNameIsContainingOrderByLastName(String name) {
+        List<Player> players = playerRepository.getPlayersByPlayerNameIsContainingOrderByLastName(name);
+        List<Long> playersIds = new ArrayList<>();
+        for(Player player : players){
+            playersIds.add(player.getPlayerId());
+        }
+        return playersIds;
     }
 
     public List<Player> getPlayersByCountryOfCitizenshipOrderByLastName(String country) {

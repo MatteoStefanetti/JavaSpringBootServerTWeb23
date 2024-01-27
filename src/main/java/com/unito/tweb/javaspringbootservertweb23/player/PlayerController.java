@@ -22,7 +22,7 @@ public class PlayerController {
     }
 
     @GetMapping("/get_players_by_name")
-    public ResponseEntity<List<Player>> getPlayersByPlayerNameIsContainingOrderByLastName(@RequestBody String name) {
+    public ResponseEntity<List<Long>> getPlayersByPlayerNameIsContainingOrderByLastName(@RequestBody String name) {
         return ResponseEntity.ok(playerService.getPlayersByPlayerNameIsContainingOrderByLastName(name));
     }
 
