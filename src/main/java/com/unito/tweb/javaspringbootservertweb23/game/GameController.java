@@ -30,8 +30,8 @@ public class GameController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/get_top_20_game")
-    public ResponseEntity<List<TopGameResults>> findTop20Games(){
-        return ResponseEntity.ok(gameService.findTop20Games());
+    @GetMapping("/get_last_games")
+    public ResponseEntity<List<TopGameResults>> getLastGames(){
+        return ResponseEntity.ok(gameService.getLastGames());
     }
 }

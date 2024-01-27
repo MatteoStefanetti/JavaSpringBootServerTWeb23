@@ -18,5 +18,5 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "JOIN CLUBS C2 ON CG2.club_id = C2.club_id " +
             "WHERE CG1.club_id < CG2.club_id " +
             "ORDER BY game_date DESC LIMIT 20", nativeQuery = true)
-    List<Map<String, Object>> findTop20Games();
+    List<Map<String, Object>> getLastGames();
 }
