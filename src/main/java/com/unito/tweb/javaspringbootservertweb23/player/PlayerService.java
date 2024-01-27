@@ -1,6 +1,9 @@
 package com.unito.tweb.javaspringbootservertweb23.player;
 
+import com.unito.tweb.javaspringbootservertweb23.dto.PlayerByCitizenship;
+import com.unito.tweb.javaspringbootservertweb23.dto.PlayerName;
 import org.springframework.stereotype.Service;
+
 import java.util.*;
 
 @Service
@@ -19,16 +22,41 @@ public class PlayerService {
         return playerRepository.saveAll(players);
     }
 
-    public List<Player> getPlayersByPlayerNameIsContainingOrderByLastName(String name) {
-        return playerRepository.getPlayersByPlayerNameIsContainingOrderByLastName(name);
+    public List<Long> getPlayersByPlayerNameIsContainingOrderByLastName(String name) {
+        List<Player> players = playerRepository.getPlayersByPlayerNameIsContainingOrderByLastName(name);
+        List<Long> playersIds = new ArrayList<>();
+        for (Player player : players) {
+            playersIds.add(player.getPlayerId());
+        }
+        return playersIds;
     }
 
-    public List<Player> getPlayersByCountryOfCitizenshipOrderByLastName(String country) {
-        return playerRepository.getPlayersByCountryOfCitizenshipOrderByLastName(country);
+    public List<PlayerByCitizenship> getPlayersByCountryOfCitizenshipOrderByLastName(String country) {
+        List<Player> players = playerRepository.getPlayersByCountryOfCitizenshipOrderByLastName(country);
+        List<PlayerByCitizenship> playerByCitizenshipList = new ArrayList<>();
+        for (Player player : players) {
+            PlayerByCitizenship playerByCitizenship = new PlayerByCitizenship(
+                    player.getPlayerId(),
+                    player.getLastName(),
+                    player.getPlayerName(),
+                    player.getImageUrl()
+            );
+            playerByCitizenshipList.add(playerByCitizenship);
+        }
+        return playerByCitizenshipList;
     }
 
-    public List<Player> getPlayersByIds(List<Long> ids) {
-        return playerRepository.findAllById(ids);
+    public List<PlayerName> getPlayersByIds(List<Long> ids) {
+        List<Player> players = playerRepository.findAllById(ids);
+        List<PlayerName> playerNameList = new ArrayList<>();
+        for (Player player : players) {
+            PlayerName playerName = new PlayerName(
+                    player.getPlayerId(),
+                    player.getPlayerName()
+            );
+            playerNameList.add(playerName);
+        }
+        return playerNameList;
     }
 
     public Optional<Player> getPlayerById(Long id) {

@@ -26,8 +26,8 @@ public class GameService {
         return gameRepository.findByGameId(id);
     }
 
-    public List<TopGameResults> findTop20Games() {
-        List<Map<String, Object>> result = gameRepository.findTop20Games();
+    public List<TopGameResults> getLastGames() {
+        List<Map<String, Object>> result = gameRepository.getLastGames();
         List<TopGameResults> res = new ArrayList<>();
         for (Map<String, Object> row : result) {
             TopGameResults topGameResults = new TopGameResults(

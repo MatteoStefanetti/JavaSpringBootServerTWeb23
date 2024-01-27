@@ -1,8 +1,11 @@
 package com.unito.tweb.javaspringbootservertweb23.player;
 
+import com.unito.tweb.javaspringbootservertweb23.dto.PlayerByCitizenship;
+import com.unito.tweb.javaspringbootservertweb23.dto.PlayerName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @RestController
@@ -22,17 +25,17 @@ public class PlayerController {
     }
 
     @GetMapping("/get_players_by_name")
-    public ResponseEntity<List<Player>> getPlayersByPlayerNameIsContainingOrderByLastName(@RequestBody String name) {
+    public ResponseEntity<List<Long>> getPlayersByPlayerNameIsContainingOrderByLastName(@RequestBody String name) {
         return ResponseEntity.ok(playerService.getPlayersByPlayerNameIsContainingOrderByLastName(name));
     }
 
     @GetMapping("/get_players_by_nation")
-    public ResponseEntity<List<Player>> getPlayersByCountryOfCitizenshipOrderByLastName(@RequestBody String country) {
+    public ResponseEntity<List<PlayerByCitizenship>> getPlayersByCountryOfCitizenshipOrderByLastName(@RequestBody String country) {
         return ResponseEntity.ok(playerService.getPlayersByCountryOfCitizenshipOrderByLastName(country));
     }
 
     @GetMapping("/query_players_by_ids")
-    public ResponseEntity<List<Player>> getPlayersByIds(@RequestBody List<Long> ids) {
+    public ResponseEntity<List<PlayerName>> getPlayersByIds(@RequestBody List<Long> ids) {
         return ResponseEntity.ok(playerService.getPlayersByIds(ids));
     }
 
