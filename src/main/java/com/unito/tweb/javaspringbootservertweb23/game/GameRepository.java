@@ -3,6 +3,7 @@ package com.unito.tweb.javaspringbootservertweb23.game;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
+
 import java.util.*;
 
 @Repository
@@ -19,4 +20,12 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "WHERE CG1.club_id < CG2.club_id " +
             "ORDER BY game_date DESC LIMIT 20", nativeQuery = true)
     List<Map<String, Object>> getLastGames();
+
+    @Query(value = "select g.*" +
+            "from games g " +
+            "join club_games cg on g.game_id = cg.game_id " +
+            "join clubs c on c.club_id = cg.club_id " +
+            "where c.club_name like :clubName " +
+            "order by game_date desc", nativeQuery = true)
+    List<Game> getGamesByClubName(String clubName);
 }
