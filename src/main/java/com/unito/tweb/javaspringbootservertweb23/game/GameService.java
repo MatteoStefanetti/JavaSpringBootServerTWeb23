@@ -30,6 +30,10 @@ public class GameService {
         return gameRepository.getGamesByClubName(clubName);
     }
 
+    public List<Game> getGamesByClubNames(String clubName1, String clubName2){
+        return gameRepository.getGamesByClubNames(clubName1, clubName2);
+    }
+
     public List<TopGameResults> getLastGames() {
         List<Map<String, Object>> result = gameRepository.getLastGames();
         List<TopGameResults> res = new ArrayList<>();

@@ -28,4 +28,14 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "where c.club_name like :clubName " +
             "order by game_date desc", nativeQuery = true)
     List<Game> getGamesByClubName(String clubName);
+
+    @Query(value = "select g.*" +
+            "from games g " +
+            "join club_games cg1 on g.game_id = cg1.game_id " +
+            "join clubs c1 on c1.club_id = cg1.club_id " +
+            "join club_games cg2 on g.game_id = cg2.game_id and cg1.club_id <> cg2.club_id " +
+            "join clubs c2 on cg2.club_id = c2.club_id " +
+            "where c1.club_id < c2.club_id and c1.club_name like :clubName1 and c2.club_name like :clubName2 " +
+            "order by game_date desc", nativeQuery = true)
+    List<Game> getGamesByClubNames(String clubName1, String clubName2);
 }

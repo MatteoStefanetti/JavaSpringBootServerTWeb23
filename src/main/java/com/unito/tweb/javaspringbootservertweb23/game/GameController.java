@@ -40,4 +40,9 @@ public class GameController {
     public ResponseEntity<List<Game>> getGamesByClubName(@RequestBody String clubName) {
         return ResponseEntity.ok(gameService.getGamesByClubName(clubName));
     }
+
+    @GetMapping("/query_games_by_double_name")
+    public ResponseEntity<List<Game>> getGamesByClubNames(@RequestParam String clubName1, @RequestParam String clubName2){
+        return ResponseEntity.ok(gameService.getGamesByClubNames(clubName1, clubName2));
+    }
 }
