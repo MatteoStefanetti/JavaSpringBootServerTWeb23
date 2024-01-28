@@ -1,5 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.game;
 
+import com.unito.tweb.javaspringbootservertweb23.dto.GamesByCompetitionAndSeason;
 import com.unito.tweb.javaspringbootservertweb23.dto.TopGameResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -33,5 +34,10 @@ public class GameController {
     @GetMapping("/get_last_games")
     public ResponseEntity<List<TopGameResults>> getLastGames(){
         return ResponseEntity.ok(gameService.getLastGames());
+    }
+
+    @GetMapping("/get_games_of_league/{competitionId}/{season}")
+    public ResponseEntity<List<GamesByCompetitionAndSeason>> getGamesByCompetitionIdAndSeason(@PathVariable String competitionId, @PathVariable Integer season){
+        return ResponseEntity.ok(gameService.getGamesByCompetitionIdAndSeason(competitionId, season));
     }
 }

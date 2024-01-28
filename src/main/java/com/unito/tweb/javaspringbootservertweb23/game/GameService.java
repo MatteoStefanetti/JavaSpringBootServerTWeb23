@@ -1,5 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.game;
 
+import com.unito.tweb.javaspringbootservertweb23.dto.GamesByCompetitionAndSeason;
 import com.unito.tweb.javaspringbootservertweb23.dto.TopGameResults;
 import org.springframework.stereotype.Service;
 
@@ -42,5 +43,22 @@ public class GameService {
             res.add(topGameResults);
         }
         return res;
+    }
+
+    public List<GamesByCompetitionAndSeason> getGamesByCompetitionIdAndSeason(String competitionId, Integer season){
+        List<Map<String, Object>> mapList = gameRepository.getGamesByCompetitionIdAndSeason(competitionId, season);
+        List<GamesByCompetitionAndSeason> gamesByCompetitionAndSeasonList = new ArrayList<>();
+        for (Map<String, Object> map : mapList){
+            GamesByCompetitionAndSeason gamesByCompetitionAndSeason = new GamesByCompetitionAndSeason(
+                    (Long) map.get("game_id"),
+                    (Timestamp) map.get("game_date"),
+                    (String) map.get("club1"),
+                    (Integer) map.get("goal1"),
+                    (String) map.get("club2"),
+                    (Integer) map.get("goal2")
+            );
+            gamesByCompetitionAndSeasonList.add(gamesByCompetitionAndSeason);
+        }
+        return gamesByCompetitionAndSeasonList;
     }
 }
