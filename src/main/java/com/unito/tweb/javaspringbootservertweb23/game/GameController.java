@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @RestController
@@ -18,20 +19,25 @@ public class GameController {
     }
 
     @PostMapping("/add_games")
-    public ResponseEntity<String> addGames(@RequestBody List<Game> games){
+    public ResponseEntity<String> addGames(@RequestBody List<Game> games) {
         return gameService.saveGames(games) != null ? ResponseEntity.ok("Games successfully loaded!")
                 : ResponseEntity.internalServerError().body("Error occurred while loading Games!");
     }
 
     @GetMapping("/get_game_by_id")
-    public ResponseEntity<Optional<Game>> getGameById(@RequestBody Long id){
+    public ResponseEntity<Optional<Game>> getGameById(@RequestBody Long id) {
         Optional<Game> result = gameService.getGameById(id);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/get_last_games")
-    public ResponseEntity<List<TopGameResults>> getLastGames(){
+    public ResponseEntity<List<TopGameResults>> getLastGames() {
         return ResponseEntity.ok(gameService.getLastGames());
+    }
+
+    @GetMapping("/query_games_by_name")
+    public ResponseEntity<List<Game>> getGamesByClubName(@RequestBody String clubName) {
+        return ResponseEntity.ok(gameService.getGamesByClubName(clubName));
     }
 }

@@ -26,6 +26,10 @@ public class GameService {
         return gameRepository.findByGameId(id);
     }
 
+    public List<Game> getGamesByClubName(String clubName) {
+        return gameRepository.getGamesByClubName(clubName);
+    }
+
     public List<TopGameResults> getLastGames() {
         List<Map<String, Object>> result = gameRepository.getLastGames();
         List<TopGameResults> res = new ArrayList<>();
