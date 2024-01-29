@@ -1,7 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.game;
 
-import com.unito.tweb.javaspringbootservertweb23.dto.GamesByName;
-import com.unito.tweb.javaspringbootservertweb23.dto.TopGameResults;
+import com.unito.tweb.javaspringbootservertweb23.dto.VisualizeGame;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -33,17 +32,17 @@ public class GameController {
     }
 
     @GetMapping("/get_last_games")
-    public ResponseEntity<List<TopGameResults>> getLastGames() {
+    public ResponseEntity<List<VisualizeGame>> getLastGames() {
         return ResponseEntity.ok(gameService.getLastGames());
     }
 
     @GetMapping("/query_games_by_name")
-    public ResponseEntity<List<GamesByName>> getGamesByClubName(@RequestBody String clubName) {
+    public ResponseEntity<List<VisualizeGame>> getGamesByClubName(@RequestBody String clubName) {
         return ResponseEntity.ok(gameService.getGamesByClubName(clubName));
     }
 
     @GetMapping("/query_games_by_double_name")
-    public ResponseEntity<List<Game>> getGamesByClubNames(@RequestParam String clubName1, @RequestParam String clubName2){
+    public ResponseEntity<List<VisualizeGame>> getGamesByClubNames(@RequestParam String clubName1, @RequestParam String clubName2){
         return ResponseEntity.ok(gameService.getGamesByClubNames(clubName1, clubName2));
     }
 }

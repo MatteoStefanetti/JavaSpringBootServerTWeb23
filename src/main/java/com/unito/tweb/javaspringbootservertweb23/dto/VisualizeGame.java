@@ -2,7 +2,7 @@ package com.unito.tweb.javaspringbootservertweb23.dto;
 
 import java.sql.Timestamp;
 
-public record GamesByName(
+public record VisualizeGame(
         Long gameId,
         Timestamp game_date,
         String competitionId,

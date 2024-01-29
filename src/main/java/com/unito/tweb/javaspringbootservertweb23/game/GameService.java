@@ -1,11 +1,13 @@
 package com.unito.tweb.javaspringbootservertweb23.game;
 
-import com.unito.tweb.javaspringbootservertweb23.dto.GamesByName;
-import com.unito.tweb.javaspringbootservertweb23.dto.TopGameResults;
+import com.unito.tweb.javaspringbootservertweb23.dto.VisualizeGame;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Optional;
 
 @Service
 public class GameService {
@@ -27,11 +29,25 @@ public class GameService {
         return gameRepository.findByGameId(id);
     }
 
-    public List<GamesByName> getGamesByClubName(String clubName) {
+    public List<VisualizeGame> getGamesByClubName(String clubName) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByClubName(clubName);
-        List<GamesByName> gamesByNameList = new ArrayList<>();
+        return getVisualizeGameList(mapList);
+    }
+
+    public List<VisualizeGame> getGamesByClubNames(String clubName1, String clubName2){
+        List<Map<String, Object>> mapList = gameRepository.getGamesByClubNames(clubName1, clubName2);
+        return getVisualizeGameList(mapList);
+    }
+
+    public List<VisualizeGame> getLastGames() {
+        List<Map<String, Object>> mapList = gameRepository.getLastGames();
+        return getVisualizeGameList(mapList);
+    }
+
+    private List<VisualizeGame> getVisualizeGameList(List<Map<String, Object>> mapList) {
+        List<VisualizeGame> visualizeGameList = new ArrayList<>();
         for (Map<String, Object> map : mapList){
-            GamesByName gamesByName = new GamesByName(
+            VisualizeGame visualizeGame = new VisualizeGame(
                     (Long) map.get("game_id"),
                     (Timestamp) map.get("game_date"),
                     (String) map.get("competition_id"),
@@ -40,30 +56,8 @@ public class GameService {
                     (String) map.get("club2"),
                     (Integer) map.get("goal2")
             );
-            gamesByNameList.add(gamesByName);
+            visualizeGameList.add(visualizeGame);
         }
-        return gamesByNameList;
-    }
-
-    public List<Game> getGamesByClubNames(String clubName1, String clubName2){
-        return gameRepository.getGamesByClubNames(clubName1, clubName2);
-    }
-
-    public List<TopGameResults> getLastGames() {
-        List<Map<String, Object>> result = gameRepository.getLastGames();
-        List<TopGameResults> res = new ArrayList<>();
-        for (Map<String, Object> row : result) {
-            TopGameResults topGameResults = new TopGameResults(
-                    (Long) row.get("game_id"),
-                    (Timestamp) row.get("game_date"),
-                    (String) row.get("competition_id"),
-                    (String) row.get("home_team"),
-                    (Integer) row.get("home_team_goals"),
-                    (String) row.get("away_team"),
-                    (Integer) row.get("away_team_goals")
-            );
-            res.add(topGameResults);
-        }
-        return res;
+        return visualizeGameList;
     }
 }
