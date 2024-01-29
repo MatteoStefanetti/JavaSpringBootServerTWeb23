@@ -1,5 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.game;
 
+import com.unito.tweb.javaspringbootservertweb23.dto.GamesByName;
 import com.unito.tweb.javaspringbootservertweb23.dto.TopGameResults;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -37,7 +38,7 @@ public class GameController {
     }
 
     @GetMapping("/query_games_by_name")
-    public ResponseEntity<List<Game>> getGamesByClubName(@RequestBody String clubName) {
+    public ResponseEntity<List<GamesByName>> getGamesByClubName(@RequestBody String clubName) {
         return ResponseEntity.ok(gameService.getGamesByClubName(clubName));
     }
 

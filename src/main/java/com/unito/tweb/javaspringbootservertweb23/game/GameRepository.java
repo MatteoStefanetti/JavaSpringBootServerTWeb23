@@ -21,13 +21,15 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "ORDER BY game_date DESC LIMIT 20", nativeQuery = true)
     List<Map<String, Object>> getLastGames();
 
-    @Query(value = "select g.*" +
+    @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as club1, cg1.own_goal as goal1, c2.club_name as club2, cg2.own_goal as goal2 " +
             "from games g " +
-            "join club_games cg on g.game_id = cg.game_id " +
-            "join clubs c on c.club_id = cg.club_id " +
-            "where c.club_name like :clubName " +
+            "join club_games cg1 on g.game_id = cg1.game_id " +
+            "join clubs c1 on c1.club_id = cg1.club_id " +
+            "join club_games cg2 on g.game_id = cg2.game_id and cg1.club_id <> cg2.club_id " +
+            "join clubs c2 on cg2.club_id = c2.club_id " +
+            "where c1.club_id < c2.club_id and c1.club_name like %:clubName% " +
             "order by game_date desc", nativeQuery = true)
-    List<Game> getGamesByClubName(String clubName);
+    List<Map<String, Object>> getGamesByClubName(String clubName);
 
     @Query(value = "select g.*" +
             "from games g " +
@@ -38,4 +40,6 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "where c1.club_id < c2.club_id and c1.club_name like :clubName1 and c2.club_name like :clubName2 " +
             "order by game_date desc", nativeQuery = true)
     List<Game> getGamesByClubNames(String clubName1, String clubName2);
+
+    List<Game> getGamesByGameDate(Date gameDate);
 }

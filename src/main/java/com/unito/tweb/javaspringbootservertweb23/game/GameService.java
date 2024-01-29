@@ -1,5 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.game;
 
+import com.unito.tweb.javaspringbootservertweb23.dto.GamesByName;
 import com.unito.tweb.javaspringbootservertweb23.dto.TopGameResults;
 import org.springframework.stereotype.Service;
 
@@ -26,8 +27,22 @@ public class GameService {
         return gameRepository.findByGameId(id);
     }
 
-    public List<Game> getGamesByClubName(String clubName) {
-        return gameRepository.getGamesByClubName(clubName);
+    public List<GamesByName> getGamesByClubName(String clubName) {
+        List<Map<String, Object>> mapList = gameRepository.getGamesByClubName(clubName);
+        List<GamesByName> gamesByNameList = new ArrayList<>();
+        for (Map<String, Object> map : mapList){
+            GamesByName gamesByName = new GamesByName(
+                    (Long) map.get("game_id"),
+                    (Timestamp) map.get("game_date"),
+                    (String) map.get("competition_id"),
+                    (String) map.get("club1"),
+                    (Integer) map.get("goal1"),
+                    (String) map.get("club2"),
+                    (Integer) map.get("goal2")
+            );
+            gamesByNameList.add(gamesByName);
+        }
+        return gamesByNameList;
     }
 
     public List<Game> getGamesByClubNames(String clubName1, String clubName2){
