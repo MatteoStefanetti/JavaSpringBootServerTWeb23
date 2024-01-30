@@ -10,9 +10,13 @@ import java.util.Optional;
 @Repository
 public interface ClubRepository extends JpaRepository<Club, Long> {
     List<Club> getClubsByLocalCompetitionCode(String localCompetitionCode);
+
     List<Club> findClubsByClubNameContaining(String name);
+
     Club findClubByClubName(String name);
+
     @Query(value = "select c.club_id from clubs c where c.club_name like :letter%", nativeQuery = true)
     List<Long> findClubsByLetter(String letter);
+
     Optional<Club> findByClubId(Long id);
 }
