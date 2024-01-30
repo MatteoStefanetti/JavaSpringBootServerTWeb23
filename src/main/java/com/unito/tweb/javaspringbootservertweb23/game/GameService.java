@@ -4,10 +4,7 @@ import com.unito.tweb.javaspringbootservertweb23.dto.VisualizeGame;
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class GameService {
@@ -41,6 +38,11 @@ public class GameService {
 
     public List<VisualizeGame> getLastGames() {
         List<Map<String, Object>> mapList = gameRepository.getLastGames();
+        return getVisualizeGameList(mapList);
+    }
+
+    public List<VisualizeGame> getGamesByGameDate(Date gameDate){
+        List<Map<String, Object>> mapList = gameRepository.getGamesByGameDate(gameDate);
         return getVisualizeGameList(mapList);
     }
 

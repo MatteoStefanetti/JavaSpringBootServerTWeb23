@@ -6,6 +6,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -44,5 +47,10 @@ public class GameController {
     @GetMapping("/query_games_by_double_name")
     public ResponseEntity<List<VisualizeGame>> getGamesByClubNames(@RequestParam String clubName1, @RequestParam String clubName2){
         return ResponseEntity.ok(gameService.getGamesByClubNames(clubName1, clubName2));
+    }
+
+    @GetMapping("/query_games_by_date")
+    public ResponseEntity<List<VisualizeGame>> getGamesByGameDate(@RequestParam Date gameDate) {
+        return ResponseEntity.ok(gameService.getGamesByGameDate(gameDate));
     }
 }
