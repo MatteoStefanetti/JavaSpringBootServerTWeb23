@@ -4,11 +4,11 @@ import java.sql.Timestamp;
 
 public record VisualizeGame(
         Long gameId,
-        Timestamp game_date,
+        Timestamp gameDate,
         String competitionId,
-        String clubName1,
-        Integer goals1,
-        String clubName2,
-        Integer goals2
+        String club1,
+        Integer goal1,
+        String club2,
+        Integer goal2
 ) {
 }
