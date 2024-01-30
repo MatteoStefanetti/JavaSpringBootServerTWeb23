@@ -29,25 +29,26 @@ public class GameService {
 
     public List<VisualizeGame> getGamesByClubName(String clubName) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByClubName(clubName);
-        return getVisualizeGameList(mapList);
+        return getVisualizeGames(mapList);
     }
 
     public List<VisualizeGame> getGamesByClubNames(String clubName1, String clubName2) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByClubNames(clubName1, clubName2);
-        return getVisualizeGameList(mapList);
+        return getVisualizeGames(mapList);
     }
 
     public List<VisualizeGame> getLastGames() {
         List<Map<String, Object>> mapList = gameRepository.getLastGames();
-        return getVisualizeGameList(mapList);
+        return getVisualizeGames(mapList);
     }
 
     public List<VisualizeGame> getGamesByGameDate(Date gameDate) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByGameDate(gameDate);
-        return getVisualizeGameList(mapList);
+        return getVisualizeGames(mapList);
     }
 
-    private List<VisualizeGame> getVisualizeGameList(List<Map<String, Object>> mapList) {
+    public List<VisualizeGame> getGamesByCompetitionIdAndSeasonNot(String competitionId, Integer season){
+        List<Map<String, Object>> mapList = gameRepository.getGamesByCompetitionIdAndSeasonNot(competitionId, season);
         return getVisualizeGames(mapList);
     }
 
