@@ -1,6 +1,7 @@
 package com.unito.tweb.javaspringbootservertweb23.player;
 
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerByCitizenship;
+import com.unito.tweb.javaspringbootservertweb23.dto.PlayerCard;
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerName;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +26,7 @@ public class PlayerController {
     }
 
     @GetMapping("/get_players_by_name")
-    public ResponseEntity<List<Long>> getPlayersByPlayerNameIsContainingOrderByLastName(@RequestBody String name) {
+    public ResponseEntity<List<PlayerCard>> getPlayersByPlayerNameIsContainingOrderByLastName(@RequestBody String name) {
         return ResponseEntity.ok(playerService.getPlayersByPlayerNameIsContainingOrderByLastName(name));
     }
 
