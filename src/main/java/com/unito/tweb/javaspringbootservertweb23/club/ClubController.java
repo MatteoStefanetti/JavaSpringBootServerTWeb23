@@ -1,5 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.club;
 
+import com.unito.tweb.javaspringbootservertweb23.dto.ClubByNation;
 import com.unito.tweb.javaspringbootservertweb23.dto.VisualizeClub;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
@@ -29,9 +30,8 @@ public class ClubController {
     }
 
     @GetMapping("/clubs_by_string")
-    public ResponseEntity<List<Club>> findClubsByClubNameContaining(@RequestBody String name) {
-        List<Club> squad = clubService.findClubsByClubNameContaining(name);
-        return ResponseEntity.ok(squad);
+    public ResponseEntity<List<ClubByNation>> findClubsByClubNameContaining(@RequestBody String name) {
+        return ResponseEntity.ok(clubService.findClubsByClubNameContaining(name));
     }
 
     @PostMapping("/add_clubs")

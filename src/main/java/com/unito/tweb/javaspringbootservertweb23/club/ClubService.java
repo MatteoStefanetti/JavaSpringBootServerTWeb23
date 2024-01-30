@@ -1,5 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.club;
 
+import com.unito.tweb.javaspringbootservertweb23.dto.ClubByNation;
 import com.unito.tweb.javaspringbootservertweb23.dto.VisualizeClub;
 import org.springframework.stereotype.Service;
 
@@ -38,8 +39,18 @@ public class ClubService {
         return clubRepository.findClubsByLetter(letter);
     }
 
-    public List<Club> findClubsByClubNameContaining(String name) {
-        return clubRepository.findClubsByClubNameContaining(name);
+    public List<ClubByNation> findClubsByClubNameContaining(String name) {
+        List<Club> clubList = clubRepository.findClubsByClubNameContaining(name);
+        List<ClubByNation> clubByNationList = new ArrayList<>();
+        for (Club club : clubList) {
+            ClubByNation clubByNation = new ClubByNation(
+                    club.getClubId(),
+                    club.getClubName(),
+                    club.getLocalCompetitionCode()
+            );
+            clubByNationList.add(clubByNation);
+        }
+        return clubByNationList;
     }
 
     public Club findClubByClubName(String name) {
