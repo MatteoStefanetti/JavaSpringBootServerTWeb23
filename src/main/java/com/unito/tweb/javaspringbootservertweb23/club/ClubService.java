@@ -1,7 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.club;
 
-import com.unito.tweb.javaspringbootservertweb23.dto.ClubByNation;
-import com.unito.tweb.javaspringbootservertweb23.dto.VisualizeClub;
+import com.unito.tweb.javaspringbootservertweb23.dto.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -22,6 +21,19 @@ public class ClubService {
         return clubRepository.saveAll(clubs);
     }
 
+    public List<ClubName> getRecentClubsNews(){
+        List<Map<String, Object>> clubs = clubRepository.getRecentClubsNews();
+        List<ClubName> clubNameList = new ArrayList<>();
+        for (Map<String, Object> club : clubs ){
+            ClubName clubName = new ClubName(
+                    (Long) club.get("club_id"),
+                    (String) club.get("club_name")
+            );
+            clubNameList.add(clubName);
+        }
+        return clubNameList;
+    }
+  
     public List<VisualizeClub> findClubsByLocalCompetitionCode(String localCompetitionCode) {
         List<Club> clubList = clubRepository.getClubsByLocalCompetitionCode(localCompetitionCode);
         List<VisualizeClub> visualizeClubList = new ArrayList<>();

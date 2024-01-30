@@ -1,7 +1,8 @@
 package com.unito.tweb.javaspringbootservertweb23.club;
 
-import com.unito.tweb.javaspringbootservertweb23.dto.ClubByNation;
-import com.unito.tweb.javaspringbootservertweb23.dto.VisualizeClub;
+
+import com.unito.tweb.javaspringbootservertweb23.dto.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -16,6 +17,11 @@ public class ClubController {
     @Autowired
     public ClubController(ClubService clubService) {
         this.clubService = clubService;
+    }
+
+    @GetMapping("/get_recent_clubs_news")
+    public ResponseEntity<List<ClubName>> getRecentClubsNews(){
+        return ResponseEntity.ok(clubService.getRecentClubsNews());
     }
 
     @GetMapping("/club_by_letter")
