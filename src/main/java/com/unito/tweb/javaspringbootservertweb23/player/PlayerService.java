@@ -1,6 +1,7 @@
 package com.unito.tweb.javaspringbootservertweb23.player;
 
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerByCitizenship;
+import com.unito.tweb.javaspringbootservertweb23.dto.PlayerCard;
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerName;
 import org.springframework.stereotype.Service;
 
@@ -22,13 +23,18 @@ public class PlayerService {
         return playerRepository.saveAll(players);
     }
 
-    public List<Long> getPlayersByPlayerNameIsContainingOrderByLastName(String name) {
+    public List<PlayerCard> getPlayersByPlayerNameIsContainingOrderByLastName(String name) {
         List<Player> players = playerRepository.getPlayersByPlayerNameIsContainingOrderByLastName(name);
-        List<Long> playersIds = new ArrayList<>();
+        List<PlayerCard> playersCardList = new ArrayList<>();
         for (Player player : players) {
-            playersIds.add(player.getPlayerId());
+            PlayerCard playerCard = new PlayerCard(
+                    player.getPlayerId(),
+                    player.getPlayerName(),
+                    player.getImageUrl()
+            );
+            playersCardList.add(playerCard);
         }
-        return playersIds;
+        return playersCardList;
     }
 
     public List<PlayerByCitizenship> getPlayersByCountryOfCitizenshipOrderByLastName(String country) {
