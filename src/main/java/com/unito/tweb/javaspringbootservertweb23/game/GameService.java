@@ -31,7 +31,7 @@ public class GameService {
         return getVisualizeGameList(mapList);
     }
 
-    public List<VisualizeGame> getGamesByClubNames(String clubName1, String clubName2){
+    public List<VisualizeGame> getGamesByClubNames(String clubName1, String clubName2) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByClubNames(clubName1, clubName2);
         return getVisualizeGameList(mapList);
     }
@@ -41,14 +41,14 @@ public class GameService {
         return getVisualizeGameList(mapList);
     }
 
-    public List<VisualizeGame> getGamesByGameDate(Date gameDate){
+    public List<VisualizeGame> getGamesByGameDate(Date gameDate) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByGameDate(gameDate);
         return getVisualizeGameList(mapList);
     }
 
     private List<VisualizeGame> getVisualizeGameList(List<Map<String, Object>> mapList) {
         List<VisualizeGame> visualizeGameList = new ArrayList<>();
-        for (Map<String, Object> map : mapList){
+        for (Map<String, Object> map : mapList) {
             VisualizeGame visualizeGame = new VisualizeGame(
                     (Long) map.get("game_id"),
                     (Timestamp) map.get("game_date"),

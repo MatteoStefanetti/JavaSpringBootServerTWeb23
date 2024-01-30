@@ -45,7 +45,7 @@ public class GameController {
     }
 
     @GetMapping("/query_games_by_double_name")
-    public ResponseEntity<List<VisualizeGame>> getGamesByClubNames(@RequestParam String clubName1, @RequestParam String clubName2){
+    public ResponseEntity<List<VisualizeGame>> getGamesByClubNames(@RequestParam String clubName1, @RequestParam String clubName2) {
         return ResponseEntity.ok(gameService.getGamesByClubNames(clubName1, clubName2));
     }
 

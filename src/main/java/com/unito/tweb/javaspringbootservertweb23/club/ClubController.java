@@ -1,9 +1,12 @@
 package com.unito.tweb.javaspringbootservertweb23.club;
 
+
 import com.unito.tweb.javaspringbootservertweb23.dto.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.*;
 
 @RestController
@@ -28,15 +31,13 @@ public class ClubController {
     }
 
     @GetMapping("/clubs_by_nation")
-    public ResponseEntity<List<Club>> findClubsByLocalCompetitionCode(@RequestBody String localCompetitionCode) {
-        List<Club> squad = clubService.findClubsByLocalCompetitionCode(localCompetitionCode);
-        return ResponseEntity.ok(squad);
+    public ResponseEntity<List<VisualizeClub>> findClubsByLocalCompetitionCode(@RequestBody String localCompetitionCode) {
+        return ResponseEntity.ok(clubService.findClubsByLocalCompetitionCode(localCompetitionCode));
     }
 
     @GetMapping("/clubs_by_string")
-    public ResponseEntity<List<Club>> findClubsByClubNameContaining(@RequestBody String name) {
-        List<Club> squad = clubService.findClubsByClubNameContaining(name);
-        return ResponseEntity.ok(squad);
+    public ResponseEntity<List<ClubByNation>> findClubsByClubNameContaining(@RequestBody String name) {
+        return ResponseEntity.ok(clubService.findClubsByClubNameContaining(name));
     }
 
     @PostMapping("/add_clubs")
@@ -51,7 +52,7 @@ public class ClubController {
     }
 
     @GetMapping("/get_club_by_id")
-    public ResponseEntity<Optional<Club>> getClubById(@RequestBody Long id){
+    public ResponseEntity<Optional<Club>> getClubById(@RequestBody Long id) {
         Optional<Club> result = clubService.getClubById(id);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
