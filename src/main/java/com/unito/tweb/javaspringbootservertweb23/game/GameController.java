@@ -1,6 +1,8 @@
 package com.unito.tweb.javaspringbootservertweb23.game;
 
-import com.unito.tweb.javaspringbootservertweb23.dto.VisualizeGame;
+
+import com.unito.tweb.javaspringbootservertweb23.dto.*;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -39,6 +41,12 @@ public class GameController {
         return ResponseEntity.ok(gameService.getLastGames());
     }
 
+
+    @GetMapping("/get_games_of_league/{competitionId}/{season}")
+    public ResponseEntity<List<GamesByCompetitionAndSeason>> getGamesByCompetitionIdAndSeason(@PathVariable String competitionId, @PathVariable Integer season){
+        return ResponseEntity.ok(gameService.getGamesByCompetitionIdAndSeason(competitionId, season));
+    }
+  
     @GetMapping("/query_games_by_name")
     public ResponseEntity<List<VisualizeGame>> getGamesByClubName(@RequestBody String clubName) {
         return ResponseEntity.ok(gameService.getGamesByClubName(clubName));
