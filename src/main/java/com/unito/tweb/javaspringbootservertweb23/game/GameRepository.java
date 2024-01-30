@@ -21,7 +21,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "ORDER BY game_date DESC LIMIT 20", nativeQuery = true)
     List<Map<String, Object>> getLastGames();
 
-    @Query(value = "Select g.game_id, g.game_date, c1.club_name as club1, c2.club_name as club2, cg1.own_goal as goal1, cg2.own_goal as goal2 " +
+    @Query(value = "Select g.game_id, g.game_date, g.competition_id, c1.club_name as club1, c2.club_name as club2, cg1.own_goal as goal1, cg2.own_goal as goal2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
             "join clubs c1 on cg1.club_id = c1.club_id " +

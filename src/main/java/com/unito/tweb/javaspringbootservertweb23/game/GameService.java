@@ -48,8 +48,17 @@ public class GameService {
     }
 
     private List<VisualizeGame> getVisualizeGameList(List<Map<String, Object>> mapList) {
+        return getVisualizeGames(mapList);
+    }
+
+    public List<VisualizeGame> getGamesByCompetitionIdAndSeason(String competitionId, Integer season){
+        List<Map<String, Object>> mapList = gameRepository.getGamesByCompetitionIdAndSeason(competitionId, season);
+        return getVisualizeGames(mapList);
+    }
+
+    private List<VisualizeGame> getVisualizeGames(List<Map<String, Object>> mapList) {
         List<VisualizeGame> visualizeGameList = new ArrayList<>();
-        for (Map<String, Object> map : mapList) {
+        for (Map<String, Object> map : mapList){
             VisualizeGame visualizeGame = new VisualizeGame(
                     (Long) map.get("game_id"),
                     (Timestamp) map.get("game_date"),
@@ -62,22 +71,5 @@ public class GameService {
             visualizeGameList.add(visualizeGame);
         }
         return visualizeGameList;
-    }
-
-    public List<GamesByCompetitionAndSeason> getGamesByCompetitionIdAndSeason(String competitionId, Integer season){
-        List<Map<String, Object>> mapList = gameRepository.getGamesByCompetitionIdAndSeason(competitionId, season);
-        List<GamesByCompetitionAndSeason> gamesByCompetitionAndSeasonList = new ArrayList<>();
-        for (Map<String, Object> map : mapList){
-            GamesByCompetitionAndSeason gamesByCompetitionAndSeason = new GamesByCompetitionAndSeason(
-                    (Long) map.get("game_id"),
-                    (Timestamp) map.get("game_date"),
-                    (String) map.get("club1"),
-                    (Integer) map.get("goal1"),
-                    (String) map.get("club2"),
-                    (Integer) map.get("goal2")
-            );
-            gamesByCompetitionAndSeasonList.add(gamesByCompetitionAndSeason);
-        }
-        return gamesByCompetitionAndSeasonList;
     }
 }

@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Date;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.*;
 
 @RestController
@@ -43,7 +41,7 @@ public class GameController {
 
 
     @GetMapping("/get_games_of_league/{competitionId}/{season}")
-    public ResponseEntity<List<GamesByCompetitionAndSeason>> getGamesByCompetitionIdAndSeason(@PathVariable String competitionId, @PathVariable Integer season){
+    public ResponseEntity<List<VisualizeGame>> getGamesByCompetitionIdAndSeason(@PathVariable String competitionId, @PathVariable Integer season){
         return ResponseEntity.ok(gameService.getGamesByCompetitionIdAndSeason(competitionId, season));
     }
   
