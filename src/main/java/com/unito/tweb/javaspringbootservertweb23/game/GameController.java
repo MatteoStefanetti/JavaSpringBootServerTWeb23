@@ -44,6 +44,11 @@ public class GameController {
     public ResponseEntity<List<VisualizeGame>> getGamesByCompetitionIdAndSeason(@PathVariable String competitionId, @PathVariable Integer season){
         return ResponseEntity.ok(gameService.getGamesByCompetitionIdAndSeason(competitionId, season));
     }
+
+    @GetMapping("/get_games_by_competition_id/{competitionId}/{season}")
+    public ResponseEntity<List<VisualizeGame>> getGamesByCompetitionIdAndSeasonNot(@PathVariable String competitionId, @PathVariable Integer season){
+        return ResponseEntity.ok(gameService.getGamesByCompetitionIdAndSeasonNot(competitionId, season));
+    }
   
     @GetMapping("/query_games_by_name")
     public ResponseEntity<List<VisualizeGame>> getGamesByClubName(@RequestBody String clubName) {
