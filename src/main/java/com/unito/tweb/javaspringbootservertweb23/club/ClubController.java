@@ -3,6 +3,12 @@ package com.unito.tweb.javaspringbootservertweb23.club;
 
 import com.unito.tweb.javaspringbootservertweb23.dto.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +25,23 @@ public class ClubController {
         this.clubService = clubService;
     }
 
+    @Operation(summary = "get recent club news", description = "Retrieves a list of the last 15 different games played")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "List of recent club news retrieved successfully",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ClubName.class)))),
+            @ApiResponse(responseCode = "500", description = "Internal server error",
+                    content = @Content(mediaType = "application/json"))
+    })
     @GetMapping("/get_recent_clubs_news")
-    public ResponseEntity<List<ClubName>> getRecentClubsNews(){
-        return ResponseEntity.ok(clubService.getRecentClubsNews());
+    public ResponseEntity<List<ClubName>> getRecentClubsNews() {
+        try {
+            return ResponseEntity.ok(clubService.getRecentClubsNews());
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+
     }
 
     @GetMapping("/club_by_letter")
