@@ -54,23 +54,36 @@ public class ClubController {
                             array = @ArraySchema(schema = @Schema(implementation = Long.class)))),
             @ApiResponse(responseCode = "400",
                     description = "Invalid input",
-            content = @Content(mediaType = "application/json"))
+                    content = @Content(mediaType = "application/json"))
 
     })
     @GetMapping("/club_by_letter/{letter}")
     public ResponseEntity<List<Long>> findClubsByLetter(@PathVariable String letter) {
-        try{
+        try {
             List<Long> squad = clubService.findClubsByLetter(letter);
             return ResponseEntity.ok(squad);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
-    @GetMapping("/clubs_by_nation")
-    public ResponseEntity<List<VisualizeClub>> findClubsByLocalCompetitionCode(@RequestBody String localCompetitionCode) {
-        return ResponseEntity.ok(clubService.findClubsByLocalCompetitionCode(localCompetitionCode));
+    @Operation(summary = "find clubs by local competition code", description = "Retrieves the list of clubs that come from a certain nation")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "List of clubs retrieved successfully",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = VisualizeClub.class)))),
+            @ApiResponse(responseCode = "400",
+            description = "Invalid input",
+            content = @Content(mediaType = "application/json"))
+    })
+    @GetMapping("/clubs_by_nation/{localCompetitionCode}")
+    public ResponseEntity<List<VisualizeClub>> findClubsByLocalCompetitionCode(@PathVariable String localCompetitionCode) {
+        try {
+            return ResponseEntity.ok(clubService.findClubsByLocalCompetitionCode(localCompetitionCode));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 
     @GetMapping("/clubs_by_string")
