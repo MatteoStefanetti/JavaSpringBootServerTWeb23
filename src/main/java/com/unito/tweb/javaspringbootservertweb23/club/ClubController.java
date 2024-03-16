@@ -4,6 +4,8 @@ package com.unito.tweb.javaspringbootservertweb23.club;
 import com.unito.tweb.javaspringbootservertweb23.dto.*;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -44,10 +46,25 @@ public class ClubController {
 
     }
 
+    @Operation(summary = "find clubs by letter", description = "Retrieves the list of clubs that has the name that begin with a certain string")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "List of clubs retrieved successfully",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "400",
+                    description = "Invalid input")
+
+    })
     @GetMapping("/club_by_letter")
     public ResponseEntity<String> findClubsByLetter(@RequestBody String letter) {
-        List<Long> squad = clubService.findClubsByLetter(letter);
-        return ResponseEntity.ok(squad.toString());
+        try {
+            List<Long> squad = clubService.findClubsByLetter(letter);
+            return ResponseEntity.ok(squad.toString());
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid input");
+        }
     }
 
     @GetMapping("/clubs_by_nation")
