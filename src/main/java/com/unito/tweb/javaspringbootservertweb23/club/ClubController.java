@@ -51,19 +51,20 @@ public class ClubController {
             @ApiResponse(responseCode = "200",
                     description = "List of clubs retrieved successfully",
                     content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = String.class))),
+                            array = @ArraySchema(schema = @Schema(implementation = Long.class)))),
             @ApiResponse(responseCode = "400",
-                    description = "Invalid input")
+                    description = "Invalid input",
+            content = @Content(mediaType = "application/json"))
 
     })
-    @GetMapping("/club_by_letter")
-    public ResponseEntity<String> findClubsByLetter(@RequestBody String letter) {
-        try {
+    @GetMapping("/club_by_letter/{letter}")
+    public ResponseEntity<List<Long>> findClubsByLetter(@PathVariable String letter) {
+        try{
             List<Long> squad = clubService.findClubsByLetter(letter);
-            return ResponseEntity.ok(squad.toString());
+            return ResponseEntity.ok(squad);
         }
         catch (Exception e){
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Invalid input");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
         }
     }
 
