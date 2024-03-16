@@ -111,9 +111,27 @@ public class ClubController {
                 : ResponseEntity.internalServerError().body("Error occurred while loading Clubs!");
     }
 
-    @GetMapping("/club_by_name")
-    public ResponseEntity<Club> findClubByClubName(@RequestBody String name) {
-        return ResponseEntity.ok(clubService.findClubByClubName(name));
+    @Operation(summary = "find club by name", description = "Retrieves a club with a certain name")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "club retrieved successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Club.class))),
+            @ApiResponse(
+                    responseCode = "400",
+                    description = "Invalid input",
+                    content = @Content(mediaType = "application/json"))
+    })
+    @GetMapping("/club_by_name/{name}")
+    public ResponseEntity<Club> findClubByClubName(@PathVariable String name) {
+        try {
+            return ResponseEntity.ok(clubService.findClubByClubName(name));
+        }
+        catch (Exception e){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 
     @GetMapping("/get_club_by_id")
