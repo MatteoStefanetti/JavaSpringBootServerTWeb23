@@ -74,8 +74,8 @@ public class ClubController {
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = VisualizeClub.class)))),
             @ApiResponse(responseCode = "400",
-            description = "Invalid input",
-            content = @Content(mediaType = "application/json"))
+                    description = "Invalid input",
+                    content = @Content(mediaType = "application/json"))
     })
     @GetMapping("/clubs_by_nation/{localCompetitionCode}")
     public ResponseEntity<List<VisualizeClub>> findClubsByLocalCompetitionCode(@PathVariable String localCompetitionCode) {
@@ -86,9 +86,23 @@ public class ClubController {
         }
     }
 
-    @GetMapping("/clubs_by_string")
-    public ResponseEntity<List<ClubByNation>> findClubsByClubNameContaining(@RequestBody String name) {
-        return ResponseEntity.ok(clubService.findClubsByClubNameContaining(name));
+    @Operation(description = "Retrieves the list of clubs whose name contains a certain string")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "List of clubs retrieved successfully",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = ClubByNation.class)))),
+            @ApiResponse(responseCode = "400",
+                    description = "Invalid input",
+                    content = @Content(mediaType = "application/json"))
+    })
+    @GetMapping("/clubs_by_string/{name}")
+    public ResponseEntity<List<ClubByNation>> findClubsByClubNameContaining(@PathVariable String name) {
+        try {
+            return ResponseEntity.ok(clubService.findClubsByClubNameContaining(name));
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
+        }
     }
 
     @PostMapping("/add_clubs")
