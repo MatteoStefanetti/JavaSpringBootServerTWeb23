@@ -120,22 +120,38 @@ public class ClubController {
                             mediaType = "application/json",
                             schema = @Schema(implementation = Club.class))),
             @ApiResponse(
-                    responseCode = "400",
+                    responseCode = "404",
                     description = "Invalid input",
-                    content = @Content(mediaType = "application/json"))
+                    content = @Content)
     })
     @GetMapping("/club_by_name/{name}")
-    public ResponseEntity<Club> findClubByClubName(@PathVariable String name) {
-        try {
+    public ResponseEntity<Optional<Club>> findClubByClubName(@PathVariable String name) {
+        Optional<Club> result = clubService.findClubByClubName(name);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+        /*try {
             return ResponseEntity.ok(clubService.findClubByClubName(name));
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+        }*/
     }
 
-    @GetMapping("/get_club_by_id")
-    public ResponseEntity<Optional<Club>> getClubById(@RequestBody Long id) {
+    @Operation(description = "Retrieve a club with a certain id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Club found successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = Club.class))),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Club not found",
+                    content = @Content
+            )
+    })
+    @GetMapping("/get_club_by_id/{id}")
+    public ResponseEntity<Optional<Club>> getClubById(@PathVariable Long id) {
         Optional<Club> result = clubService.getClubById(id);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));

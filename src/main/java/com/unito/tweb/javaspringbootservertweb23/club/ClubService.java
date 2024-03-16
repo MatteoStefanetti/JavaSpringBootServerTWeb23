@@ -65,7 +65,7 @@ public class ClubService {
         return clubByNationList;
     }
 
-    public Club findClubByClubName(String name) {
+    public Optional<Club> findClubByClubName(String name) {
         return clubRepository.findClubByClubName(name);
     }
 
