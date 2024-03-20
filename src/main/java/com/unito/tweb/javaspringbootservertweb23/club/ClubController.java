@@ -93,17 +93,15 @@ public class ClubController {
                     description = "List of clubs retrieved successfully",
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = ClubByNation.class)))),
-            @ApiResponse(responseCode = "400",
-                    description = "Invalid input",
-                    content = @Content(mediaType = "application/json"))
+            @ApiResponse(responseCode = "404",
+                    description = "No clubs found with the specified name",
+                    content = @Content())
     })
     @GetMapping("/clubs_by_string/{name}")
-    public ResponseEntity<List<ClubByNation>> findClubsByClubNameContaining(@PathVariable String name) {
-        try {
-            return ResponseEntity.ok(clubService.findClubsByClubNameContaining(name));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+    public ResponseEntity<Optional<List<ClubByNation>>> findClubsByClubNameContaining(@PathVariable String name) {
+        Optional<List<ClubByNation>> result = clubService.findClubsByClubNameContaining(name);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @Operation(summary = "Add multiple clubs", description = "Endpoint to add multiple clubs at once.")

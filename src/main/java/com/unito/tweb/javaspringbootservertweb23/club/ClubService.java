@@ -4,6 +4,7 @@ import com.unito.tweb.javaspringbootservertweb23.dto.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ClubService {
@@ -21,10 +22,10 @@ public class ClubService {
         return clubRepository.saveAll(clubs);
     }
 
-    public List<ClubName> getRecentClubsNews(){
+    public List<ClubName> getRecentClubsNews() {
         List<Map<String, Object>> clubs = clubRepository.getRecentClubsNews();
         List<ClubName> clubNameList = new ArrayList<>();
-        for (Map<String, Object> club : clubs ){
+        for (Map<String, Object> club : clubs) {
             ClubName clubName = new ClubName(
                     (Long) club.get("club_id"),
                     (String) club.get("club_name")
@@ -33,7 +34,7 @@ public class ClubService {
         }
         return clubNameList;
     }
-  
+
     public List<VisualizeClub> findClubsByLocalCompetitionCode(String localCompetitionCode) {
         List<Club> clubList = clubRepository.getClubsByLocalCompetitionCode(localCompetitionCode);
         List<VisualizeClub> visualizeClubList = new ArrayList<>();
@@ -51,18 +52,22 @@ public class ClubService {
         return clubRepository.findClubsByLetter(letter);
     }
 
-    public List<ClubByNation> findClubsByClubNameContaining(String name) {
+    public Optional<List<ClubByNation>> findClubsByClubNameContaining(String name) {
         List<Club> clubList = clubRepository.findClubsByClubNameContaining(name);
-        List<ClubByNation> clubByNationList = new ArrayList<>();
-        for (Club club : clubList) {
-            ClubByNation clubByNation = new ClubByNation(
-                    club.getClubId(),
-                    club.getClubName(),
-                    club.getLocalCompetitionCode()
-            );
-            clubByNationList.add(clubByNation);
+
+        if (clubList.isEmpty()) {
+            return Optional.empty();
         }
-        return clubByNationList;
+
+        List<ClubByNation> clubByNationList = clubList.stream()
+                .map(club -> new ClubByNation(
+                        club.getClubId(),
+                        club.getClubName(),
+                        club.getLocalCompetitionCode()
+                ))
+                .toList();
+
+        return Optional.of(clubByNationList);
     }
 
     public Optional<Club> findClubByClubName(String name) {
