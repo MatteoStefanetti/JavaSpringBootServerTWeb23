@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.tags.EvalTag;
 
 import java.util.List;
 import java.util.Optional;
@@ -53,19 +54,15 @@ public class ClubController {
                     description = "List of clubs retrieved successfully",
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = Long.class)))),
-            @ApiResponse(responseCode = "400",
-                    description = "Invalid input",
-                    content = @Content(mediaType = "application/json"))
-
+            @ApiResponse(responseCode = "404",
+                    description = "No clubs found with the specified capital letter",
+                    content = @Content())
     })
     @GetMapping("/club_by_letter/{letter}")
-    public ResponseEntity<List<Long>> findClubsByLetter(@PathVariable String letter) {
-        try {
-            List<Long> squad = clubService.findClubsByLetter(letter);
-            return ResponseEntity.ok(squad);
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+    public ResponseEntity<Optional<List<Long>>> findClubsByLetter(@PathVariable String letter) {
+        Optional<List<Long>> result = clubService.findClubsByLetter(letter);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @Operation(summary = "find clubs by local competition code", description = "Retrieves the list of clubs that come from a certain nation")

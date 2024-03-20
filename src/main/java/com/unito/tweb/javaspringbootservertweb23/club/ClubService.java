@@ -48,8 +48,9 @@ public class ClubService {
         return visualizeClubList;
     }
 
-    public List<Long> findClubsByLetter(String letter) {
-        return clubRepository.findClubsByLetter(letter);
+    public Optional<List<Long>> findClubsByLetter(String letter) {
+        List<Long> clubIds = clubRepository.findClubsByLetter(letter);
+        return clubIds.isEmpty() ? Optional.empty() : Optional.of(clubIds);
     }
 
     public Optional<List<ClubByNation>> findClubsByClubNameContaining(String name) {
