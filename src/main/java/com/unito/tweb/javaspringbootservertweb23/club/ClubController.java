@@ -1,21 +1,22 @@
 package com.unito.tweb.javaspringbootservertweb23.club;
 
 
-import com.unito.tweb.javaspringbootservertweb23.dto.*;
-
+import com.unito.tweb.javaspringbootservertweb23.dto.ClubByNation;
+import com.unito.tweb.javaspringbootservertweb23.dto.ClubName;
+import com.unito.tweb.javaspringbootservertweb23.dto.VisualizeClub;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.Parameter;
-import io.swagger.v3.oas.annotations.Parameters;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.*;
+import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/clubs")
@@ -105,6 +106,16 @@ public class ClubController {
         }
     }
 
+    @Operation(summary = "Add multiple clubs", description = "Endpoint to add multiple clubs at once.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Clubs successfully loaded.",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = Club.class)))),
+            @ApiResponse(responseCode = "500",
+                    description = "Error occurred while loading clubs",
+                    content = @Content(mediaType = "application/json"))
+    })
     @PostMapping("/add_clubs")
     public ResponseEntity<String> addClubs(@RequestBody List<Club> clubs) {
         return clubService.saveClubs(clubs) != null ? ResponseEntity.ok("Clubs successfully loaded!")
@@ -129,11 +140,6 @@ public class ClubController {
         Optional<Club> result = clubService.findClubByClubName(name);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
-        /*try {
-            return ResponseEntity.ok(clubService.findClubByClubName(name));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }*/
     }
 
     @Operation(description = "Retrieve a club with a certain id")
