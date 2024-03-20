@@ -35,17 +35,19 @@ public class ClubService {
         return clubNameList;
     }
 
-    public List<VisualizeClub> findClubsByLocalCompetitionCode(String localCompetitionCode) {
+    public Optional<List<VisualizeClub>> findClubsByLocalCompetitionCode(String localCompetitionCode) {
         List<Club> clubList = clubRepository.getClubsByLocalCompetitionCode(localCompetitionCode);
-        List<VisualizeClub> visualizeClubList = new ArrayList<>();
-        for (Club club : clubList) {
-            VisualizeClub visualizeClub = new VisualizeClub(
-                    club.getClubId(),
-                    club.getClubName()
-            );
-            visualizeClubList.add(visualizeClub);
-        }
-        return visualizeClubList;
+
+        if (clubList.isEmpty())
+            return Optional.empty();
+
+        List<VisualizeClub> visualizeClubList = clubList.stream().
+                map(club -> new VisualizeClub(
+                        club.getClubId(),
+                        club.getClubName()
+                )).toList();
+
+        return Optional.of(visualizeClubList);
     }
 
     public Optional<List<Long>> findClubsByLetter(String letter) {

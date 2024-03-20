@@ -71,17 +71,15 @@ public class ClubController {
                     description = "List of clubs retrieved successfully",
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = VisualizeClub.class)))),
-            @ApiResponse(responseCode = "400",
-                    description = "Invalid input",
-                    content = @Content(mediaType = "application/json"))
+            @ApiResponse(responseCode = "404",
+                    description = "No clubs found with the specified localCompetitionCode",
+                    content = @Content())
     })
     @GetMapping("/clubs_by_nation/{localCompetitionCode}")
-    public ResponseEntity<List<VisualizeClub>> findClubsByLocalCompetitionCode(@PathVariable String localCompetitionCode) {
-        try {
-            return ResponseEntity.ok(clubService.findClubsByLocalCompetitionCode(localCompetitionCode));
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(null);
-        }
+    public ResponseEntity<Optional<List<VisualizeClub>>> findClubsByLocalCompetitionCode(@PathVariable String localCompetitionCode) {
+        Optional<List<VisualizeClub>> result = clubService.findClubsByLocalCompetitionCode(localCompetitionCode);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @Operation(description = "Retrieves the list of clubs whose name contains a certain string")
