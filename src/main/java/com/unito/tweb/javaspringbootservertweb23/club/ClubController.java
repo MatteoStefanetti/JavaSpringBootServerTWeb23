@@ -14,7 +14,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.tags.EvalTag;
 
 import java.util.List;
 import java.util.Optional;
@@ -35,17 +34,15 @@ public class ClubController {
                     description = "List of recent club news retrieved successfully",
                     content = @Content(mediaType = "application/json",
                             array = @ArraySchema(schema = @Schema(implementation = ClubName.class)))),
-            @ApiResponse(responseCode = "500", description = "Internal server error",
-                    content = @Content(mediaType = "application/json"))
+            @ApiResponse(responseCode = "404",
+                    description = "No club news found",
+                    content = @Content())
     })
     @GetMapping("/get_recent_clubs_news")
-    public ResponseEntity<List<ClubName>> getRecentClubsNews() {
-        try {
-            return ResponseEntity.ok(clubService.getRecentClubsNews());
-        } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
-        }
-
+    public ResponseEntity<Optional<List<ClubName>>> getRecentClubsNews() {
+        Optional<List<ClubName>> result = clubService.getRecentClubsNews();
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @Operation(summary = "find clubs by letter", description = "Retrieves the list of clubs that has the name that begin with a certain string")
@@ -125,7 +122,7 @@ public class ClubController {
                             schema = @Schema(implementation = Club.class))),
             @ApiResponse(
                     responseCode = "404",
-                    description = "Invalid input",
+                    description = "No club found with specified name",
                     content = @Content)
     })
     @GetMapping("/club_by_name/{name}")

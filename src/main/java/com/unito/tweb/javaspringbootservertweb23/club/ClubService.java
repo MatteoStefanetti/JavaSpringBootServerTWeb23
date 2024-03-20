@@ -22,17 +22,19 @@ public class ClubService {
         return clubRepository.saveAll(clubs);
     }
 
-    public List<ClubName> getRecentClubsNews() {
+    public Optional<List<ClubName>> getRecentClubsNews() {
         List<Map<String, Object>> clubs = clubRepository.getRecentClubsNews();
-        List<ClubName> clubNameList = new ArrayList<>();
-        for (Map<String, Object> club : clubs) {
-            ClubName clubName = new ClubName(
-                    (Long) club.get("club_id"),
-                    (String) club.get("club_name")
-            );
-            clubNameList.add(clubName);
-        }
-        return clubNameList;
+
+        if (clubs.isEmpty())
+            return Optional.empty();
+
+        List<ClubName> clubNameList = clubs.stream()
+                .map(club -> new ClubName(
+                        (Long) club.get("club_id"),
+                        (String) club.get("club_name")
+                )).toList();
+
+        return Optional.of(clubNameList);
     }
 
     public Optional<List<VisualizeClub>> findClubsByLocalCompetitionCode(String localCompetitionCode) {
