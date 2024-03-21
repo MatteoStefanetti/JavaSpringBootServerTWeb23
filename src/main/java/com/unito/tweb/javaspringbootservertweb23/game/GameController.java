@@ -77,6 +77,17 @@ public class GameController {
     }
 
 
+    @Operation(summary = "Get games by date",
+            description = "Retrieve a list of games based on the specified game date.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the list of games",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = VisualizeGame.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No games found for the specified date",
+                    content = @Content())
+    })
     @GetMapping("/query_games_by_date/{gameDate}")
     public ResponseEntity<Optional<List<VisualizeGame>>> getGamesByGameDate(@PathVariable Date gameDate) {
         Optional<List<VisualizeGame>> result = gameService.getGamesByGameDate(gameDate);
