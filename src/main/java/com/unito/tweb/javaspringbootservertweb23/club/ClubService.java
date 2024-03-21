@@ -4,6 +4,7 @@ import com.unito.tweb.javaspringbootservertweb23.dto.*;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ClubService {
@@ -21,51 +22,60 @@ public class ClubService {
         return clubRepository.saveAll(clubs);
     }
 
-    public List<ClubName> getRecentClubsNews(){
+    public Optional<List<ClubName>> getRecentClubsNews() {
         List<Map<String, Object>> clubs = clubRepository.getRecentClubsNews();
-        List<ClubName> clubNameList = new ArrayList<>();
-        for (Map<String, Object> club : clubs ){
-            ClubName clubName = new ClubName(
-                    (Long) club.get("club_id"),
-                    (String) club.get("club_name")
-            );
-            clubNameList.add(clubName);
-        }
-        return clubNameList;
+
+        if (clubs.isEmpty())
+            return Optional.empty();
+
+        List<ClubName> clubNameList = clubs.stream()
+                .map(club -> new ClubName(
+                        (Long) club.get("club_id"),
+                        (String) club.get("club_name")
+                )).toList();
+
+        return Optional.of(clubNameList);
     }
-  
-    public List<VisualizeClub> findClubsByLocalCompetitionCode(String localCompetitionCode) {
+
+    public Optional<List<VisualizeClub>> findClubsByLocalCompetitionCode(String localCompetitionCode) {
         List<Club> clubList = clubRepository.getClubsByLocalCompetitionCode(localCompetitionCode);
-        List<VisualizeClub> visualizeClubList = new ArrayList<>();
-        for (Club club : clubList) {
-            VisualizeClub visualizeClub = new VisualizeClub(
-                    club.getClubId(),
-                    club.getClubName()
-            );
-            visualizeClubList.add(visualizeClub);
-        }
-        return visualizeClubList;
+
+        if (clubList.isEmpty())
+            return Optional.empty();
+
+        List<VisualizeClub> visualizeClubList = clubList.stream().
+                map(club -> new VisualizeClub(
+                        club.getClubId(),
+                        club.getClubName()
+                )).toList();
+
+        return Optional.of(visualizeClubList);
     }
 
-    public List<Long> findClubsByLetter(String letter) {
-        return clubRepository.findClubsByLetter(letter);
+    public Optional<List<Long>> findClubsByLetter(String letter) {
+        List<Long> clubIds = clubRepository.findClubsByLetter(letter);
+        return clubIds.isEmpty() ? Optional.empty() : Optional.of(clubIds);
     }
 
-    public List<ClubByNation> findClubsByClubNameContaining(String name) {
+    public Optional<List<ClubByNation>> findClubsByClubNameContaining(String name) {
         List<Club> clubList = clubRepository.findClubsByClubNameContaining(name);
-        List<ClubByNation> clubByNationList = new ArrayList<>();
-        for (Club club : clubList) {
-            ClubByNation clubByNation = new ClubByNation(
-                    club.getClubId(),
-                    club.getClubName(),
-                    club.getLocalCompetitionCode()
-            );
-            clubByNationList.add(clubByNation);
+
+        if (clubList.isEmpty()) {
+            return Optional.empty();
         }
-        return clubByNationList;
+
+        List<ClubByNation> clubByNationList = clubList.stream()
+                .map(club -> new ClubByNation(
+                        club.getClubId(),
+                        club.getClubName(),
+                        club.getLocalCompetitionCode()
+                ))
+                .toList();
+
+        return Optional.of(clubByNationList);
     }
 
-    public Club findClubByClubName(String name) {
+    public Optional<Club> findClubByClubName(String name) {
         return clubRepository.findClubByClubName(name);
     }
 

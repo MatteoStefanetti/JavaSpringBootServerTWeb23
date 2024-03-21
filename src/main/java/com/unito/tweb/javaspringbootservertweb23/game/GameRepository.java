@@ -6,10 +6,24 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 
+/**
+ * Repository interface for mapping Game entities.
+ */
 @Repository
 public interface GameRepository extends JpaRepository<Game, Long> {
+    /**
+     * Retrieves a game by its ID.
+     *
+     * @param id The ID of the game to retrieve
+     * @return An optional containing the retrieved game entity, if found
+     */
     Optional<Game> findByGameId(Long id);
 
+    /**
+     * Retrieves the last 20 games played.
+     *
+     * @return A list of maps representing the last 20 games played, each containing game data
+     */
     @Query(value = " select G.game_id, G.game_date, G.competition_id, C1.club_name AS club1," +
             " CG1.own_goal AS goal1, C2.club_name AS club2, CG2.own_goal AS goal2 " +
             "FROM GAMES G " +
@@ -21,6 +35,13 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "ORDER BY game_date DESC LIMIT 20", nativeQuery = true)
     List<Map<String, Object>> getLastGames();
 
+    /**
+     * Retrieves games by competition ID and season.
+     *
+     * @param competitionId The ID of the competition
+     * @param season        The season of the games to retrieve
+     * @return A list of maps representing the games matching the criteria, each containing game data
+     */
     @Query(value = "Select g.game_id, g.game_date, g.competition_id, c1.club_name as club1, c2.club_name as club2, cg1.own_goal as goal1, cg2.own_goal as goal2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
@@ -31,6 +52,13 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "order by g.game_date desc", nativeQuery = true)
     List<Map<String, Object>> getGamesByCompetitionIdAndSeason(String competitionId, Integer season);
 
+    /**
+     * Retrieves games by competition ID and season, excluding a specific season.
+     *
+     * @param competitionId The ID of the competition
+     * @param season        The season of the games to exclude
+     * @return A list of maps representing the games matching the criteria, each containing game data
+     */
     @Query(value = "Select g.game_id, g.game_date, g.competition_id, c1.club_name as club1, c2.club_name as club2, cg1.own_goal as goal1, cg2.own_goal as goal2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
@@ -40,7 +68,13 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "where cg1.club_id < cg2.club_id and g.competition_id like :competitionId and g.season <> :season " +
             "order by g.game_date desc", nativeQuery = true)
     List<Map<String, Object>> getGamesByCompetitionIdAndSeasonNot(String competitionId, Integer season);
-  
+
+    /**
+     * Retrieves games by the name of a club.
+     *
+     * @param clubName The name of the club
+     * @return A list of maps representing the games involving the club, each containing game data
+     */
     @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as club1, cg1.own_goal as goal1, c2.club_name as club2, cg2.own_goal as goal2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
@@ -51,6 +85,13 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "order by game_date desc", nativeQuery = true)
     List<Map<String, Object>> getGamesByClubName(String clubName);
 
+    /**
+     * Retrieves games involving two clubs.
+     *
+     * @param clubName1 The name of the first club
+     * @param clubName2 The name of the second club
+     * @return A list of maps representing the games involving both clubs, each containing game data
+     */
     @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as club1, cg1.own_goal as goal1, c2.club_name as club2, cg2.own_goal as goal2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
@@ -61,6 +102,12 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "order by game_date desc", nativeQuery = true)
     List<Map<String, Object>> getGamesByClubNames(String clubName1, String clubName2);
 
+    /**
+     * Retrieves games by a specific game date.
+     *
+     * @param gameDate The date of the games
+     * @return A list of maps representing the games played on the specified date, each containing game data
+     */
     @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as club1, cg1.own_goal as goal1, c2.club_name as club2, cg2.own_goal as goal2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
