@@ -27,50 +27,51 @@ public class GameService {
         return gameRepository.findByGameId(id);
     }
 
-    public List<VisualizeGame> getGamesByClubName(String clubName) {
+    public Optional<List<VisualizeGame>> getGamesByClubName(String clubName) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByClubName(clubName);
         return getVisualizeGames(mapList);
     }
 
-    public List<VisualizeGame> getGamesByClubNames(String clubName1, String clubName2) {
+    public Optional<List<VisualizeGame>> getGamesByClubNames(String clubName1, String clubName2) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByClubNames(clubName1, clubName2);
         return getVisualizeGames(mapList);
     }
 
-    public List<VisualizeGame> getLastGames() {
+    public Optional<List<VisualizeGame>> getLastGames() {
         List<Map<String, Object>> mapList = gameRepository.getLastGames();
         return getVisualizeGames(mapList);
     }
 
-    public List<VisualizeGame> getGamesByGameDate(Date gameDate) {
+    public Optional<List<VisualizeGame>> getGamesByGameDate(Date gameDate) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByGameDate(gameDate);
         return getVisualizeGames(mapList);
     }
 
-    public List<VisualizeGame> getGamesByCompetitionIdAndSeasonNot(String competitionId, Integer season){
+    public Optional<List<VisualizeGame>> getGamesByCompetitionIdAndSeasonNot(String competitionId, Integer season) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByCompetitionIdAndSeasonNot(competitionId, season);
         return getVisualizeGames(mapList);
     }
 
-    public List<VisualizeGame> getGamesByCompetitionIdAndSeason(String competitionId, Integer season){
+    public Optional<List<VisualizeGame>> getGamesByCompetitionIdAndSeason(String competitionId, Integer season) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByCompetitionIdAndSeason(competitionId, season);
         return getVisualizeGames(mapList);
     }
 
-    private List<VisualizeGame> getVisualizeGames(List<Map<String, Object>> mapList) {
-        List<VisualizeGame> visualizeGameList = new ArrayList<>();
-        for (Map<String, Object> map : mapList){
-            VisualizeGame visualizeGame = new VisualizeGame(
-                    (Long) map.get("game_id"),
-                    (Timestamp) map.get("game_date"),
-                    (String) map.get("competition_id"),
-                    (String) map.get("club1"),
-                    (Integer) map.get("goal1"),
-                    (String) map.get("club2"),
-                    (Integer) map.get("goal2")
-            );
-            visualizeGameList.add(visualizeGame);
-        }
-        return visualizeGameList;
+    private Optional<List<VisualizeGame>> getVisualizeGames(List<Map<String, Object>> mapList) {
+        if (mapList.isEmpty())
+            return Optional.empty();
+
+        List<VisualizeGame> visualizeGameList = mapList.stream()
+                .map(game -> new VisualizeGame(
+                        (Long) game.get("game_id"),
+                        (Timestamp) game.get("game_date"),
+                        (String) game.get("competition_id"),
+                        (String) game.get("club1"),
+                        (Integer) game.get("goal1"),
+                        (String) game.get("club2"),
+                        (Integer) game.get("goal2")
+                )).toList();
+
+        return Optional.of(visualizeGameList);
     }
 }

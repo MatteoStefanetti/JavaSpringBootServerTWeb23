@@ -3,6 +3,12 @@ package com.unito.tweb.javaspringbootservertweb23.game;
 
 import com.unito.tweb.javaspringbootservertweb23.dto.*;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,33 +41,46 @@ public class GameController {
     }
 
     @GetMapping("/get_last_games")
-    public ResponseEntity<List<VisualizeGame>> getLastGames() {
-        return ResponseEntity.ok(gameService.getLastGames());
+    public ResponseEntity<Optional<List<VisualizeGame>>> getLastGames() {
+        Optional<List<VisualizeGame>> result = gameService.getLastGames();
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
 
     @GetMapping("/get_games_of_league/{competitionId}/{season}")
-    public ResponseEntity<List<VisualizeGame>> getGamesByCompetitionIdAndSeason(@PathVariable String competitionId, @PathVariable Integer season){
-        return ResponseEntity.ok(gameService.getGamesByCompetitionIdAndSeason(competitionId, season));
+    public ResponseEntity<Optional<List<VisualizeGame>>> getGamesByCompetitionIdAndSeason(@PathVariable String competitionId, @PathVariable Integer season) {
+        Optional<List<VisualizeGame>> result = gameService.getGamesByCompetitionIdAndSeason(competitionId, season);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
     @GetMapping("/get_games_by_competition_id/{competitionId}/{season}")
-    public ResponseEntity<List<VisualizeGame>> getGamesByCompetitionIdAndSeasonNot(@PathVariable String competitionId, @PathVariable Integer season){
-        return ResponseEntity.ok(gameService.getGamesByCompetitionIdAndSeasonNot(competitionId, season));
-    }
-  
-    @GetMapping("/query_games_by_name")
-    public ResponseEntity<List<VisualizeGame>> getGamesByClubName(@RequestBody String clubName) {
-        return ResponseEntity.ok(gameService.getGamesByClubName(clubName));
+    public ResponseEntity<Optional<List<VisualizeGame>>> getGamesByCompetitionIdAndSeasonNot(@PathVariable String competitionId, @PathVariable Integer season) {
+        Optional<List<VisualizeGame>> result = gameService.getGamesByCompetitionIdAndSeasonNot(competitionId, season);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/query_games_by_double_name")
-    public ResponseEntity<List<VisualizeGame>> getGamesByClubNames(@RequestParam String clubName1, @RequestParam String clubName2) {
-        return ResponseEntity.ok(gameService.getGamesByClubNames(clubName1, clubName2));
+    @GetMapping("/query_games_by_name/{clubName}")
+    public ResponseEntity<Optional<List<VisualizeGame>>> getGamesByClubName(@PathVariable String clubName) {
+        Optional<List<VisualizeGame>> result = gameService.getGamesByClubName(clubName);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    @GetMapping("/query_games_by_date")
-    public ResponseEntity<List<VisualizeGame>> getGamesByGameDate(@RequestParam Date gameDate) {
-        return ResponseEntity.ok(gameService.getGamesByGameDate(gameDate));
+    @GetMapping("/query_games_by_double_name/{clubName1}/{clubName2}")
+    public ResponseEntity<Optional<List<VisualizeGame>>> getGamesByClubNames(@PathVariable String clubName1, @PathVariable String clubName2) {
+        Optional<List<VisualizeGame>> result = gameService.getGamesByClubNames(clubName1, clubName2);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+
+    @GetMapping("/query_games_by_date/{gameDate}")
+    public ResponseEntity<Optional<List<VisualizeGame>>> getGamesByGameDate(@PathVariable Date gameDate) {
+        Optional<List<VisualizeGame>> result = gameService.getGamesByGameDate(gameDate);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 }
