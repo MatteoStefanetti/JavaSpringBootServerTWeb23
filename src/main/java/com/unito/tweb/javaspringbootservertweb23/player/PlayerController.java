@@ -1,6 +1,6 @@
 package com.unito.tweb.javaspringbootservertweb23.player;
 
-import com.unito.tweb.javaspringbootservertweb23.dto.PlayerByCitizenship;
+import com.unito.tweb.javaspringbootservertweb23.dto.PlayerInformation;
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerCard;
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,8 +60,8 @@ public class PlayerController {
      * @return ResponseEntity containing the list of players by citizenship if found, or a not found response otherwise
      */
     @GetMapping("/get_players_by_nation")
-    public ResponseEntity<Optional<List<PlayerByCitizenship>>> getPlayersByCountryOfCitizenshipOrderByLastName(@RequestBody String country) {
-        Optional<List<PlayerByCitizenship>> result = playerService.getPlayersByCountryOfCitizenshipOrderByLastName(country);
+    public ResponseEntity<Optional<List<PlayerInformation>>> getPlayersByCountryOfCitizenshipOrderByLastName(@RequestBody String country) {
+        Optional<List<PlayerInformation>> result = playerService.getPlayersByCountryOfCitizenshipOrderByLastName(country);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

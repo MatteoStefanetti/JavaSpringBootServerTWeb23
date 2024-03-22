@@ -2,7 +2,7 @@ package com.unito.tweb.javaspringbootservertweb23.game;
 
 import com.unito.tweb.javaspringbootservertweb23.dto.*;
 
-import org.jetbrains.annotations.NotNull;
+
 import org.springframework.stereotype.Service;
 
 import java.sql.Timestamp;
@@ -128,7 +128,7 @@ public class GameService {
      * @param mapList The list of maps containing game data. Must not be null.
      * @return An optional containing a list of VisualizeGame objects representing the games, if the input list is not empty; otherwise, an empty optional
      */
-    private Optional<List<VisualizeGame>> getVisualizeGames(@NotNull List<Map<String, Object>> mapList) {
+    private Optional<List<VisualizeGame>> getVisualizeGames(List<Map<String, Object>> mapList) {
         if (mapList.isEmpty())
             return Optional.empty();
 

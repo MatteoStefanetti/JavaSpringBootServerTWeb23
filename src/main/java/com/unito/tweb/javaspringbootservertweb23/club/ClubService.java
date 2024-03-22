@@ -2,7 +2,6 @@ package com.unito.tweb.javaspringbootservertweb23.club;
 
 import com.unito.tweb.javaspringbootservertweb23.dto.ClubByNation;
 import com.unito.tweb.javaspringbootservertweb23.dto.ClubName;
-import com.unito.tweb.javaspringbootservertweb23.dto.VisualizeClub;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -71,19 +70,19 @@ public class ClubService {
      * @param localCompetitionCode The local competition code
      * @return A list of clubs with the specified local competition code
      */
-    public Optional<List<VisualizeClub>> findClubsByLocalCompetitionCode(String localCompetitionCode) {
+    public Optional<List<ClubName>> findClubsByLocalCompetitionCode(String localCompetitionCode) {
         List<Club> clubList = clubRepository.getClubsByLocalCompetitionCode(localCompetitionCode);
 
         if (clubList.isEmpty())
             return Optional.empty();
 
-        List<VisualizeClub> visualizeClubList = clubList.stream().
-                map(club -> new VisualizeClub(
+        List<ClubName> clubNameList = clubList.stream().
+                map(club -> new ClubName(
                         club.getClubId(),
                         club.getClubName()
                 )).toList();
 
-        return Optional.of(visualizeClubList);
+        return Optional.of(clubNameList);
     }
 
     /**

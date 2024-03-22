@@ -3,7 +3,6 @@ package com.unito.tweb.javaspringbootservertweb23.club;
 
 import com.unito.tweb.javaspringbootservertweb23.dto.ClubByNation;
 import com.unito.tweb.javaspringbootservertweb23.dto.ClubName;
-import com.unito.tweb.javaspringbootservertweb23.dto.VisualizeClub;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -92,14 +91,14 @@ public class ClubController {
             @ApiResponse(responseCode = "200",
                     description = "List of clubs retrieved successfully",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = VisualizeClub.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = ClubName.class)))),
             @ApiResponse(responseCode = "404",
                     description = "No clubs found with the specified localCompetitionCode",
                     content = @Content())
     })
     @GetMapping("/clubs_by_nation/{localCompetitionCode}")
-    public ResponseEntity<Optional<List<VisualizeClub>>> findClubsByLocalCompetitionCode(@PathVariable String localCompetitionCode) {
-        Optional<List<VisualizeClub>> result = clubService.findClubsByLocalCompetitionCode(localCompetitionCode);
+    public ResponseEntity<Optional<List<ClubName>>> findClubsByLocalCompetitionCode(@PathVariable String localCompetitionCode) {
+        Optional<List<ClubName>> result = clubService.findClubsByLocalCompetitionCode(localCompetitionCode);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
