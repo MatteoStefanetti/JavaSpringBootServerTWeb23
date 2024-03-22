@@ -18,16 +18,29 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 import java.util.Optional;
 
+/**
+ * REST controller for mapping Club entities.
+ */
 @RestController
 @RequestMapping("/clubs")
 public class ClubController {
     private final ClubService clubService;
 
+    /**
+     * Constructor for ClubController.
+     *
+     * @param clubService Club service to be injected
+     */
     @Autowired
     public ClubController(ClubService clubService) {
         this.clubService = clubService;
     }
 
+    /**
+     * Retrieves a list of recent club news.
+     *
+     * @return ResponseEntity containing a list of club names and IDs representing recent news
+     */
     @Operation(summary = "get recent club news", description = "Retrieves a list of the last 15 different games played")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -45,6 +58,12 @@ public class ClubController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    /**
+     * Retrieves a list of club IDs whose names start with the specified letter.
+     *
+     * @param letter The starting letter of club names
+     * @return ResponseEntity containing a list of club IDs whose names start with the specified letter
+     */
     @Operation(summary = "find clubs by letter", description = "Retrieves the list of clubs that has the name that begin with a certain string")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -62,6 +81,12 @@ public class ClubController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    /**
+     * Retrieves a list of clubs by their local competition code.
+     *
+     * @param localCompetitionCode The local competition code
+     * @return ResponseEntity containing a list of clubs with the specified local competition code
+     */
     @Operation(summary = "find clubs by local competition code", description = "Retrieves the list of clubs that come from a certain nation")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -79,6 +104,12 @@ public class ClubController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    /**
+     * Retrieves a list of clubs whose names contain the specified string.
+     *
+     * @param name The string to search for in club names
+     * @return ResponseEntity containing a list of clubs with names containing the specified string
+     */
     @Operation(description = "Retrieves the list of clubs whose name contains a certain string")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -96,6 +127,12 @@ public class ClubController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    /**
+     * Endpoint to add multiple clubs at once.
+     *
+     * @param clubs List of clubs to be added
+     * @return ResponseEntity indicating success or failure of club addition
+     */
     @Operation(summary = "Add multiple clubs", description = "Endpoint to add multiple clubs at once.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
@@ -112,6 +149,12 @@ public class ClubController {
                 : ResponseEntity.internalServerError().body("Error occurred while loading Clubs!");
     }
 
+    /**
+     * Retrieves a club with a certain name.
+     *
+     * @param name The name of the club to retrieve
+     * @return ResponseEntity containing the club with the specified name, if found
+     */
     @Operation(summary = "find club by name", description = "Retrieves a club with a certain name")
     @ApiResponses(value = {
             @ApiResponse(
@@ -132,6 +175,12 @@ public class ClubController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    /**
+     * Retrieve a club with a certain id.
+     *
+     * @param id The ID of the club to retrieve
+     * @return ResponseEntity containing the club with the specified ID, if found
+     */
     @Operation(description = "Retrieve a club with a certain id")
     @ApiResponses(value = {
             @ApiResponse(
