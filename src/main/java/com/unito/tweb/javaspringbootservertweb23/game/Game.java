@@ -99,7 +99,7 @@ public class Game {
 
     }
 
-// Getter and setter methods for the class attributes.
+    // Getter and setter methods for the class attributes.
 
     public Long getGameId() {
         return gameId;
