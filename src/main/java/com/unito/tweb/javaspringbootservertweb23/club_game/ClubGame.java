@@ -3,6 +3,9 @@ package com.unito.tweb.javaspringbootservertweb23.club_game;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+/**
+ * Represents a game played by a club, including details such as game ID, club ID, goals scored, positions, and match outcome.
+ */
 @Entity
 @Table(name = "club_games")
 public class ClubGame {
@@ -42,7 +45,19 @@ public class ClubGame {
     @JsonProperty("club_formation")
     private String clubFormation;
 
-    public ClubGame( Long gameId, Long clubId, Integer ownGoal, Integer ownPosition, String ownManagerName, boolean hosting, boolean isWin, String clubFormation) {
+    /**
+     * Constructs a new CLubGame object with the specified parameters.
+     *
+     * @param gameId         The ID of the game
+     * @param clubId         The ID of the club involved in the game
+     * @param ownGoal        The number of own goals scored by the club
+     * @param ownPosition    The position of the club in the tournament
+     * @param ownManagerName The name of the club's manager
+     * @param hosting        Indicates whether the club was the host of the game
+     * @param isWin          Indicates whether the club won the game
+     * @param clubFormation  The formation used by the club in the game
+     */
+    public ClubGame(Long gameId, Long clubId, Integer ownGoal, Integer ownPosition, String ownManagerName, boolean hosting, boolean isWin, String clubFormation) {
         this.gameId = gameId;
         this.clubId = clubId;
         this.ownGoal = ownGoal;
@@ -53,9 +68,14 @@ public class ClubGame {
         this.clubFormation = clubFormation;
     }
 
+    /**
+     * Empty constructor of ClubGame.
+     */
     public ClubGame() {
 
     }
+
+    //Getters and setters for the class fields
 
     public Long getClubId() {
         return clubId;
