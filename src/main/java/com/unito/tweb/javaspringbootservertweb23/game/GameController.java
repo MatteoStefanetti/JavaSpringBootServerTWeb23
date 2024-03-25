@@ -120,6 +120,17 @@ public class GameController {
      * @param clubName2 The name of the second club
      * @return ResponseEntity containing the list of games involving both clubs if found, or a NOT_FOUND response if no games were found
      */
+    @Operation(summary = "get games by club names",
+            description = "Retrieve a list of games based on the specified club names.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the list of games",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = VisualizeGame.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No games found for the specified club names",
+                    content = @Content())
+    })
     @GetMapping("/query_games_by_double_name/{clubName1}/{clubName2}")
     public ResponseEntity<Optional<List<VisualizeGame>>> getGamesByClubNames(@PathVariable String clubName1, @PathVariable String clubName2) {
         Optional<List<VisualizeGame>> result = gameService.getGamesByClubNames(clubName1, clubName2);
