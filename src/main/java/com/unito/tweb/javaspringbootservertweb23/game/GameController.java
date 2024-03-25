@@ -93,6 +93,17 @@ public class GameController {
      * @param season        The season of the games to exclude
      * @return ResponseEntity containing the list of games matching the criteria if found, or a NOT_FOUND response if no games were found
      */
+    @Operation(summary = "Get games by competition ID but excluding a certain season",
+            description = "Retrieve a list of games based on the specified competition ID and excluding a certain season.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the list of games",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = VisualizeGame.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No games found for the specified competition ID and season",
+                    content = @Content())
+    })
     @GetMapping("/get_games_by_competition_id/{competitionId}/{season}")
     public ResponseEntity<Optional<List<VisualizeGame>>> getGamesByCompetitionIdAndSeasonNot(@PathVariable String competitionId, @PathVariable Integer season) {
         Optional<List<VisualizeGame>> result = gameService.getGamesByCompetitionIdAndSeasonNot(competitionId, season);
