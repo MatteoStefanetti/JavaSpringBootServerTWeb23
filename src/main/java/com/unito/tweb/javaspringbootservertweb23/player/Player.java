@@ -188,7 +188,7 @@ public class Player {
 
     }
 
-    // Getters and setters omitted for brevity
+    // Getters and setters for the class attributes.
 
     public Long getPlayerId() {
         return playerId;

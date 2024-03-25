@@ -3,6 +3,9 @@ package com.unito.tweb.javaspringbootservertweb23.game_event;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 
+/**
+ * Represent a game event entity.
+ */
 @Entity
 @Table(name = "game_events")
 public class GameEvent {
@@ -43,6 +46,19 @@ public class GameEvent {
     @JsonProperty("player_id")
     private Long playerId;
 
+    /**
+     * Constructs a new GameEvent instance with the specified attributes.
+     *
+     * @param gameEventId      The unique identifier of the game event
+     * @param minute           The minute of the game when the event occurred
+     * @param eventType        The type of the event
+     * @param clubId           The ID of the club associated with the event
+     * @param eventDescription The description of the event
+     * @param playerInId       The ID of the player who replaces the player represented by playerId
+     * @param playerAssistId   The ID of the player who assisted the goal scored by the player represented in playerId
+     * @param gameId           The ID of the game associated with the event
+     * @param playerId         The ID of the player associated with the event
+     */
     public GameEvent(String gameEventId, Integer minute, String eventType, Long clubId, String eventDescription, Long playerInId, Long playerAssistId, Long gameId, Long playerId) {
         this.gameEventId = gameEventId;
         this.minute = minute;
@@ -55,10 +71,14 @@ public class GameEvent {
         this.playerId = playerId;
     }
 
+    /**
+     * Empty constructor of a new GameEvent instance.
+     */
     public GameEvent() {
 
     }
 
+    // Getters and setters for the class attributes.
     public String getGameEventId() {
         return gameEventId;
     }
