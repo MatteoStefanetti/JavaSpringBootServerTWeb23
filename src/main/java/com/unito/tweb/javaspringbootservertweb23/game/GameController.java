@@ -41,6 +41,17 @@ public class GameController {
      * @param games List of Game objects to be added
      * @return ResponseEntity indicating the success or failure of the operation
      */
+    @Operation(summary = "Add games",
+            description = "Add a list of games to the system.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Games successfully loaded",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "500",
+            description = "Error occurred while loading games",
+            content = @Content())
+    })
     @PostMapping("/add_games")
     public ResponseEntity<String> addGames(@RequestBody List<Game> games) {
         return gameService.saveGames(games) != null ? ResponseEntity.ok("Games successfully loaded!")
@@ -53,8 +64,18 @@ public class GameController {
      * @param id The ID of the game to retrieve
      * @return ResponseEntity containing the retrieved game if found, or a NOT_FOUND response if no game was found for the specified ID
      */
-    @GetMapping("/get_game_by_id")
-    public ResponseEntity<Optional<Game>> getGameById(@RequestBody Long id) {
+    @Operation(summary = "Get game by ID", description = "Retrieved a game based on the specified ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the game",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Game.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "Game not found",
+                    content = @Content())
+    })
+    @GetMapping("/get_game_by_id/{id}")
+    public ResponseEntity<Optional<Game>> getGameById(@PathVariable Long id) {
         Optional<Game> result = gameService.getGameById(id);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -65,6 +86,17 @@ public class GameController {
      *
      * @return ResponseEntity containing the list of last games played if found, or a NOT_FOUND response if no games were found
      */
+    @Operation(summary = "Get last games",
+            description = "Retrieve a list of last 20 games.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the list of last games",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = VisualizeGame.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No last games found",
+                    content = @Content())
+    })
     @GetMapping("/get_last_games")
     public ResponseEntity<Optional<List<VisualizeGame>>> getLastGames() {
         Optional<List<VisualizeGame>> result = gameService.getLastGames();
@@ -79,6 +111,17 @@ public class GameController {
      * @param season        The season of the games to retrieve
      * @return ResponseEntity containing the list of games matching the criteria if found, or a NOT_FOUND response if no games were found
      */
+    @Operation(summary = "Get games by competition ID and season",
+            description = "Retrieve a list of games based on the specified competition ID and season.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the list of games",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = VisualizeGame.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No games found for the specified competition ID and season",
+                    content = @Content())
+    })
     @GetMapping("/get_games_of_league/{competitionId}/{season}")
     public ResponseEntity<Optional<List<VisualizeGame>>> getGamesByCompetitionIdAndSeason(@PathVariable String competitionId, @PathVariable Integer season) {
         Optional<List<VisualizeGame>> result = gameService.getGamesByCompetitionIdAndSeason(competitionId, season);
