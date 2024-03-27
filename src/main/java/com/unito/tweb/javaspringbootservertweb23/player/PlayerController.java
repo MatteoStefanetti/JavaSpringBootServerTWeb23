@@ -3,6 +3,12 @@ package com.unito.tweb.javaspringbootservertweb23.player;
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerInformation;
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerCard;
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerName;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -34,6 +40,17 @@ public class PlayerController {
      * @param players The list of players to add
      * @return ResponseEntity indicating success or failure of the operation
      */
+    @Operation(summary = "Add players",
+            description = "Add a list of players to the system.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Players successfully loaded",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = String.class))),
+            @ApiResponse(responseCode = "500",
+                    description = "Error occurred while loading players",
+                    content = @Content())
+    })
     @PostMapping("/add_players")
     public ResponseEntity<String> addPlayers(@RequestBody List<Player> players) {
         return playerService.savePlayers(players) != null ? ResponseEntity.ok("Players successfully loaded!")
@@ -46,8 +63,19 @@ public class PlayerController {
      * @param name The string to search for in player names
      * @return ResponseEntity containing the list of player cards if found, or a not found response otherwise
      */
-    @GetMapping("/get_players_by_name")
-    public ResponseEntity<Optional<List<PlayerCard>>> getPlayersByPlayerNameIsContainingOrderByLastName(@RequestBody String name) {
+    @Operation(summary = "Get players by name",
+            description = "Retrieve a list of players whose name contains the specified substring, ordered by last name.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the list of players",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = PlayerCard.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No players found with the specified name",
+                    content = @Content())
+    })
+    @GetMapping("/get_players_by_name/{name}")
+    public ResponseEntity<Optional<List<PlayerCard>>> getPlayersByPlayerNameIsContainingOrderByLastName(@PathVariable String name) {
         Optional<List<PlayerCard>> result = playerService.getPlayersByPlayerNameIsContainingOrderByLastName(name);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -59,8 +87,19 @@ public class PlayerController {
      * @param country The country of citizenship to filter players by
      * @return ResponseEntity containing the list of players by citizenship if found, or a not found response otherwise
      */
-    @GetMapping("/get_players_by_nation")
-    public ResponseEntity<Optional<List<PlayerInformation>>> getPlayersByCountryOfCitizenshipOrderByLastName(@RequestBody String country) {
+    @Operation(summary = "Get players by country",
+            description = "Retrieve a list of players by their country of citizenship, ordered by last name.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the list of players",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = PlayerInformation.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No players found with the specified country",
+                    content = @Content())
+    })
+    @GetMapping("/get_players_by_nation/{country}")
+    public ResponseEntity<Optional<List<PlayerInformation>>> getPlayersByCountryOfCitizenshipOrderByLastName(@PathVariable String country) {
         Optional<List<PlayerInformation>> result = playerService.getPlayersByCountryOfCitizenshipOrderByLastName(country);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -72,8 +111,19 @@ public class PlayerController {
      * @param ids The list of player IDs to query
      * @return ResponseEntity containing the list of player names if found, or a not found response otherwise
      */
-    @GetMapping("/query_player_names_by_ids")
-    public ResponseEntity<Optional<List<PlayerName>>> getPlayersByIds(@RequestBody List<Long> ids) {
+    @Operation(summary = "Get players by IDs",
+            description = "Retrieve a list of player names by their IDs.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the list of player names",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = PlayerName.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No players found with the specified IDs",
+                    content = @Content())
+    })
+    @GetMapping("/query_player_names_by_ids/{ids}")
+    public ResponseEntity<Optional<List<PlayerName>>> getPlayersByIds(@PathVariable List<Long> ids) {
         Optional<List<PlayerName>> result = playerService.getPlayersByIds(ids);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
@@ -85,8 +135,19 @@ public class PlayerController {
      * @param id The ID of the player to retrieve
      * @return ResponseEntity containing the player entity if found, or a not found response otherwise
      */
-    @GetMapping("/get_player_by_id")
-    public ResponseEntity<Optional<Player>> getPlayerById(@RequestBody Long id) {
+    @Operation(summary = "Get player by ID",
+            description = "Retrieve a player by their ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the player",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Player.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "Player not found",
+                    content = @Content())
+    })
+    @GetMapping("/get_player_by_id/{id}")
+    public ResponseEntity<Optional<Player>> getPlayerById(@PathVariable Long id) {
         Optional<Player> result = playerService.getPlayerById(id);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
