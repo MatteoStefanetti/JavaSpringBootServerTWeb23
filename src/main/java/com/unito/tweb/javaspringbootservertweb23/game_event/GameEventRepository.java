@@ -14,7 +14,7 @@ public interface GameEventRepository extends JpaRepository<GameEvent, String> {
      * Retrieves an optional GameEvent object by its game ID.
      *
      * @param gameId The ID of the game
-     * @return An optional GameEvent object corresponding to the given gameID, or an empty optional if not found
+     * @return An optional list of GameEvent objects corresponding to the given gameID, or an empty optional if not found
      */
-    Optional<GameEvent> findByGameId(Long gameId);
+    Optional<List<GameEvent>> findByGameId(Long gameId);
 }

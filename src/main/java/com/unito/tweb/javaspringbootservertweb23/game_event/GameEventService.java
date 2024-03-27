@@ -44,9 +44,9 @@ public class GameEventService {
      * Retrieves a game event by its associated game ID.
      *
      * @param id The ID of the game
-     * @return An optional {@link GameEvent} object corresponding to the given game ID, or an empty optional if not found
+     * @return An optional {@link List<GameEvent>} object corresponding to the given game ID, or an empty optional if not found
      */
-    public Optional<GameEvent> getGameEventByGameId(Long id) {
+    public Optional<List<GameEvent>> getGameEventsByGameId(Long id) {
         return gameEventRepository.findByGameId(id);
     }
 }
