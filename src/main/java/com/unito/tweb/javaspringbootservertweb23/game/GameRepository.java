@@ -81,7 +81,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "join clubs c1 on c1.club_id = cg1.club_id " +
             "join club_games cg2 on g.game_id = cg2.game_id and cg1.club_id <> cg2.club_id " +
             "join clubs c2 on cg2.club_id = c2.club_id " +
-            "where c1.club_id < c2.club_id and c1.club_name like %:clubName% " +
+            "where c1.club_id < c2.club_id and (c1.club_name like %:clubName% or c2.club_name like %:clubName%)" +
             "order by game_date desc", nativeQuery = true)
     List<Map<String, Object>> getGamesByClubName(String clubName);
 
@@ -98,7 +98,8 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "join clubs c1 on c1.club_id = cg1.club_id " +
             "join club_games cg2 on g.game_id = cg2.game_id and cg1.club_id <> cg2.club_id " +
             "join clubs c2 on cg2.club_id = c2.club_id " +
-            "where c1.club_id < c2.club_id and c1.club_name like %:clubName1% and c2.club_name like %:clubName2% " +
+            "where c1.club_id < c2.club_id and ((c1.club_name like %:clubName1% and c2.club_name like %:clubName2%) or " +
+            "(c1.club_name like %:clubName2% and c2.club_name like %:clubName1%)) " +
             "order by game_date desc", nativeQuery = true)
     List<Map<String, Object>> getGamesByClubNames(String clubName1, String clubName2);
 
@@ -117,6 +118,21 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "where c1.club_id < c2.club_id and cast (g.game_date as date) = :gameDate", nativeQuery = true)
     List<Map<String, Object>> getGamesByGameDate(Date gameDate);
 
+    /**
+     * Retrieves games by a club ID and a season year.
+     *
+     * @param id     The ID of the club
+     * @param season The year of the season
+     * @return A list of information relative to games that were played in the specified season by the specified club
+     */
+    @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as club1, cg1.own_goal as goal1, c2.club_name as club2, cg2.own_goal as goal2 " +
+            "from games g " +
+            "join club_games cg1 on g.game_id = cg1.game_id " +
+            "join clubs c1 on c1.club_id = cg1.club_id " +
+            "join club_games cg2 on g.game_id = cg2.game_id and cg1.club_id <> cg2.club_id " +
+            "join clubs c2 on cg2.club_id = c2.club_id " +
+            "where c1.club_id < c2.club_id and (c1.club_id = :id or c2.club_id = :id) and g.season = :season", nativeQuery = true)
+    List<Map<String, Object>> getGamesByGameIdAndSeason(Long id, Integer season);
 }
 
 
