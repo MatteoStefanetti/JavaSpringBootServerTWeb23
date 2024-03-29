@@ -94,9 +94,9 @@ public class PlayerService {
      * Retrieves a list of players by their IDs.
      *
      * @param ids The list of player IDs to retrieve
-     * @return A list of player names containing player ID and name
+     * @return An {@link Optional} containing list of player names if found, or an empty {@link Optional} otherwise
      */
-    public Optional<List<PlayerName>> getPlayersByIds(List<Long> ids) {
+    public Optional<List<PlayerName>> getPlayersNamesByIds(List<Long> ids) {
         List<Player> players = playerRepository.findAllById(ids);
 
         if (players.isEmpty())
@@ -116,9 +116,32 @@ public class PlayerService {
      * Retrieves a player by their ID.
      *
      * @param id The ID of the player to retrieve
-     * @return An Optional containing the player entity if found, or an empty Optional otherwise
+     * @return An {@link Optional} containing the player entity if found, or an empty {@link Optional} otherwise
      */
     public Optional<Player> getPlayerById(Long id) {
         return playerRepository.findById(id);
+    }
+
+    /**
+     * Retrieves a list of players by their IDs.
+     *
+     * @param ids The list of player IDs to retrieve
+     * @return An {@link Optional} containing list of player cards if found, or an empty {@link Optional} otherwise
+     */
+    public Optional<List<PlayerCard>> getPlayersByIds(List<Long> ids) {
+        List<Player> players = playerRepository.findAllById(ids);
+
+        if (players.isEmpty())
+            return Optional.empty();
+
+        List<PlayerCard> playerNameList = players.stream()
+                .map(player -> new PlayerCard(
+                        player.getPlayerId(),
+                        player.getPlayerName(),
+                        player.getImageUrl()
+                ))
+                .toList();
+
+        return Optional.of(playerNameList);
     }
 }

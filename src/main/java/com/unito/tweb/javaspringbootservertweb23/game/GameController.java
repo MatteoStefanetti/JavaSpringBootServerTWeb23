@@ -49,8 +49,8 @@ public class GameController {
                     content = @Content(mediaType = "application/json",
                             schema = @Schema(implementation = String.class))),
             @ApiResponse(responseCode = "500",
-            description = "Error occurred while loading games",
-            content = @Content())
+                    description = "Error occurred while loading games",
+                    content = @Content())
     })
     @PostMapping("/add_games")
     public ResponseEntity<String> addGames(@RequestBody List<Game> games) {
@@ -223,6 +223,31 @@ public class GameController {
     @GetMapping("/query_games_by_date/{gameDate}")
     public ResponseEntity<Optional<List<VisualizeGame>>> getGamesByGameDate(@PathVariable Date gameDate) {
         Optional<List<VisualizeGame>> result = gameService.getGamesByGameDate(gameDate);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * Endpoint for retrieving games by a specific club ID and a specific season.
+     *
+     * @param id     The ID of the club
+     * @param season The year of the season
+     * @return A {@link ResponseEntity} containing the list of {@link VisualizeGame} objects if found, or a NOT_FOUND response if no games were found
+     */
+    @Operation(summary = "Get games by club ID",
+            description = "Retrieve a list of games based on the specified club ID and season.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the list of games",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = VisualizeGame.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No games found for the specified date",
+                    content = @Content())
+    })
+    @GetMapping("/get_games_by_club_id/{id}/{season}")
+    public ResponseEntity<Optional<List<VisualizeGame>>> getGamesByClubId(@PathVariable Long id, @PathVariable Integer season) {
+        Optional<List<VisualizeGame>> result = gameService.getGamesByClubId(id, season);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }

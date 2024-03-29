@@ -123,6 +123,18 @@ public class GameService {
     }
 
     /**
+     * Retrieves games by club ID and season.
+     *
+     * @param id     The ID of the club
+     * @param season The year of the season
+     * @return An {@link Optional} containing a list of {@link VisualizeGame} objects representing the games matching the criteria, if found
+     */
+    public Optional<List<VisualizeGame>> getGamesByClubId(Long id, Integer season) {
+        List<Map<String, Object>> mapList = gameRepository.getGamesByGameIdAndSeason(id, season);
+        return getVisualizeGames(mapList);
+    }
+
+    /**
      * Converts a list of maps representing game data into a list of VisualizeGame objects.
      *
      * @param mapList The list of maps containing game data. Must not be null.
@@ -145,4 +157,5 @@ public class GameService {
 
         return Optional.of(visualizeGameList);
     }
+
 }
