@@ -200,4 +200,28 @@ public class ClubController {
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    /**
+     * Retrieves a list of competition ID that a club had take part.
+     *
+     * @param id The ID of the club
+     * @return ResponseEntity containing a list of String that represents the competition ID
+     */
+    @Operation(summary = "Get the list of competition of a club",
+            description = "Retrieve a list of competition IDs representing the competitions that a certain club as participated in.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "List of competition IDs found successfully",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = String.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No Competition ID found",
+                    content = @Content())
+    })
+    @GetMapping("/get_club_competitions_id/{id}")
+    public ResponseEntity<Optional<List<String>>> getClubsCompetitionId(@PathVariable Long id) {
+        Optional<List<String>> result = clubService.getClubsCompetitionId(id);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }
