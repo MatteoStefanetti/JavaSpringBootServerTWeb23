@@ -12,6 +12,19 @@ import java.util.*;
 @Repository
 public interface ClubRepository extends JpaRepository<Club, Long> {
     /**
+     * Retrieves a list of competition ID that the club had take part.
+     *
+     * @param id The ID of the club
+     * @return A list of String that represents the competition ID that the club had take part
+     */
+    @Query(value = "select distinct g.competition_id " +
+            "from clubs c " +
+            "join club_games cg on c.club_id = cg.club_id " +
+            "join games g on cg.game_id = g.game_id " +
+            "where c.club_id = :id", nativeQuery = true)
+    Optional<List<String>> getClubsCompetitionId(Long id);
+
+    /**
      * Retrieves a list of recent club news.
      *
      * @return A list of maps containing club ID, club name, game ID, and game date

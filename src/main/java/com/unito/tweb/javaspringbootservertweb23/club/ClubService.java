@@ -139,4 +139,14 @@ public class ClubService {
     public Optional<Club> getClubById(Long id) {
         return clubRepository.findByClubId(id);
     }
+
+    /**
+     * Retrieves a list of competition ID that the club had take part.
+     *
+     * @param id The ID of the club
+     * @return A list of String that represents the competition ID that the club had take part
+     */
+    public Optional<List<String>> getClubsCompetitionId(Long id) {
+        return clubRepository.getClubsCompetitionId(id);
+    }
 }
