@@ -50,7 +50,7 @@ public class PlayerService {
      * @return A list of player cards containing player ID, name, and image URL
      */
     public Optional<List<PlayerCard>> getPlayersByPlayerNameIsContainingOrderByLastName(String name) {
-        List<Player> players = playerRepository.getPlayersByPlayerNameIsContainingOrderByLastName(name);
+        List<Player> players = playerRepository.findPlayersByPlayerNameIgnoreCaseContainingOrderByLastName(name);
 
         if (players.isEmpty())
             return Optional.empty();

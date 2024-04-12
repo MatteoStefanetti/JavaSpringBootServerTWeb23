@@ -103,7 +103,7 @@ public class ClubService {
      * @return A list of clubs whose names contain the specified string
      */
     public Optional<List<ClubByNation>> findClubsByClubNameContaining(String name) {
-        List<Club> clubList = clubRepository.findClubsByClubNameContaining(name);
+        List<Club> clubList = clubRepository.findClubsByClubNameIgnoreCaseContaining(name);
 
         if (clubList.isEmpty()) {
             return Optional.empty();

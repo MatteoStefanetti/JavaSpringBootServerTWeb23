@@ -24,5 +24,5 @@ public interface PlayerRepository extends JpaRepository<Player, Long> {
      * @param name The string to search for in player names
      * @return A list of players whose names contain the specified string, ordered by last name
      */
-    List<Player> getPlayersByPlayerNameIsContainingOrderByLastName(String name);
+    List<Player> findPlayersByPlayerNameIgnoreCaseContainingOrderByLastName(String name);
 }

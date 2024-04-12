@@ -50,7 +50,7 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
      * @param name The string to search for in club names
      * @return A list of clubs whose names contain the provided string
      */
-    List<Club> findClubsByClubNameContaining(String name);
+    List<Club> findClubsByClubNameIgnoreCaseContaining(String name);
 
     /**
      * Retrieves a club by its name.
