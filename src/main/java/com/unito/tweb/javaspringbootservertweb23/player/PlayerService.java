@@ -59,6 +59,7 @@ public class PlayerService {
                 .map(player -> new PlayerCard(
                         player.getPlayerId(),
                         player.getPlayerName(),
+                        player.getLastName(),
                         player.getImageUrl()
                 ))
                 .toList();
@@ -138,6 +139,7 @@ public class PlayerService {
                 .map(player -> new PlayerCard(
                         player.getPlayerId(),
                         player.getPlayerName(),
+                        player.getLastName(),
                         player.getImageUrl()
                 ))
                 .toList();
