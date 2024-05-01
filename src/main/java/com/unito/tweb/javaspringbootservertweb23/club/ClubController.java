@@ -202,6 +202,34 @@ public class ClubController {
     }
 
     /**
+     * Retrieve a club name with a certain ID.
+     *
+     * @param id The ID of the club to retrieve
+     * @return ResponseEntity containing the club name with the specified ID, if found*/
+    @Operation(description = "Retrieve a club name with a certain id")
+    @ApiResponses(value = {
+            @ApiResponse(
+                    responseCode = "200",
+                    description = "Club name found successfully",
+                    content = @Content(
+                            mediaType = "application/json",
+                            schema = @Schema(implementation = ClubName.class)
+                    )
+            ),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Club ID not found",
+                    content = @Content
+            )
+    })
+    @GetMapping("/get_club_name_by_id/{id}")
+    public ResponseEntity<Optional<ClubName>> getClubNameById(@PathVariable Long id) {
+        Optional<ClubName> result = clubService.findClubNameByClubId(id);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
      * Retrieves a list of competition ID that a club had take part.
      *
      * @param id The ID of the club

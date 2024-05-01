@@ -84,6 +84,22 @@ public class ClubService {
 
         return Optional.of(clubNameList);
     }
+    /**
+     * Retrieves club IDs whose names start with the specified letter.
+     *
+     * @param clubId The starting letter of club names
+     * @return A list of club IDs whose names start with the specified letter
+     */
+    public Optional<ClubName> findClubNameByClubId(Long clubId) {
+        Map<String, Object> club = clubRepository.findClubNameByClubId(clubId);
+        if(club.isEmpty())
+            return Optional.empty();
+        ClubName result =  new ClubName(
+                (Long) club.get("club_id"),
+                (String) club.get("club_name")
+        );
+        return Optional.of(result);
+    }
 
     /**
      * Retrieves club IDs whose names start with the specified letter.

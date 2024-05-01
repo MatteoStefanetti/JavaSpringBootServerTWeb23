@@ -76,4 +76,14 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
      * @return An optional containing the club if found, otherwise empty
      */
     Optional<Club> findByClubId(Long id);
+
+    /**
+     * Retrieves a club name by its ID.
+     *
+     * @param id The ID of the club
+     * @return A Map object containing the club name and id if found*/
+    @Query(value = "SELECT club_id, club_name " +
+            "FROM clubs " +
+            "WHERE club_id = :id", nativeQuery = true)
+    Map<String, Object> findClubNameByClubId(Long id);
 }
