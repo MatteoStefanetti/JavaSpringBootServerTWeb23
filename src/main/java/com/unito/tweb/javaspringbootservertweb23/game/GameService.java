@@ -149,9 +149,11 @@ public class GameService {
                         (Long) game.get("game_id"),
                         (Timestamp) game.get("game_date"),
                         (String) game.get("competition_id"),
-                        (String) game.get("club1"),
+                        (String) game.get("clubName1"),
+                        (Long) game.get("clubId1"),
                         (Integer) game.get("goal1"),
-                        (String) game.get("club2"),
+                        (String) game.get("clubName2"),
+                        (Long) game.get("clubId2"),
                         (Integer) game.get("goal2")
                 )).toList();
 

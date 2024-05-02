@@ -9,9 +9,11 @@ public record VisualizeGame(
         Long gameId,
         Timestamp gameDate,
         String competitionId,
-        String club1,
+        String clubName1,
+        Long clubId1,
         Integer goal1,
-        String club2,
+        String clubName2,
+        Long clubId2,
         Integer goal2
 ) {
 }
