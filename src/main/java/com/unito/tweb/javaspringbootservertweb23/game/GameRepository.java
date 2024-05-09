@@ -52,6 +52,13 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Map<String, Object>> getGamesByCompetitionIdAndSeason(String competitionId, Integer season);
 
     /**
+     * @return an Integer for the last season found in the database.
+     */
+    @Query(value = "select g.game_date from games g " +
+            "order by g.game_date desc LIMIT 1", nativeQuery = true)
+    List<Map<String, Object>> getLastSeason();
+
+    /**
      * Retrieves games by competition ID and season, excluding a specific season.
      *
      * @param competitionId The ID of the competition

@@ -123,6 +123,16 @@ public class GameService {
     }
 
     /**
+     * Retrieves an integer from the games representing the current season of the database.
+     *
+     * @return An optional containing an Integer, representing the current season, if found.
+     */
+    public Optional<Integer> getSeasonYearFromGames() {
+        List<Map<String, Object>> obj = gameRepository.getLastSeason();
+        return retrieveLastSeasonInteger(obj);
+    }
+
+    /**
      * Retrieves games by club ID and season.
      *
      * @param id     The ID of the club
@@ -158,6 +168,20 @@ public class GameService {
                 )).toList();
 
         return Optional.of(visualizeGameList);
+    }
+
+    /**
+     * Converts a map list of one element representing the last game_date into an Integer.
+     *
+     * @param obj The map list containing game_date. Must not be null.
+     * @return An optional containing an Integer, if the input is not empty; otherwise, an empty optional
+     */
+    private Optional<Integer> retrieveLastSeasonInteger(List<Map<String, Object>> obj) {
+        if (obj.isEmpty())
+            return Optional.empty();
+
+        Integer result = ((Timestamp)(obj.get(0).get("game_Date"))).toLocalDateTime().getYear();
+        return Optional.of(result);
     }
 
 }

@@ -129,6 +129,24 @@ public class GameController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    @Operation(summary = "Get the current season year",
+            description = "Retrieve a number, representing the current season from the games table.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the year",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Integer.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "No games found while searching for the season",
+                    content = @Content())
+    })
+    @GetMapping("/get_current_season_year")
+    public ResponseEntity<Optional<Integer>> getCurrentSeasonYear() {
+        Optional<Integer> result = gameService.getSeasonYearFromGames();
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
     /**
      * Endpoint for retrieving games of a league for seasons other than a specific season.
      *
