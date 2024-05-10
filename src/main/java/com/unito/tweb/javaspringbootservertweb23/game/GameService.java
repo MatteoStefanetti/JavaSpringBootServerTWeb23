@@ -125,10 +125,11 @@ public class GameService {
     /**
      * Retrieves an integer from the games representing the current season of the database.
      *
+     * @param competitionId The ID of the competition
      * @return An optional containing an Integer, representing the current season, if found.
      */
-    public Optional<Integer> getSeasonYearFromGames() {
-        Map<String, Object> obj = gameRepository.getLastSeason();
+    public Optional<Integer> getSeasonYearFromGames(String competitionId) {
+        Map<String, Object> obj = gameRepository.getLastSeason(competitionId);
         return retrieveLastSeasonInteger(obj);
     }
 

@@ -130,7 +130,7 @@ public class GameController {
     }
 
     @Operation(summary = "Get the current season year",
-            description = "Retrieve a number, representing the current season from the games table.")
+            description = "Retrieve a number, representing the last season of the given competition from the games table.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
                     description = "Successfully retrieved the year",
@@ -140,9 +140,9 @@ public class GameController {
                     description = "No games found while searching for the season",
                     content = @Content())
     })
-    @GetMapping("/get_current_season_year")
-    public ResponseEntity<Optional<Integer>> getCurrentSeasonYear() {
-        Optional<Integer> result = gameService.getSeasonYearFromGames();
+    @GetMapping("/get_current_season_year/{competitionId}")
+    public ResponseEntity<Optional<Integer>> getCurrentSeasonYear(@PathVariable String competitionId) {
+        Optional<Integer> result = gameService.getSeasonYearFromGames(competitionId);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
