@@ -128,7 +128,7 @@ public class GameService {
      * @return An optional containing an Integer, representing the current season, if found.
      */
     public Optional<Integer> getSeasonYearFromGames() {
-        List<Map<String, Object>> obj = gameRepository.getLastSeason();
+        Map<String, Object> obj = gameRepository.getLastSeason();
         return retrieveLastSeasonInteger(obj);
     }
 
@@ -171,16 +171,16 @@ public class GameService {
     }
 
     /**
-     * Converts a map list of one element representing the last game_date into an Integer.
+     * Converts a map representing the last season into an Integer.
      *
-     * @param obj The map list containing game_date. Must not be null.
+     * @param obj The map containing season. Must not be null.
      * @return An optional containing an Integer, if the input is not empty; otherwise, an empty optional
      */
-    private Optional<Integer> retrieveLastSeasonInteger(List<Map<String, Object>> obj) {
+    private Optional<Integer> retrieveLastSeasonInteger(Map<String, Object> obj) {
         if (obj.isEmpty())
             return Optional.empty();
 
-        Integer result = ((Timestamp)(obj.get(0).get("game_Date"))).toLocalDateTime().getYear();
+        Integer result = (Integer)obj.get("season");
         return Optional.of(result);
     }
 
