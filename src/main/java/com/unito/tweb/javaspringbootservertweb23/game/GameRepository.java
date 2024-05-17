@@ -140,6 +140,21 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "join clubs c2 on cg2.club_id = c2.club_id " +
             "where c1.club_id < c2.club_id and (c1.club_id = :id or c2.club_id = :id) and g.season = :season", nativeQuery = true)
     List<Map<String, Object>> getGamesByGameIdAndSeason(Long id, Integer season);
+
+    /**
+     * Retrieves a game information by a game ID.
+     *
+     * @param id The ID of the game
+     * @return The data of the game to visualize
+     */
+    @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
+            "from games g " +
+            "join club_games cg1 on g.game_id = cg1.game_id " +
+            "join clubs c1 on c1.club_id = cg1.club_id " +
+            "join club_games cg2 on g.game_id = cg2.game_id and cg1.club_id <> cg2.club_id " +
+            "join clubs c2 on cg2.club_id = c2.club_id " +
+            "where c1.club_id < c2.club_id and g.game_id = :id", nativeQuery = true)
+    Map<String, Object> getGameById(Long id);
 }
 
 
