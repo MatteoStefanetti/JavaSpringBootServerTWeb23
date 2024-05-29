@@ -81,9 +81,32 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
      * Retrieves a club name by its ID.
      *
      * @param id The ID of the club
-     * @return A Map object containing the club name and id if found*/
+     * @return A Map object containing the club name and id if found
+     */
     @Query(value = "SELECT club_id, club_name " +
             "FROM clubs " +
             "WHERE club_id = :id", nativeQuery = true)
     Map<String, Object> findClubNameByClubId(Long id);
+
+    /**
+     * Retrieves a list of players card that are member of a certain club
+     *
+     * @param clubId The ID of the club
+     * @return A List of Map object containing the player's ID, the player's name, the player's last name and the player's image url
+     */
+    @Query(value = "SELECT p.player_id, p.player_name, p.last_name, p.image_url " +
+            "FROM Players p JOIN Clubs c ON p.current_club_id = c.club_id " +
+            "WHERE p.current_club_id = :clubId AND c.last_season <= p.last_season", nativeQuery = true)
+    List<Map<String, Object>> findPlayersByCurrentClubIdAndLastSeason(Long clubId);
+
+    /**
+     * Retrieves a list of players card that were member of a certain club at the end of their career
+     *
+     * @param clubId The ID of the club
+     * @return A List of Map object containing the player's ID, the player's name, the player's last name and the player's image url*/
+    @Query(value = "SELECT p.player_id, p.player_name, p.last_name, p.image_url " +
+            "FROM Players p JOIN Clubs c ON p.current_club_id = c.club_id " +
+            "WHERE p.current_club_id = :clubId AND c.last_season > p.last_season " +
+            "ORDER BY p.last_season DESC", nativeQuery = true)
+    List<Map<String, Object>> findPastPlayerByCurrentClubId(Long clubId);
 }

@@ -2,6 +2,8 @@ package com.unito.tweb.javaspringbootservertweb23.club;
 
 import com.unito.tweb.javaspringbootservertweb23.dto.ClubByNation;
 import com.unito.tweb.javaspringbootservertweb23.dto.ClubName;
+import com.unito.tweb.javaspringbootservertweb23.dto.PlayerCard;
+import com.unito.tweb.javaspringbootservertweb23.player.Player;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -84,6 +86,7 @@ public class ClubService {
 
         return Optional.of(clubNameList);
     }
+
     /**
      * Retrieves club IDs whose names start with the specified letter.
      *
@@ -92,9 +95,9 @@ public class ClubService {
      */
     public Optional<ClubName> findClubNameByClubId(Long clubId) {
         Map<String, Object> club = clubRepository.findClubNameByClubId(clubId);
-        if(club.isEmpty())
+        if (club.isEmpty())
             return Optional.empty();
-        ClubName result =  new ClubName(
+        ClubName result = new ClubName(
                 (Long) club.get("club_id"),
                 (String) club.get("club_name")
         );
@@ -164,5 +167,49 @@ public class ClubService {
      */
     public Optional<List<String>> getClubsCompetitionId(Long id) {
         return clubRepository.getClubsCompetitionId(id);
+    }
+
+    /**
+     * Retrieves a list of Players that are active member of a certain Club.
+     *
+     * @param clubId The ID of the club
+     * @return A list of Player Card representing the list of Player of a certain Club
+     */
+    public Optional<List<PlayerCard>> getCurrentPlayerOfClub(Long clubId) {
+        List<Map<String, Object>> playersList = clubRepository.findPlayersByCurrentClubIdAndLastSeason(clubId);
+        return getPlayerCards(playersList);
+    }
+
+    /**
+     * Retrieves a list of Players that are past member of a certain Club.
+     *
+     * @param clubId The ID of the club
+     * @return A list of Player Card representing the list of Player that played, at the end of their career, in a certain Club
+     */
+    public Optional<List<PlayerCard>> getPastPlayerOfClub(Long clubId) {
+        List<Map<String, Object>> playersList = clubRepository.findPastPlayerByCurrentClubId(clubId);
+        return getPlayerCards(playersList);
+    }
+
+    /**
+     * Method to extract a List of PlayerCard dto from a List of Map object.
+     *
+     * @param playersList The List of Map object that contains the data of the Player Card
+     * @return The List of Player Card or an Empty Optional if the initial List was empty
+     */
+    private Optional<List<PlayerCard>> getPlayerCards(List<Map<String, Object>> playersList) {
+        if (playersList.isEmpty())
+            return Optional.empty();
+
+        List<PlayerCard> playerCardList = playersList.stream()
+                .map(player -> new PlayerCard(
+                        (Long) player.get("player_id"),
+                        (String) player.get("player_name"),
+                        (String) player.get("last_name"),
+                        (String) player.get("image_url")
+                ))
+                .toList();
+
+        return Optional.of(playerCardList);
     }
 }

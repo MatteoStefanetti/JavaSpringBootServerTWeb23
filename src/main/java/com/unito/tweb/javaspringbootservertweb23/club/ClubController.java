@@ -3,6 +3,7 @@ package com.unito.tweb.javaspringbootservertweb23.club;
 
 import com.unito.tweb.javaspringbootservertweb23.dto.ClubByNation;
 import com.unito.tweb.javaspringbootservertweb23.dto.ClubName;
+import com.unito.tweb.javaspringbootservertweb23.dto.PlayerCard;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -205,7 +206,8 @@ public class ClubController {
      * Retrieve a club name with a certain ID.
      *
      * @param id The ID of the club to retrieve
-     * @return ResponseEntity containing the club name with the specified ID, if found*/
+     * @return ResponseEntity containing the club name with the specified ID, if found
+     */
     @Operation(description = "Retrieve a club name with a certain id")
     @ApiResponses(value = {
             @ApiResponse(
@@ -249,6 +251,54 @@ public class ClubController {
     @GetMapping("/get_club_competitions_id/{id}")
     public ResponseEntity<Optional<List<String>>> getClubsCompetitionId(@PathVariable Long id) {
         Optional<List<String>> result = clubService.getClubsCompetitionId(id);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * Retrieves a list of Player Cards representing the active member of a certain club.
+     *
+     * @param clubId The ID of the club
+     * @return ResponseEntity containing a list of Player Cards representing the list of Player of a certain Club
+     */
+    @Operation(summary = "Get the list of players of a club",
+            description = "Retrieves a list of Player Cards representing the active member of a certain club.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "List of Player's Card retrieved successfully",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = PlayerCard.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No Players found or no Club found",
+                    content = @Content())
+    })
+    @GetMapping("/get_current_players/{clubId}")
+    public ResponseEntity<Optional<List<PlayerCard>>> getPlayersOfClub(@PathVariable Long clubId) {
+        Optional<List<PlayerCard>> result = clubService.getCurrentPlayerOfClub(clubId);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
+     * Retrieves a list of Player Cards representing the past member of a certain club.
+     *
+     * @param clubId The ID of the club
+     * @return ResponseEntity containing a list of Player Cards representing the list of the past Player of a certain Club
+     */
+    @Operation(summary = "Get the list of past players of a club",
+            description = "Retrieves a list of Player Cards representing the past member of a certain club.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "List of Player's Card successfully",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = PlayerCard.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No Players found or no Club found",
+                    content = @Content())
+    })
+    @GetMapping("/get_past_players/{clubId}")
+    public ResponseEntity<Optional<List<PlayerCard>>> getPastPlayersOfClub(@PathVariable Long clubId) {
+        Optional<List<PlayerCard>> result = clubService.getPastPlayerOfClub(clubId);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
