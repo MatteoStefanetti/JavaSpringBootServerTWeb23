@@ -139,7 +139,27 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "join club_games cg2 on g.game_id = cg2.game_id and cg1.club_id <> cg2.club_id " +
             "join clubs c2 on cg2.club_id = c2.club_id " +
             "where c1.club_id < c2.club_id and (c1.club_id = :id or c2.club_id = :id) and g.season = :season", nativeQuery = true)
-    List<Map<String, Object>> getGamesByGameIdAndSeason(Long id, Integer season);
+    List<Map<String, Object>> getGamesByClubIdAndSeason(Long id, Integer season);
+
+    /**
+     * Retrieves games by a club ID, and it's last season.
+     *
+     * @param clubId The ID of the club
+     * @return A {@link List} of information relative to games that were played in the last season by the specified club
+     */
+    @Query(value = "WITH MaxLastSeason AS (" +
+            "SELECT c.last_season AS max_last_season " +
+            "FROM clubs c " +
+            "WHERE c.club_id = :clubId) " +
+            "SELECT g.game_id, g.game_date, g.competition_id, c1.club_name AS clubName1, c1.club_id AS clubId1, cg1.own_goal AS goal1, c2.club_name AS clubName2, c2.club_id AS clubId2, cg2.own_goal AS goal2 " +
+            "FROM games g " +
+            "JOIN club_games cg1 ON g.game_id = cg1.game_id " +
+            "JOIN clubs c1 ON cg1.club_id = c1.club_id " +
+            "JOIN club_games cg2 ON g.game_id = cg2.game_id AND cg1.club_id <> cg2.club_id " +
+            "JOIN clubs c2 ON cg2.club_id = c2.club_id " +
+            "WHERE c1.club_id < c2.club_id AND (c1.club_id = :clubId OR c2.club_id = :clubId) AND g.season = (SELECT max_last_season FROM MaxLastSeason) " +
+            "ORDER BY g.game_date DESC", nativeQuery = true)
+    List<Map<String, Object>> getLastGamesByClubId(Long clubId);
 
     /**
      * Retrieves a game information by a game ID.

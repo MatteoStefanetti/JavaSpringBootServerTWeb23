@@ -293,4 +293,28 @@ public class GameController {
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
+
+    /**
+     * Endpoint for retrieving games by a specific club id and the last season played by the specified club.
+     *
+     * @param clubId The ID of the club
+     * @return A {@link ResponseEntity} containing the list of {@link VisualizeGame} objects if found, or a NOT_FOUND response if no games were found
+     */
+    @Operation(summary = "Get last games of a club ID",
+            description = "Retrieve a list of the last games of a certain club ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the list of games",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = VisualizeGame.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No games found for the specified date",
+                    content = @Content())
+    })
+    @GetMapping("/get_last_games_by_club/{clubId}")
+    public ResponseEntity<Optional<List<VisualizeGame>>> getLastGamesByClubId(@PathVariable Long clubId) {
+        Optional<List<VisualizeGame>> result = gameService.getLastGamesByClubId(clubId);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
 }

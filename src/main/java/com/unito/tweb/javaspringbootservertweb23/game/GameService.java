@@ -169,7 +169,18 @@ public class GameService {
      * @return An {@link Optional} containing a list of {@link VisualizeGame} objects representing the games matching the criteria, if found
      */
     public Optional<List<VisualizeGame>> getGamesByClubId(Long id, Integer season) {
-        List<Map<String, Object>> mapList = gameRepository.getGamesByGameIdAndSeason(id, season);
+        List<Map<String, Object>> mapList = gameRepository.getGamesByClubIdAndSeason(id, season);
+        return getVisualizeGames(mapList);
+    }
+
+    /**
+     * Retrieves the last season games of a certain club.
+     *
+     * @param id The ID of the club
+     * @return An {@link Optional} containing a list of {@link VisualizeGame} object representing the games matching the criteria, if found
+     */
+    public Optional<List<VisualizeGame>> getLastGamesByClubId(Long id) {
+        List<Map<String, Object>> mapList = gameRepository.getLastGamesByClubId(id);
         return getVisualizeGames(mapList);
     }
 
