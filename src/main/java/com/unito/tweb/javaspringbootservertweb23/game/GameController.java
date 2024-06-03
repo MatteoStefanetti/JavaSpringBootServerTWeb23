@@ -39,7 +39,7 @@ public class GameController {
      * Endpoint for adding multiple games.
      *
      * @param games List of Game objects to be added
-     * @return ResponseEntity indicating the success or failure of the operation
+     * @return {@link ResponseEntity} indicating the success or failure of the operation
      */
     @Operation(summary = "Add games",
             description = "Add a list of games to the system.")
@@ -62,7 +62,7 @@ public class GameController {
      * Endpoint for retrieving a game by its ID.
      *
      * @param id The ID of the game to retrieve
-     * @return ResponseEntity containing the retrieved game if found, or a NOT_FOUND response if no game was found for the specified ID
+     * @return {@link ResponseEntity} containing the retrieved {@link Game} if found, or a NOT_FOUND response if no game was found for the specified ID
      */
     @Operation(summary = "Get game by ID", description = "Retrieved a game based on the specified ID.")
     @ApiResponses(value = {
@@ -84,7 +84,7 @@ public class GameController {
     /**
      * Endpoint for retrieving the last games played.
      *
-     * @return ResponseEntity containing the list of last games played if found, or a NOT_FOUND response if no games were found
+     * @return {@link ResponseEntity} containing the {@link List} of last games played if found, or a NOT_FOUND response if no games were found
      */
     @Operation(summary = "Get last games",
             description = "Retrieve a list of last 20 games.")
@@ -108,7 +108,7 @@ public class GameController {
      * Endpoint for retrieving a game data by its game ID.
      *
      * @param id The ID of the game to retrieve
-     * @return ResponseEntity containing the visualization of a game if found, or NOT_FOUND response if there isn't a game with the specified ID
+     * @return {@link ResponseEntity} containing the visualization of a game if found, or NOT_FOUND response if there isn't a game with the specified ID
      */
     @Operation(summary = "Visualize a game",
             description = "Retrieves a game data by its game ID.")
@@ -133,7 +133,7 @@ public class GameController {
      *
      * @param competitionId The ID of the competition
      * @param season        The season of the games to retrieve
-     * @return ResponseEntity containing the list of games matching the criteria if found, or a NOT_FOUND response if no games were found
+     * @return {@link ResponseEntity} containing the {@link List} of games matching the criteria if found, or a NOT_FOUND response if no games were found
      */
     @Operation(summary = "Get games by competition ID and season",
             description = "Retrieve a list of games based on the specified competition ID and season.")
@@ -153,6 +153,12 @@ public class GameController {
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
+    /**
+     * Endpoint for retrieving the current season of a certain competition.
+     *
+     * @param competitionId The ID of the competition
+     * @return {@link ResponseEntity} containing an {@link Integer} representing the last season of a certain competition if found, or a NOT_FOUND response if no competition or season were found
+     */
     @Operation(summary = "Get the current season year",
             description = "Retrieve a number, representing the last season of the given competition from the games table.")
     @ApiResponses(value = {
@@ -176,7 +182,7 @@ public class GameController {
      *
      * @param competitionId The ID of the competition
      * @param season        The season of the games to exclude
-     * @return ResponseEntity containing the list of games matching the criteria if found, or a NOT_FOUND response if no games were found
+     * @return {@link ResponseEntity} containing the {@link List} of games matching the criteria if found, or a NOT_FOUND response if no games were found
      */
     @Operation(summary = "Get games by competition ID but excluding a certain season",
             description = "Retrieve a list of games based on the specified competition ID and excluding a certain season.")
@@ -200,7 +206,7 @@ public class GameController {
      * Endpoint for retrieving games involving a specific club.
      *
      * @param clubName The name of the club
-     * @return ResponseEntity containing the list of games involving the club if found, or a NOT_FOUND response if no games were found
+     * @return {@link ResponseEntity} containing the {@link List} of games involving the club if found, or a NOT_FOUND response if no games were found
      */
     @Operation(summary = "Get games by club name",
             description = "Retrieve a list of games based on the specified club name.")
@@ -225,7 +231,7 @@ public class GameController {
      *
      * @param clubName1 The name of the first club
      * @param clubName2 The name of the second club
-     * @return ResponseEntity containing the list of games involving both clubs if found, or a NOT_FOUND response if no games were found
+     * @return {@link ResponseEntity} containing the {@link List} of games involving both clubs if found, or a NOT_FOUND response if no games were found
      */
     @Operation(summary = "get games by club names",
             description = "Retrieve a list of games based on the specified club names.")
@@ -249,7 +255,7 @@ public class GameController {
      * Endpoint for retrieving games by a specific game date.
      *
      * @param gameDate The date of the games to retrieve
-     * @return ResponseEntity containing the list of VisualizeGame objects if found, or a NOT_FOUND response if no games were found for the specified date
+     * @return {@link ResponseEntity} containing the {@link List} of {@link VisualizeGame} objects if found, or a NOT_FOUND response if no games were found for the specified date
      */
     @Operation(summary = "Get games by date",
             description = "Retrieve a list of games based on the specified game date.")
@@ -274,7 +280,7 @@ public class GameController {
      *
      * @param id     The ID of the club
      * @param season The year of the season
-     * @return A {@link ResponseEntity} containing the list of {@link VisualizeGame} objects if found, or a NOT_FOUND response if no games were found
+     * @return A {@link ResponseEntity} containing the {@link List} of {@link VisualizeGame} objects if found, or a NOT_FOUND response if no games were found
      */
     @Operation(summary = "Get games by club ID",
             description = "Retrieve a list of games based on the specified club ID and season.")
@@ -298,7 +304,7 @@ public class GameController {
      * Endpoint for retrieving games by a specific club id and the last season played by the specified club.
      *
      * @param clubId The ID of the club
-     * @return A {@link ResponseEntity} containing the list of {@link VisualizeGame} objects if found, or a NOT_FOUND response if no games were found
+     * @return A {@link ResponseEntity} containing the {@link List} of {@link VisualizeGame} objects if found, or a NOT_FOUND response if no games were found
      */
     @Operation(summary = "Get last games of a club ID",
             description = "Retrieve a list of the last games of a certain club ID.")

@@ -15,14 +15,14 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * Retrieves a game by its ID.
      *
      * @param id The ID of the game to retrieve
-     * @return An optional containing the retrieved game entity, if found
+     * @return An {@link Optional} containing the retrieved {@link Game} entity, if found
      */
     Optional<Game> findByGameId(Long id);
 
     /**
      * Retrieves the last 20 games played.
      *
-     * @return A list of maps representing the last 20 games played, each containing game data
+     * @return A {@link List} of maps representing the last 20 games played, each containing game data
      */
     @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "FROM GAMES G " +
@@ -39,7 +39,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      *
      * @param competitionId The ID of the competition
      * @param season        The season of the games to retrieve
-     * @return A list of maps representing the games matching the criteria, each containing game data
+     * @return A {@link List} of maps representing the games matching the criteria, each containing game data
      */
     @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +
@@ -52,7 +52,10 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Map<String, Object>> getGamesByCompetitionIdAndSeason(String competitionId, Integer season);
 
     /**
-     * @return an Integer for the last season found in the database for the given competition_id.
+     * Retrieves
+     *
+     * @param competitionId The ID of the competition
+     * @return A {@link Map} that should contain an {@link Integer} for the last season found in the database for the given competition_id.
      */
     @Query(value = "select g.season from games g " +
             "where g.competition_id like :competitionId " +
@@ -64,7 +67,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      *
      * @param competitionId The ID of the competition
      * @param season        The season of the games to exclude
-     * @return A list of maps representing the games matching the criteria, each containing game data
+     * @return A {@link List} of maps representing the games matching the criteria, each containing game data
      */
     @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +
@@ -80,7 +83,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * Retrieves games by the name of a club.
      *
      * @param clubName The name of the club
-     * @return A list of maps representing the games involving the club, each containing game data
+     * @return A {@link List} of maps representing the games involving the club, each containing game data
      */
     @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +
@@ -97,7 +100,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      *
      * @param clubName1 The name of the first club
      * @param clubName2 The name of the second club
-     * @return A list of maps representing the games involving both clubs, each containing game data
+     * @return A {@link List} of maps representing the games involving both clubs, each containing game data
      */
     @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +
@@ -114,7 +117,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * Retrieves games by a specific game date.
      *
      * @param gameDate The date of the games
-     * @return A list of maps representing the games played on the specified date, each containing game data
+     * @return A {@link List} of maps representing the games played on the specified date, each containing game data
      */
     @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +
@@ -130,7 +133,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      *
      * @param id     The ID of the club
      * @param season The year of the season
-     * @return A list of information relative to games that were played in the specified season by the specified club
+     * @return A {@link List} of information relative to games that were played in the specified season by the specified club
      */
     @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +
@@ -165,7 +168,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * Retrieves a game information by a game ID.
      *
      * @param id The ID of the game
-     * @return The data of the game to visualize
+     * @return A {@link Map} that contains the data of the game to visualize
      */
     @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +

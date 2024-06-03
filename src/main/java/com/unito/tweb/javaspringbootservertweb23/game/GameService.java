@@ -38,7 +38,7 @@ public class GameService {
      * Saves a list of game entities.
      *
      * @param games The list of games to be saved
-     * @return The list of saved game entities
+     * @return The {@link List} of saved {@link Game} entities
      */
     public List<Game> saveGames(List<Game> games) {
         return gameRepository.saveAll(games);
@@ -48,7 +48,7 @@ public class GameService {
      * Retrieves a game by its ID.
      *
      * @param id The ID of the game to retrieve
-     * @return An optional containing the retrieved entity, if found
+     * @return An {@link Optional} containing the retrieved entity, if found
      */
     public Optional<Game> getGameById(Long id) {
         return gameRepository.findByGameId(id);
@@ -58,7 +58,7 @@ public class GameService {
      * Retrieves a game's data by its ID.
      *
      * @param id The ID of the game to retrieve
-     * @return An Optional containing the VisualizeGame object with the specified game ID, if found
+     * @return An {@link Optional} containing the {@link VisualizeGame} object with the specified game ID, if found
      */
     public Optional<VisualizeGame> getVisualizeGameById(Long id) {
         Map<String, Object> map = gameRepository.getGameById(id);
@@ -86,7 +86,7 @@ public class GameService {
      * Retrieves games by the name of a club.
      *
      * @param clubName The name of the club
-     * @return An optional containing a list of VisualizeGame objects representing the games involving the club, if found
+     * @return An {@link Optional} containing a {@link List} of {@link VisualizeGame} objects representing the games involving the club, if found
      */
     public Optional<List<VisualizeGame>> getGamesByClubName(String clubName) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByClubName(clubName);
@@ -98,7 +98,7 @@ public class GameService {
      *
      * @param clubName1 The name of the first club
      * @param clubName2 The name of the second club
-     * @return An optional containing a list of VisualizeGame objects representing the games involving both clubs, if found
+     * @return An {@link Optional} containing a {@link List} of {@link VisualizeGame} objects representing the games involving both clubs, if found
      */
     public Optional<List<VisualizeGame>> getGamesByClubNames(String clubName1, String clubName2) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByClubNames(clubName1, clubName2);
@@ -108,7 +108,7 @@ public class GameService {
     /**
      * Retrieves the last games played.
      *
-     * @return An optional containing a list of VisualizeGame objects representing the last games played, if found
+     * @return An {@link Optional} containing a {@link List} of {@link VisualizeGame} objects representing the last games played, if found
      */
     public Optional<List<VisualizeGame>> getLastGames() {
         List<Map<String, Object>> mapList = gameRepository.getLastGames();
@@ -119,7 +119,7 @@ public class GameService {
      * Retrieves games by a specific game date.
      *
      * @param gameDate The date of the games
-     * @return An optional containing a list of VisualizeGame objects representing the games played on the specified date, if found
+     * @return An {@link Optional} containing a {@link List} of {@link VisualizeGame} objects representing the games played on the specified date, if found
      */
     public Optional<List<VisualizeGame>> getGamesByGameDate(Date gameDate) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByGameDate(gameDate);
@@ -131,7 +131,7 @@ public class GameService {
      *
      * @param competitionId The ID of the competition
      * @param season        The season of the games to exclude
-     * @return An optional containing a list of VisualizeGame objects representing the games matching the criteria, if found
+     * @return An {@link Optional} containing a {@link List} of {@link VisualizeGame} objects representing the games matching the criteria, if found
      */
     public Optional<List<VisualizeGame>> getGamesByCompetitionIdAndSeasonNot(String competitionId, Integer season) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByCompetitionIdAndSeasonNot(competitionId, season);
@@ -143,7 +143,7 @@ public class GameService {
      *
      * @param competitionId The ID of the competition
      * @param season        The season of the games to retrieve
-     * @return An optional containing a list of VisualizeGame objects representing the games matching the criteria, if found
+     * @return An {@link Optional} containing a {@link List} of {@link VisualizeGame} objects representing the games matching the criteria, if found
      */
     public Optional<List<VisualizeGame>> getGamesByCompetitionIdAndSeason(String competitionId, Integer season) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByCompetitionIdAndSeason(competitionId, season);
@@ -154,7 +154,7 @@ public class GameService {
      * Retrieves an integer from the games representing the current season of the database.
      *
      * @param competitionId The ID of the competition
-     * @return An optional containing an Integer, representing the current season, if found.
+     * @return An {@link Optional} containing an {@link Integer}, representing the current season, if found.
      */
     public Optional<Integer> getSeasonYearFromGames(String competitionId) {
         Map<String, Object> obj = gameRepository.getLastSeason(competitionId);
@@ -166,7 +166,7 @@ public class GameService {
      *
      * @param id     The ID of the club
      * @param season The year of the season
-     * @return An {@link Optional} containing a list of {@link VisualizeGame} objects representing the games matching the criteria, if found
+     * @return An {@link Optional} containing a {@link List} of {@link VisualizeGame} objects representing the games matching the criteria, if found
      */
     public Optional<List<VisualizeGame>> getGamesByClubId(Long id, Integer season) {
         List<Map<String, Object>> mapList = gameRepository.getGamesByClubIdAndSeason(id, season);
@@ -177,7 +177,7 @@ public class GameService {
      * Retrieves the last season games of a certain club.
      *
      * @param id The ID of the club
-     * @return An {@link Optional} containing a list of {@link VisualizeGame} object representing the games matching the criteria, if found
+     * @return An {@link Optional} containing a {@link List} of {@link VisualizeGame} object representing the games matching the criteria, if found
      */
     public Optional<List<VisualizeGame>> getLastGamesByClubId(Long id) {
         List<Map<String, Object>> mapList = gameRepository.getLastGamesByClubId(id);
@@ -188,7 +188,7 @@ public class GameService {
      * Converts a list of maps representing game data into a list of VisualizeGame objects.
      *
      * @param mapList The list of maps containing game data. Must not be null.
-     * @return An optional containing a list of VisualizeGame objects representing the games, if the input list is not empty; otherwise, an empty optional
+     * @return An {@link Optional} containing a {@link List} of {@link VisualizeGame} objects representing the games, if the input list is not empty; otherwise, an empty optional
      */
     private Optional<List<VisualizeGame>> getVisualizeGames(List<Map<String, Object>> mapList) {
         if (mapList.isEmpty())
@@ -213,8 +213,8 @@ public class GameService {
     /**
      * Converts a map representing the last season into an Integer.
      *
-     * @param obj The map containing season. Must not be null.
-     * @return An optional containing an Integer, if the input is not empty; otherwise, an empty optional
+     * @param obj The {@link Map} containing season. Must not be null.
+     * @return An {@link Optional} containing an {@link Integer}, if the input is not empty; otherwise, an empty optional
      */
     private Optional<Integer> retrieveLastSeasonInteger(Map<String, Object> obj) {
         if (obj.isEmpty())
