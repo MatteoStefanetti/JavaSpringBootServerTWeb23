@@ -1,6 +1,5 @@
 package com.unito.tweb.javaspringbootservertweb23.player;
 
-import com.unito.tweb.javaspringbootservertweb23.dto.PlayerInformation;
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerCard;
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerName;
 import org.springframework.stereotype.Service;
@@ -73,17 +72,17 @@ public class PlayerService {
      * @param country The country of citizenship to filter players by
      * @return A list of players by citizenship containing player ID, last name, name, and image URL
      */
-    public Optional<List<PlayerInformation>> getPlayersByCountryOfCitizenshipOrderByLastName(String country) {
+    public Optional<List<PlayerCard>> getPlayersByCountryOfCitizenshipOrderByLastName(String country) {
         List<Player> players = playerRepository.getPlayersByCountryOfCitizenshipOrderByLastName(country);
 
         if (players.isEmpty())
             return Optional.empty();
 
-        List<PlayerInformation> playerInformationList = players.stream()
-                .map(player -> new PlayerInformation(
+        List<PlayerCard> playerInformationList = players.stream()
+                .map(player -> new PlayerCard(
                         player.getPlayerId(),
-                        player.getLastName(),
                         player.getPlayerName(),
+                        player.getLastName(),
                         player.getImageUrl()
                 ))
                 .toList();

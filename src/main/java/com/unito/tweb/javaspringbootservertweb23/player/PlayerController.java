@@ -1,6 +1,5 @@
 package com.unito.tweb.javaspringbootservertweb23.player;
 
-import com.unito.tweb.javaspringbootservertweb23.dto.PlayerInformation;
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerCard;
 import com.unito.tweb.javaspringbootservertweb23.dto.PlayerName;
 import io.swagger.v3.oas.annotations.Operation;
@@ -93,14 +92,14 @@ public class PlayerController {
             @ApiResponse(responseCode = "200",
                     description = "Successfully retrieved the list of players",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = PlayerInformation.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = PlayerCard.class)))),
             @ApiResponse(responseCode = "404",
                     description = "No players found with the specified country",
                     content = @Content())
     })
     @GetMapping("/get_players_by_nation/{country}")
-    public ResponseEntity<Optional<List<PlayerInformation>>> getPlayersByCountryOfCitizenshipOrderByLastName(@PathVariable String country) {
-        Optional<List<PlayerInformation>> result = playerService.getPlayersByCountryOfCitizenshipOrderByLastName(country);
+    public ResponseEntity<Optional<List<PlayerCard>>> getPlayersByCountryOfCitizenshipOrderByLastName(@PathVariable String country) {
+        Optional<List<PlayerCard>> result = playerService.getPlayersByCountryOfCitizenshipOrderByLastName(country);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
