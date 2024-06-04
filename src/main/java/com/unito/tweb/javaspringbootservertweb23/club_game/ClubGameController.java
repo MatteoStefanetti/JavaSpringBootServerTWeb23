@@ -20,7 +20,7 @@ public class ClubGameController {
     private final ClubGameService clubGameService;
 
     /**
-     * Constructor of a new ClubGame controller with the specified ClubGameService.
+     * Constructor of a new {@code ClubGameController} with the specified {@link ClubGameService}.
      *
      * @param clubGameService The ClubGame service to be used by this controller
      */
@@ -33,7 +33,7 @@ public class ClubGameController {
      * Endpoint to add multiple ClubGame instances at once.
      *
      * @param clubGames The List of ClubGame instances to be added
-     * @return A ResponseEntity indicating the success or failure of the operation
+     * @return A {@link ResponseEntity} indicating the success or failure of the operation
      */
     @Operation(summary = "Add club games",
             description = "Add a list of information related to club and games to the system.")

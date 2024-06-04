@@ -26,7 +26,7 @@ public class GameController {
     private final GameService gameService;
 
     /**
-     * Constructor for GameController.
+     * Constructor for {@code GameController}.
      *
      * @param gameService The GameService instance to be used for handling game-related operations.
      */

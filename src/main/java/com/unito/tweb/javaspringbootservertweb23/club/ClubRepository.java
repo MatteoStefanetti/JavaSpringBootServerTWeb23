@@ -15,7 +15,7 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
      * Retrieves a list of competition ID that the club had take part.
      *
      * @param id The ID of the club
-     * @return A list of String that represents the competition ID that the club had take part
+     * @return A {@link List} of {@link String} that represents the competition ID that the club had take part
      */
     @Query(value = "select distinct g.competition_id " +
             "from clubs c " +
@@ -27,7 +27,7 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
     /**
      * Retrieves a list of recent club news.
      *
-     * @return A list of maps containing club ID, club name, game ID, and game date
+     * @return A {@link List} of {@link Map} containing club ID, club name, game ID, and game date
      */
     @Query(value = "select distinct c.club_id, c.club_name, g.game_id, g.game_date " +
             "from games g " +
@@ -40,7 +40,7 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
      * Retrieves a list of clubs based on the local competition code.
      *
      * @param localCompetitionCode The local competition code
-     * @return A list of clubs matching the provided local competition code
+     * @return A {@link List} of {@link Club} matching the provided local competition code
      */
     List<Club> getClubsByLocalCompetitionCode(String localCompetitionCode);
 
@@ -48,7 +48,7 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
      * Retrieves a list of clubs whose names contain the provided string.
      *
      * @param name The string to search for in club names
-     * @return A list of clubs whose names contain the provided string
+     * @return A {@link List} of {@link Club} whose names contain the provided string
      */
     List<Club> findClubsByClubNameIgnoreCaseContaining(String name);
 
@@ -56,7 +56,7 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
      * Retrieves a club by its name.
      *
      * @param name The name of the club
-     * @return An optional containing the club if found, otherwise empty
+     * @return An {@link Optional} containing the {@link Club} if found, otherwise empty
      */
     Optional<Club> findClubByClubName(String name);
 
@@ -64,7 +64,7 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
      * Retrieves a list of club IDs whose names start with the provided letter.
      *
      * @param letter The starting letter of club name
-     * @return A list of club IDs whose name start with the provided letter
+     * @return A {@link List} of {@link Long} (Club IDs) whose name start with the provided letter
      */
     @Query(value = "select c.club_id from clubs c where c.club_name like :letter%", nativeQuery = true)
     List<Long> findClubsByLetter(String letter);
@@ -73,7 +73,7 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
      * Retrieves a club by its ID.
      *
      * @param id The ID of the club
-     * @return An optional containing the club if found, otherwise empty
+     * @return An {@link Optional} containing the {@link Club} if found, otherwise empty
      */
     Optional<Club> findByClubId(Long id);
 
@@ -81,7 +81,7 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
      * Retrieves a club name by its ID.
      *
      * @param id The ID of the club
-     * @return A Map object containing the club name and id if found
+     * @return A {@link Map} object containing the club name and id if found
      */
     @Query(value = "SELECT club_id, club_name " +
             "FROM clubs " +
@@ -92,7 +92,7 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
      * Retrieves a list of players card that are member of a certain club
      *
      * @param clubId The ID of the club
-     * @return A List of Map object containing the player's ID, the player's name, the player's last name and the player's image url
+     * @return A {@link List} of {@link Map} object containing the player's ID, the player's name, the player's last name and the player's image url
      */
     @Query(value = "SELECT p.player_id, p.player_name, p.last_name, p.image_url " +
             "FROM Players p JOIN Clubs c ON p.current_club_id = c.club_id " +
@@ -103,7 +103,7 @@ public interface ClubRepository extends JpaRepository<Club, Long> {
      * Retrieves a list of players card that were member of a certain club at the end of their career
      *
      * @param clubId The ID of the club
-     * @return A List of Map object containing the player's ID, the player's name, the player's last name and the player's image url*/
+     * @return A {@link List} of {@link Map} object containing the player's ID, the player's name, the player's last name and the player's image url*/
     @Query(value = "SELECT p.player_id, p.player_name, p.last_name, p.image_url " +
             "FROM Players p JOIN Clubs c ON p.current_club_id = c.club_id " +
             "WHERE p.current_club_id = :clubId AND c.last_season > p.last_season " +

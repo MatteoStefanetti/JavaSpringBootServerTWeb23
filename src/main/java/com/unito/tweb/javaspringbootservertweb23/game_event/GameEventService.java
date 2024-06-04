@@ -12,7 +12,7 @@ public class GameEventService {
     private final GameEventRepository gameEventRepository;
 
     /**
-     * Constructs a new {@code GameEventService} with the specified {@link GameEventRepository}.
+     * Constructs a new {@code  GameEventService} with the specified {@link GameEventRepository}.
      *
      * @param gameEventRepository The repository for game events
      */
@@ -24,7 +24,7 @@ public class GameEventService {
      * Saves a single game event.
      *
      * @param gameEvent The game event to save
-     * @return The saved game event
+     * @return The saved {@link GameEvent}
      */
     public GameEvent saveGameEvent(GameEvent gameEvent) {
         return gameEventRepository.save(gameEvent);
@@ -34,7 +34,7 @@ public class GameEventService {
      * Saves multiple game events.
      *
      * @param gameEvents The list of game events to save
-     * @return The list of saved game events
+     * @return The {@link List} of saved {@link GameEvent}
      */
     public List<GameEvent> saveGameEvents(List<GameEvent> gameEvents) {
         return gameEventRepository.saveAll(gameEvents);
@@ -44,7 +44,7 @@ public class GameEventService {
      * Retrieves a game event by its associated game ID.
      *
      * @param id The ID of the game
-     * @return An optional {@link List<GameEvent>} object corresponding to the given game ID, or an empty optional if not found
+     * @return An {@link Optional} {@link List} of {@link GameEvent} object corresponding to the given game ID, or an empty optional if not found
      */
     public Optional<List<GameEvent>> getGameEventsByGameId(Long id) {
         return gameEventRepository.findByGameId(id);

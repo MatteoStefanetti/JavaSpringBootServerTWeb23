@@ -26,7 +26,7 @@ public class PlayerService {
      * Saves a player entity in the database.
      *
      * @param player The player entity to save
-     * @return The saved player entity
+     * @return The saved {@link Player} entity
      */
     public Player savePlayer(Player player) {
         return playerRepository.save(player);
@@ -36,7 +36,7 @@ public class PlayerService {
      * Saves a list of player entities in the database.
      *
      * @param players The list of player entities to save
-     * @return The list of saved player entities
+     * @return The {@link List} of saved {@link Player} entities
      */
     public List<Player> savePlayers(List<Player> players) {
         return playerRepository.saveAll(players);
@@ -46,7 +46,7 @@ public class PlayerService {
      * Retrieves a list of players whose name contains the specified string, ordered by last name.
      *
      * @param name The string to search for in player names
-     * @return A list of player cards containing player ID, name, and image URL
+     * @return A {@link List} of {@link PlayerCard} containing player ID, name, and image URL
      */
     public Optional<List<PlayerCard>> getPlayersByPlayerNameIsContainingOrderByLastName(String name) {
         List<Player> players = playerRepository.findPlayersByPlayerNameIgnoreCaseContainingOrderByLastName(name);
@@ -70,7 +70,7 @@ public class PlayerService {
      * Retrieves a list of players by their country of citizenship, ordered by last name.
      *
      * @param country The country of citizenship to filter players by
-     * @return A list of players by citizenship containing player ID, last name, name, and image URL
+     * @return A {@link List} of {@link PlayerCard} by citizenship containing player ID, last name, name, and image URL
      */
     public Optional<List<PlayerCard>> getPlayersByCountryOfCitizenshipOrderByLastName(String country) {
         List<Player> players = playerRepository.getPlayersByCountryOfCitizenshipOrderByLastName(country);
@@ -94,7 +94,7 @@ public class PlayerService {
      * Retrieves a list of players by their IDs.
      *
      * @param ids The list of player IDs to retrieve
-     * @return An {@link Optional} containing list of player names if found, or an empty {@link Optional} otherwise
+     * @return An {@link Optional} containing {@link List} of {@link PlayerName} if found, or an empty {@link Optional} otherwise
      */
     public Optional<List<PlayerName>> getPlayersNamesByIds(List<Long> ids) {
         List<Player> players = playerRepository.findAllById(ids);
@@ -116,7 +116,7 @@ public class PlayerService {
      * Retrieves a player by their ID.
      *
      * @param id The ID of the player to retrieve
-     * @return An {@link Optional} containing the player entity if found, or an empty {@link Optional} otherwise
+     * @return An {@link Optional} containing the {@link Player} entity if found, or an empty {@link Optional} otherwise
      */
     public Optional<Player> getPlayerById(Long id) {
         return playerRepository.findById(id);
@@ -126,7 +126,7 @@ public class PlayerService {
      * Retrieves a list of players by their IDs.
      *
      * @param ids The list of player IDs to retrieve
-     * @return An {@link Optional} containing list of player cards if found, or an empty {@link Optional} otherwise
+     * @return An {@link Optional} containing {@link List} of {@link PlayerCard} if found, or an empty {@link Optional} otherwise
      */
     public Optional<List<PlayerCard>> getPlayersByIds(List<Long> ids) {
         List<Player> players = playerRepository.findAllById(ids);

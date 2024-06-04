@@ -13,7 +13,7 @@ public class ClubGameService {
     private final ClubGameRepository clubGameRepository;
 
     /**
-     * Constructs a new ClubGameService with the specified ClubGameRepository.
+     * Constructs a new {@code ClubGameService} with the specified {@link ClubGameRepository}.
      *
      * @param clubGameRepository The ClubGame repository to be used by this service
      */
@@ -25,7 +25,7 @@ public class ClubGameService {
      * Saves a single ClubGame instance to the database.
      *
      * @param clubGame The ClubGame instance to be saved
-     * @return The saved ClubGame instance
+     * @return The saved {@link ClubGame} instance
      */
     public ClubGame saveClubGame(ClubGame clubGame) {
         return clubGameRepository.save(clubGame);
@@ -35,7 +35,7 @@ public class ClubGameService {
      * Saves a list of ClubGame instances to the database.
      *
      * @param clubGames The list of ClubGame instances to be saved
-     * @return The list of saved ClubGame instances
+     * @return The {@link List} of saved {@link ClubGame} instances
      */
     public List<ClubGame> saveClubGames(List<ClubGame> clubGames) {
         return clubGameRepository.saveAll(clubGames);

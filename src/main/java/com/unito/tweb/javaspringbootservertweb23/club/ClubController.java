@@ -27,7 +27,7 @@ public class ClubController {
     private final ClubService clubService;
 
     /**
-     * Constructor for ClubController.
+     * Constructor for {@code ClubController}.
      *
      * @param clubService Club service to be injected
      */
@@ -39,7 +39,7 @@ public class ClubController {
     /**
      * Retrieves a list of recent club news.
      *
-     * @return ResponseEntity containing a list of club names and IDs representing recent news
+     * @return {@link ResponseEntity} containing a {@link List} of {@link ClubName} representing recent news
      */
     @Operation(summary = "get recent club news", description = "Retrieves a list of the last 15 different games played")
     @ApiResponses(value = {
@@ -62,7 +62,7 @@ public class ClubController {
      * Retrieves a list of club IDs whose names start with the specified letter.
      *
      * @param letter The starting letter of club names
-     * @return ResponseEntity containing a list of club IDs whose names start with the specified letter
+     * @return {@link ResponseEntity} containing a {@link List} of {@link Long}(club IDs) whose names start with the specified letter
      */
     @Operation(summary = "find clubs by letter", description = "Retrieves the list of clubs that has the name that begin with a certain string")
     @ApiResponses(value = {
@@ -85,7 +85,7 @@ public class ClubController {
      * Retrieves a list of clubs by their local competition code.
      *
      * @param localCompetitionCode The local competition code
-     * @return ResponseEntity containing a list of clubs with the specified local competition code
+     * @return {@link ResponseEntity} containing a {@link List} of {@link ClubName} with the specified local competition code
      */
     @Operation(summary = "find clubs by local competition code", description = "Retrieves the list of clubs that come from a certain nation")
     @ApiResponses(value = {
@@ -108,7 +108,7 @@ public class ClubController {
      * Retrieves a list of clubs whose names contain the specified string.
      *
      * @param name The string to search for in club names
-     * @return ResponseEntity containing a list of clubs with names containing the specified string
+     * @return {@link ResponseEntity} containing a {@link List} of {@link ClubByNation} with names containing the specified string
      */
     @Operation(description = "Retrieves the list of clubs whose name contains a certain string")
     @ApiResponses(value = {
@@ -131,7 +131,7 @@ public class ClubController {
      * Endpoint to add multiple clubs at once.
      *
      * @param clubs List of clubs to be added
-     * @return ResponseEntity indicating success or failure of club addition
+     * @return {@link ResponseEntity} indicating success or failure of club addition
      */
     @Operation(summary = "Add multiple clubs", description = "Endpoint to add multiple clubs at once.")
     @ApiResponses(value = {
@@ -153,7 +153,7 @@ public class ClubController {
      * Retrieves a club with a certain name.
      *
      * @param name The name of the club to retrieve
-     * @return ResponseEntity containing the club with the specified name, if found
+     * @return {@link ResponseEntity} containing the {@link Club} with the specified name, if found
      */
     @Operation(summary = "find club by name", description = "Retrieves a club with a certain name")
     @ApiResponses(value = {
@@ -179,7 +179,7 @@ public class ClubController {
      * Retrieve a club with a certain id.
      *
      * @param id The ID of the club to retrieve
-     * @return ResponseEntity containing the club with the specified ID, if found
+     * @return {@link ResponseEntity} containing the {@link Club} with the specified ID, if found
      */
     @Operation(description = "Retrieve a club with a certain id")
     @ApiResponses(value = {
@@ -206,7 +206,7 @@ public class ClubController {
      * Retrieve a club name with a certain ID.
      *
      * @param id The ID of the club to retrieve
-     * @return ResponseEntity containing the club name with the specified ID, if found
+     * @return {@link ResponseEntity} containing the {@link ClubName} with the specified ID, if found
      */
     @Operation(description = "Retrieve a club name with a certain id")
     @ApiResponses(value = {
@@ -235,7 +235,7 @@ public class ClubController {
      * Retrieves a list of competition ID that a club had take part.
      *
      * @param id The ID of the club
-     * @return ResponseEntity containing a list of String that represents the competition ID
+     * @return {@link ResponseEntity} containing a {@link List} of {@link String} that represents the competition ID
      */
     @Operation(summary = "Get the list of competition of a club",
             description = "Retrieve a list of competition IDs representing the competitions that a certain club as participated in.")
@@ -259,7 +259,7 @@ public class ClubController {
      * Retrieves a list of Player Cards representing the active member of a certain club.
      *
      * @param clubId The ID of the club
-     * @return ResponseEntity containing a list of Player Cards representing the list of Player of a certain Club
+     * @return {@link ResponseEntity} containing a {@link List} of {@link PlayerCard} representing the list of Player of a certain Club
      */
     @Operation(summary = "Get the list of players of a club",
             description = "Retrieves a list of Player Cards representing the active member of a certain club.")
@@ -283,7 +283,7 @@ public class ClubController {
      * Retrieves a list of Player Cards representing the past member of a certain club.
      *
      * @param clubId The ID of the club
-     * @return ResponseEntity containing a list of Player Cards representing the list of the past Player of a certain Club
+     * @return {@link ResponseEntity} containing a {@link List} of {@link PlayerCard} representing the list of the past Player of a certain Club
      */
     @Operation(summary = "Get the list of past players of a club",
             description = "Retrieves a list of Player Cards representing the past member of a certain club.")

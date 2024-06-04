@@ -24,7 +24,7 @@ public class PlayerController {
     private final PlayerService playerService;
 
     /**
-     * Constructs a new PlayerController with the provided PlayerService.
+     * Constructs a new {@code PlayerController} with the provided {@link PlayerService}.
      *
      * @param playerService The service used for managing Player entities
      */
@@ -37,7 +37,7 @@ public class PlayerController {
      * Endpoint for adding multiple players.
      *
      * @param players The list of players to add
-     * @return ResponseEntity indicating success or failure of the operation
+     * @return {@link ResponseEntity} indicating success or failure of the operation
      */
     @Operation(summary = "Add players",
             description = "Add a list of players to the system.")
@@ -60,7 +60,7 @@ public class PlayerController {
      * Endpoint for retrieving players whose name contains a specified string.
      *
      * @param name The string to search for in player names
-     * @return ResponseEntity containing the list of player cards if found, or a not found response otherwise
+     * @return {@link ResponseEntity} containing the {@link List} of {@link PlayerCard} if found, or a not found response otherwise
      */
     @Operation(summary = "Get players by name",
             description = "Retrieve a list of players whose name contains the specified substring, ordered by last name.")
@@ -84,7 +84,7 @@ public class PlayerController {
      * Endpoint for retrieving players by their country of citizenship.
      *
      * @param country The country of citizenship to filter players by
-     * @return ResponseEntity containing the list of players by citizenship if found, or a not found response otherwise
+     * @return {@link ResponseEntity} containing the {@link List} of {@link PlayerCard} by citizenship if found, or a not found response otherwise
      */
     @Operation(summary = "Get players by country",
             description = "Retrieve a list of players by their country of citizenship, ordered by last name.")
@@ -108,7 +108,7 @@ public class PlayerController {
      * Endpoint for querying player names by their IDs.
      *
      * @param ids The list of player IDs to query
-     * @return ResponseEntity containing the list of player names if found, or a not found response otherwise
+     * @return {@link ResponseEntity} containing the {@link List} of {@link PlayerName} if found, or a not found response otherwise
      */
     @Operation(summary = "Get players names by IDs",
             description = "Retrieve a list of player names by their IDs.")
@@ -132,7 +132,7 @@ public class PlayerController {
      * Endpoint for retrieving a player by their ID.
      *
      * @param id The ID of the player to retrieve
-     * @return ResponseEntity containing the player entity if found, or a not found response otherwise
+     * @return {@link ResponseEntity} containing the {@link Player} entity if found, or a not found response otherwise
      */
     @Operation(summary = "Get player by ID",
             description = "Retrieve a player by their ID.")
@@ -156,7 +156,7 @@ public class PlayerController {
      * Endpoint for retrieving player cards by their IDs.
      *
      * @param ids The list of player IDs to query
-     * @return ResponseEntity containing the list of player cards if found, or a not found response otherwise
+     * @return {@link ResponseEntity} containing the {@link List} of {@link PlayerCard} if found, or a not found response otherwise
      */
     @Operation(summary = "Get players by IDs",
             description = "Retrieve a list of player cards by their IDs.")

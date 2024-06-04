@@ -18,7 +18,7 @@ public class ClubService {
     private final ClubRepository clubRepository;
 
     /**
-     * Constructor for ClubService.
+     * Constructor for {@code ClubService}.
      *
      * @param clubRepository Club repository to be injected
      */
@@ -30,7 +30,7 @@ public class ClubService {
      * Saves a club.
      *
      * @param club The club to be saved
-     * @return The saved club
+     * @return The saved {@link Club}
      */
     public Club saveClub(Club club) {
         return clubRepository.save(club);
@@ -40,7 +40,7 @@ public class ClubService {
      * Saves a list of clubs.
      *
      * @param clubs The list of clubs to be saved
-     * @return The list of saved clubs
+     * @return The {@link List} of saved {@link Club}
      */
     public List<Club> saveClubs(List<Club> clubs) {
         return clubRepository.saveAll(clubs);
@@ -49,7 +49,7 @@ public class ClubService {
     /**
      * Retrieves a list of recent club news.
      *
-     * @return A list of club names and IDs representing recent news
+     * @return A {@link List} of {@link ClubName} representing recent news
      */
     public Optional<List<ClubName>> getRecentClubsNews() {
         List<Map<String, Object>> clubs = clubRepository.getRecentClubsNews();
@@ -70,7 +70,7 @@ public class ClubService {
      * Retrieves clubs by their local competition code.
      *
      * @param localCompetitionCode The local competition code
-     * @return A list of clubs with the specified local competition code
+     * @return A {@link List} of {@link ClubName} with the specified local competition code
      */
     public Optional<List<ClubName>> findClubsByLocalCompetitionCode(String localCompetitionCode) {
         List<Club> clubList = clubRepository.getClubsByLocalCompetitionCode(localCompetitionCode);
@@ -91,7 +91,7 @@ public class ClubService {
      * Retrieves club IDs whose names start with the specified letter.
      *
      * @param clubId The starting letter of club names
-     * @return A list of club IDs whose names start with the specified letter
+     * @return A {@link List} of club IDs whose names start with the specified letter
      */
     public Optional<ClubName> findClubNameByClubId(Long clubId) {
         Map<String, Object> club = clubRepository.findClubNameByClubId(clubId);
@@ -108,7 +108,7 @@ public class ClubService {
      * Retrieves club IDs whose names start with the specified letter.
      *
      * @param letter The starting letter of club names
-     * @return A list of club IDs whose names start with the specified letter
+     * @return A {@link List} of club IDs whose names start with the specified letter
      */
     public Optional<List<Long>> findClubsByLetter(String letter) {
         List<Long> clubIds = clubRepository.findClubsByLetter(letter);
@@ -119,7 +119,7 @@ public class ClubService {
      * Retrieves clubs whose names contain the specified string.
      *
      * @param name The string to search for in club names
-     * @return A list of clubs whose names contain the specified string
+     * @return A {@link List} of {@link ClubByNation} whose names contain the specified string
      */
     public Optional<List<ClubByNation>> findClubsByClubNameContaining(String name) {
         List<Club> clubList = clubRepository.findClubsByClubNameIgnoreCaseContaining(name);
@@ -143,7 +143,7 @@ public class ClubService {
      * Retrieves a club by its name.
      *
      * @param name The name of the club
-     * @return An optional containing the club if found, otherwise empty
+     * @return An {@link Optional} containing the {@link Club} if found, otherwise empty
      */
     public Optional<Club> findClubByClubName(String name) {
         return clubRepository.findClubByClubName(name);
@@ -153,7 +153,7 @@ public class ClubService {
      * Retrieves a club by its ID.
      *
      * @param id The ID of the club
-     * @return An optional containing the club if found, otherwise empty
+     * @return An {@link Optional} containing the {@link Club} if found, otherwise empty
      */
     public Optional<Club> getClubById(Long id) {
         return clubRepository.findByClubId(id);
@@ -163,7 +163,7 @@ public class ClubService {
      * Retrieves a list of competition ID that the club had take part.
      *
      * @param id The ID of the club
-     * @return A list of String that represents the competition ID that the club had take part
+     * @return A {@link List} of {@link String} that represents the competition ID that the club had take part
      */
     public Optional<List<String>> getClubsCompetitionId(Long id) {
         return clubRepository.getClubsCompetitionId(id);
@@ -173,7 +173,7 @@ public class ClubService {
      * Retrieves a list of Players that are active member of a certain Club.
      *
      * @param clubId The ID of the club
-     * @return A list of Player Card representing the list of Player of a certain Club
+     * @return A {@link List} of {@link PlayerCard} representing the list of Player of a certain Club
      */
     public Optional<List<PlayerCard>> getCurrentPlayerOfClub(Long clubId) {
         List<Map<String, Object>> playersList = clubRepository.findPlayersByCurrentClubIdAndLastSeason(clubId);
@@ -184,7 +184,7 @@ public class ClubService {
      * Retrieves a list of Players that are past member of a certain Club.
      *
      * @param clubId The ID of the club
-     * @return A list of Player Card representing the list of Player that played, at the end of their career, in a certain Club
+     * @return A {@link List} of {@link PlayerCard} representing the list of Player that played, at the end of their career, in a certain Club
      */
     public Optional<List<PlayerCard>> getPastPlayerOfClub(Long clubId) {
         List<Map<String, Object>> playersList = clubRepository.findPastPlayerByCurrentClubId(clubId);
@@ -195,7 +195,7 @@ public class ClubService {
      * Method to extract a List of PlayerCard dto from a List of Map object.
      *
      * @param playersList The List of Map object that contains the data of the Player Card
-     * @return The List of Player Card or an Empty Optional if the initial List was empty
+     * @return The {@link List} of {@link PlayerCard} or an Empty {@link Optional} if the initial List was empty
      */
     private Optional<List<PlayerCard>> getPlayerCards(List<Map<String, Object>> playersList) {
         if (playersList.isEmpty())

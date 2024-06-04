@@ -16,7 +16,7 @@ public class GameService {
     private final GameRepository gameRepository;
 
     /**
-     * Constructor for GameService.
+     * Constructor for {@code GameService}.
      *
      * @param gameRepository Repository for Game entities
      */

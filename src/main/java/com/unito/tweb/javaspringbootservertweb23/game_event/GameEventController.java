@@ -34,7 +34,7 @@ public class GameEventController {
      * Adds a list of game events.
      *
      * @param gameEvents The list of game events to add
-     * @return a ResponseEntity with a success message if the game events are successfully loaded, or an error message if an error occurred
+     * @return a {@link ResponseEntity} with a success message if the game events are successfully loaded, or an error message if an error occurred
      */
     @Operation(summary = "Add game events",
             description = "Add a list of game events to the system.")
@@ -57,7 +57,7 @@ public class GameEventController {
      * Retrieves a game event by its associated game ID.
      *
      * @param id The ID of the game
-     * @return A ResponseEntity containing the list of game events corresponding to the given game ID if found, or a NOT_FOUND status if not found
+     * @return A {@link ResponseEntity} containing the {@link List} of {@link GameEvent} corresponding to the given game ID if found, or a NOT_FOUND status if not found
      */
     @Operation(summary = "Get game events by game ID",
             description = "Retrieve a list of game events based on the specified game ID.")
