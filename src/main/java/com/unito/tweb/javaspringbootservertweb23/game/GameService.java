@@ -157,8 +157,7 @@ public class GameService {
      * @return An {@link Optional} containing an {@link Integer}, representing the current season, if found.
      */
     public Optional<Integer> getSeasonYearFromGames(String competitionId) {
-        Map<String, Object> obj = gameRepository.getLastSeason(competitionId);
-        return retrieveLastSeasonInteger(obj);
+        return gameRepository.getLastSeason(competitionId);
     }
 
     /**

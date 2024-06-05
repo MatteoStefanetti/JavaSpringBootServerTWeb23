@@ -52,15 +52,15 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Map<String, Object>> getGamesByCompetitionIdAndSeason(String competitionId, Integer season);
 
     /**
-     * Retrieves
+     * Retrieves the last season of a certain competition.
      *
      * @param competitionId The ID of the competition
-     * @return A {@link Map} that should contain an {@link Integer} for the last season found in the database for the given competition_id.
+     * @return An {@link Optional} that should contain an {@link Integer} for the last season found in the database for the given competition_id.
      */
-    @Query(value = "select g.season from games g " +
-            "where g.competition_id like :competitionId " +
-            "order by g.season desc LIMIT 1", nativeQuery = true)
-    Map<String, Object> getLastSeason(String competitionId);
+    @Query(value = "select max(g.season) as last_season " +
+            "from games g " +
+            "where g.competition_id like :competitionId", nativeQuery = true)
+    Optional<Integer> getLastSeason(String competitionId);
 
     /**
      * Retrieves games by competition ID and season, excluding a specific season.
