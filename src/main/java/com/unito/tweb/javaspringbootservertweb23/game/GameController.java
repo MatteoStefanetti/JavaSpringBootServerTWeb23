@@ -178,6 +178,30 @@ public class GameController {
     }
 
     /**
+     * Endpoint for retrieving all the seasons of a certain competition.
+     *
+     * @param competitionId The ID of the competition
+     * @return {@link ResponseEntity} containing a {@link List} of {@link Integer} representing all the seasons of a certain competition if found, or a NOT_FOUND response if no competition or season were found
+     */
+    @Operation(summary = "Get the all season year",
+            description = "Retrieve a list of number, representing all the season of the given competition from the games table.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the years",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = Integer.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "No games found while searching for the season",
+                    content = @Content())
+    })
+    @GetMapping("/get_all_seasons/{competitionId}")
+    public ResponseEntity<Optional<List<Integer>>> getAllSeasonByCompetitionId(@PathVariable String competitionId) {
+        Optional<List<Integer>> result = Optional.ofNullable(gameService.getAllSeasonByCompetitionId(competitionId));
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
      * Endpoint for retrieving games of a league for seasons other than a specific season.
      *
      * @param competitionId The ID of the competition

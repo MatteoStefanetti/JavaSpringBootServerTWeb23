@@ -24,7 +24,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      *
      * @return A {@link List} of maps representing the last 20 games played, each containing game data
      */
-    @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
+    @Query(value = "select g.game_id, g.game_date, g.competition_id, g.season, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "FROM GAMES G " +
             "JOIN CLUB_GAMES CG1 ON G.game_id = CG1.game_id " +
             "JOIN CLUBS C1 ON CG1.club_id = C1.club_id " +
@@ -41,7 +41,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * @param season        The season of the games to retrieve
      * @return A {@link List} of maps representing the games matching the criteria, each containing game data
      */
-    @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
+    @Query(value = "select g.game_id, g.game_date, g.competition_id, g.season, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
             "join clubs c1 on cg1.club_id = c1.club_id " +
@@ -63,13 +63,25 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     Optional<Integer> getLastSeason(String competitionId);
 
     /**
+     * Retrieves all the distinct season of a certain competition.
+     *
+     * @param competitionId The ID of the competition
+     * @return A {@link List} of {@link Integer} that represents all the different season of a certain competition
+     */
+    @Query(value = "select distinct g.season " +
+            "from games g " +
+            "where g.competition_id like :competitionId " +
+            "order by g.season desc", nativeQuery = true)
+    List<Integer> getAllSeasonByCompetitionId(String competitionId);
+
+    /**
      * Retrieves games by competition ID and season, excluding a specific season.
      *
      * @param competitionId The ID of the competition
      * @param season        The season of the games to exclude
      * @return A {@link List} of maps representing the games matching the criteria, each containing game data
      */
-    @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
+    @Query(value = "select g.game_id, g.game_date, g.competition_id, g.season, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
             "join clubs c1 on cg1.club_id = c1.club_id " +
@@ -85,7 +97,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * @param clubName The name of the club
      * @return A {@link List} of maps representing the games involving the club, each containing game data
      */
-    @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
+    @Query(value = "select g.game_id, g.game_date, g.competition_id, g.season, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
             "join clubs c1 on c1.club_id = cg1.club_id " +
@@ -102,7 +114,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * @param clubName2 The name of the second club
      * @return A {@link List} of maps representing the games involving both clubs, each containing game data
      */
-    @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
+    @Query(value = "select g.game_id, g.game_date, g.competition_id, g.season, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
             "join clubs c1 on c1.club_id = cg1.club_id " +
@@ -119,7 +131,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * @param gameDate The date of the games
      * @return A {@link List} of maps representing the games played on the specified date, each containing game data
      */
-    @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
+    @Query(value = "select g.game_id, g.game_date, g.competition_id, g.season, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
             "join clubs c1 on c1.club_id = cg1.club_id " +
@@ -135,7 +147,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * @param season The year of the season
      * @return A {@link List} of information relative to games that were played in the specified season by the specified club
      */
-    @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
+    @Query(value = "select g.game_id, g.game_date, g.competition_id, g.season, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
             "join clubs c1 on c1.club_id = cg1.club_id " +
@@ -154,7 +166,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "SELECT c.last_season AS max_last_season " +
             "FROM clubs c " +
             "WHERE c.club_id = :clubId) " +
-            "SELECT g.game_id, g.game_date, g.competition_id, c1.club_name AS clubName1, c1.club_id AS clubId1, cg1.own_goal AS goal1, c2.club_name AS clubName2, c2.club_id AS clubId2, cg2.own_goal AS goal2 " +
+            "SELECT g.game_id, g.game_date, g.competition_id, g.season, c1.club_name AS clubName1, c1.club_id AS clubId1, cg1.own_goal AS goal1, c2.club_name AS clubName2, c2.club_id AS clubId2, cg2.own_goal AS goal2 " +
             "FROM games g " +
             "JOIN club_games cg1 ON g.game_id = cg1.game_id " +
             "JOIN clubs c1 ON cg1.club_id = c1.club_id " +
@@ -170,7 +182,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * @param id The ID of the game
      * @return A {@link Map} that contains the data of the game to visualize
      */
-    @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
+    @Query(value = "select g.game_id, g.game_date, g.competition_id, g.season, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
             "join clubs c1 on c1.club_id = cg1.club_id " +

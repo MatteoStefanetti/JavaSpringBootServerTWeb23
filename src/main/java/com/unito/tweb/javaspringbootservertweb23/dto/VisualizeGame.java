@@ -8,6 +8,7 @@ import java.sql.Timestamp;
  * @param gameId        The ID of the game
  * @param gameDate      The date when the game take place
  * @param competitionId The ID of the competition
+ * @param season        The season year of the game
  * @param clubName1     The name of the club1
  * @param clubId1       The ID of the club1
  * @param goal1         The goals scored by the club1
@@ -19,6 +20,7 @@ public record VisualizeGame(
         Long gameId,
         Timestamp gameDate,
         String competitionId,
+        Integer season,
         String clubName1,
         Long clubId1,
         Integer goal1,

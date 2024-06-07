@@ -71,6 +71,7 @@ public class GameService {
                 (Long) map.get("game_id"),
                 (Timestamp) map.get("game_date"),
                 (String) map.get("competition_id"),
+                (Integer) map.get("season"),
                 (String) map.get("clubName1"),
                 (Long) map.get("clubId1"),
                 (Integer) map.get("goal1"),
@@ -161,6 +162,16 @@ public class GameService {
     }
 
     /**
+     * Retrieves all the distinct season of a certain competition.
+     *
+     * @param competitionId The ID of the competition
+     * @return A {@link List} of {@link Integer} that represents all the different season of a certain competition
+     */
+    public List<Integer> getAllSeasonByCompetitionId(String competitionId) {
+        return gameRepository.getAllSeasonByCompetitionId(competitionId);
+    }
+
+    /**
      * Retrieves games by club ID and season.
      *
      * @param id     The ID of the club
@@ -198,6 +209,7 @@ public class GameService {
                         (Long) game.get("game_id"),
                         (Timestamp) game.get("game_date"),
                         (String) game.get("competition_id"),
+                        (Integer) game.get("season"),
                         (String) game.get("clubName1"),
                         (Long) game.get("clubId1"),
                         (Integer) game.get("goal1"),
