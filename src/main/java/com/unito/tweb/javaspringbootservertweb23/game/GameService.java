@@ -172,6 +172,29 @@ public class GameService {
     }
 
     /**
+     * Retrieves the placing of a certain competition.
+     *
+     * @param competitionId The ID of the competition
+     * @param season        The season year of the competition
+     * @return An {@link Optional} {@link List} of {@link ClubPlacing} that represent the placing of a competition
+     */
+    public Optional<List<ClubPlacing>> getPlacingClubsOfACompetitionAndSeason(String competitionId, Integer season) {
+        List<Map<String, Object>> mapList = gameRepository.getPlacingClubsOfACompetitionAndSeason(competitionId, season);
+
+        if (mapList.isEmpty())
+            return Optional.empty();
+
+        List<ClubPlacing> clubPlacing = mapList.stream()
+                .map(club -> new ClubPlacing(
+                        (Long) club.get("club_id"),
+                        (String) club.get("club_name"),
+                        (Integer) club.get("own_position")
+                )).toList();
+
+        return Optional.of(clubPlacing);
+    }
+
+    /**
      * Retrieves games by club ID and season.
      *
      * @param id     The ID of the club
