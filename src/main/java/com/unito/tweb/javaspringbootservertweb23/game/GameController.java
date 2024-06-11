@@ -129,6 +129,30 @@ public class GameController {
     }
 
     /**
+     * Endpoint for retrieving game data by its game ID.
+     *
+     * @param id The ID of the game to retrieve
+     * @return {@link ResponseEntity} containing the visualization of a game if found, or NOT_FOUND response if there isn't a game with the specified ID
+     */
+    @Operation(summary = "Visualize details about a game",
+            description = "Retrieves game data by its game ID.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved game details",
+                    content = @Content(mediaType = "application/json",
+                            schema = @Schema(implementation = GameDetails.class))),
+            @ApiResponse(responseCode = "404",
+                    description = "No game found",
+                    content = @Content())
+    })
+    @GetMapping("/get_game_details_by_id/{id}")
+    public ResponseEntity<Optional<GameDetails>> getGameDetailsById(@PathVariable Long id) {
+        Optional<GameDetails> result = gameService.getGameDetailsById(id);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
      * Endpoint for retrieving games of a league for a specific season.
      *
      * @param competitionId The ID of the competition

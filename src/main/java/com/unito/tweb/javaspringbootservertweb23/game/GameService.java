@@ -84,6 +84,36 @@ public class GameService {
     }
 
     /**
+     * Retrieves a game's data by its ID.
+     *
+     * @param id The ID of the game to retrieve
+     * @return An {@link Optional} containing the {@link GameDetails} object with the specified game ID, if found
+     */
+    public Optional<GameDetails> getGameDetailsById(Long id) {
+        Map<String, Object> map = gameRepository.getGameDetailsById(id);
+        if (map.isEmpty())
+            return Optional.empty();
+        GameDetails gameDetails = new GameDetails (
+                (Long) map.get("game_id"),
+                (Timestamp) map.get("game_date"),
+                (String) map.get("competition_id"),
+                (String) map.get("clubName1"),
+                (Long) map.get("clubId1"),
+                (Integer) map.get("goal1"),
+                (String) map.get("manager1"),
+                (Boolean) map.get("hosting1"),
+                (String) map.get("formation1"),
+                (String) map.get("clubName2"),
+                (Long) map.get("clubId2"),
+                (Integer) map.get("goal2"),
+                (String) map.get("manager2"),
+                (Boolean) map.get("hosting2"),
+                (String) map.get("formation2")
+        );
+        return Optional.of(gameDetails);
+    }
+
+    /**
      * Retrieves games by the name of a club.
      *
      * @param clubName The name of the club
