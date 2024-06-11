@@ -220,7 +220,7 @@ public class GameController {
                     description = "No clubs found while searching for the season",
                     content = @Content())
     })
-    @GetMapping("/club_participants/{competitionId}/{season}")
+    @GetMapping("/competition_placing/{competitionId}/{season}")
     public ResponseEntity<Optional<List<ClubPlacing>>> getPlacingClubsOfACompetitionAndSeason(@PathVariable String competitionId, @PathVariable Integer season) {
         Optional<List<ClubPlacing>> result = gameService.getPlacingClubsOfACompetitionAndSeason(competitionId, season);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
