@@ -75,6 +75,28 @@ public interface GameRepository extends JpaRepository<Game, Long> {
     List<Integer> getAllSeasonByCompetitionId(String competitionId);
 
     /**
+     * Retrieves the placing of a competition of a certain season.
+     *
+     * @param competitionId The ID of the competition
+     * @param season        The year of the season
+     * @return A {@link List} of {@link Map} representing the placing of a competition
+     */
+    @Query(value = "WITH club_last_game AS (" +
+            "SELECT cg.club_id, MAX(g.game_date) AS last_game_date " +
+            "FROM club_games cg " +
+            "JOIN games g ON cg.game_id = g.game_id " +
+            "WHERE g.competition_id LIKE :competitionId AND g.season = :season " +
+            "GROUP BY cg.club_id ) " +
+            "SELECT c.club_id, c.club_name, cg.own_position " +
+            "FROM clubs c " +
+            "JOIN club_games cg ON c.club_id = cg.club_id " +
+            "JOIN games g ON cg.game_id = g.game_id " +
+            "JOIN club_last_game clg ON clg.club_id = c.club_id AND g.game_date = clg.last_game_date " +
+            "WHERE g.competition_id LIKE :competitionId AND g.season = :season " +
+            "ORDER BY cg.own_position", nativeQuery = true)
+    List<Map<String, Object>> getPlacingClubsOfACompetitionAndSeason(String competitionId, Integer season);
+
+    /**
      * Retrieves games by competition ID and season, excluding a specific season.
      *
      * @param competitionId The ID of the competition

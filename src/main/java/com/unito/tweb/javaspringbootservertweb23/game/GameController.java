@@ -202,6 +202,32 @@ public class GameController {
     }
 
     /**
+     * Endpoint for retrieving all the placing of a competition.
+     *
+     * @param competitionId The ID of the competition
+     * @param season        The season year of the competition
+     * @return {@link ResponseEntity} containing a {@link List} of {@link ClubPlacing} representing the placing of a competition
+     */
+    @Operation(summary = "Get the placing of a competition",
+            description = "Retrieve a list of clubs that participate in a certain competition in a certain season and their placing.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Successfully retrieved the clubs",
+                    content = @Content(mediaType = "application/json",
+                            array = @ArraySchema(
+                                    schema = @Schema(implementation = ClubPlacing.class)))),
+            @ApiResponse(responseCode = "404",
+                    description = "No clubs found while searching for the season",
+                    content = @Content())
+    })
+    @GetMapping("/competition_placing/{competitionId}/{season}")
+    public ResponseEntity<Optional<List<ClubPlacing>>> getPlacingClubsOfACompetitionAndSeason(@PathVariable String competitionId, @PathVariable Integer season) {
+        Optional<List<ClubPlacing>> result = gameService.getPlacingClubsOfACompetitionAndSeason(competitionId, season);
+        return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
+                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+    }
+
+    /**
      * Endpoint for retrieving games of a league for seasons other than a specific season.
      *
      * @param competitionId The ID of the competition
