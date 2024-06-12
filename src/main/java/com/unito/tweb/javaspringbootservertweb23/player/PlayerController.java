@@ -108,22 +108,22 @@ public class PlayerController {
      * Endpoint for querying player names by their IDs.
      *
      * @param ids The list of player IDs to query
-     * @return {@link ResponseEntity} containing the {@link List} of {@link PlayerName} if found, or a not found response otherwise
+     * @return {@link ResponseEntity} containing the {@link List} of {@link PlayerCard} if found, or a not found response otherwise
      */
     @Operation(summary = "Get players names by IDs",
-            description = "Retrieve a list of player names by their IDs.")
+            description = "Retrieve a list of player cards by their IDs.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Successfully retrieved the list of player names",
+                    description = "Successfully retrieved the list of player cards",
                     content = @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = PlayerName.class)))),
+                            array = @ArraySchema(schema = @Schema(implementation = PlayerCard.class)))),
             @ApiResponse(responseCode = "404",
                     description = "No players found with the specified IDs",
                     content = @Content())
     })
-    @GetMapping("/query_player_names_by_ids/{ids}")
-    public ResponseEntity<Optional<List<PlayerName>>> getPlayersNamesByIds(@PathVariable List<Long> ids) {
-        Optional<List<PlayerName>> result = playerService.getPlayersNamesByIds(ids);
+    @GetMapping("/query_players_by_ids/{ids}")
+    public ResponseEntity<Optional<List<PlayerCard>>> getPlayersCardsByIds(@PathVariable List<Long> ids) {
+        Optional<List<PlayerCard>> result = playerService.getPlayersCardsByIds(ids);
         return result.map(value -> new ResponseEntity<>(result, HttpStatus.OK))
                 .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
