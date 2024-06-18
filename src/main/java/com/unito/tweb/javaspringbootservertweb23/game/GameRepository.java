@@ -125,7 +125,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "join clubs c1 on c1.club_id = cg1.club_id " +
             "join club_games cg2 on g.game_id = cg2.game_id and cg1.club_id <> cg2.club_id " +
             "join clubs c2 on cg2.club_id = c2.club_id " +
-            "where c1.club_id < c2.club_id and (c1.club_name like %:clubName% or c2.club_name like %:clubName%)" +
+            "where c1.club_id < c2.club_id and (c1.club_name ilike %:clubName% or c2.club_name ilike %:clubName%)" +
             "order by game_date desc", nativeQuery = true)
     List<Map<String, Object>> getGamesByClubName(String clubName);
 
@@ -142,8 +142,8 @@ public interface GameRepository extends JpaRepository<Game, Long> {
             "join clubs c1 on c1.club_id = cg1.club_id " +
             "join club_games cg2 on g.game_id = cg2.game_id and cg1.club_id <> cg2.club_id " +
             "join clubs c2 on cg2.club_id = c2.club_id " +
-            "where c1.club_id < c2.club_id and ((c1.club_name like %:clubName1% and c2.club_name like %:clubName2%) or " +
-            "(c1.club_name like %:clubName2% and c2.club_name like %:clubName1%)) " +
+            "where c1.club_id < c2.club_id and ((c1.club_name ilike %:clubName1% and c2.club_name ilike %:clubName2%) or " +
+            "(c1.club_name ilike %:clubName2% and c2.club_name ilike %:clubName1%)) " +
             "order by game_date desc", nativeQuery = true)
     List<Map<String, Object>> getGamesByClubNames(String clubName1, String clubName2);
 
