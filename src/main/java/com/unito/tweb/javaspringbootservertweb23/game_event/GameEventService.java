@@ -47,6 +47,6 @@ public class GameEventService {
      * @return An {@link Optional} {@link List} of {@link GameEvent} object corresponding to the given game ID, or an empty optional if not found
      */
     public Optional<List<GameEvent>> getGameEventsByGameId(Long id) {
-        return gameEventRepository.findByGameId(id);
+        return gameEventRepository.findByGameIdOrderByMinute(id);
     }
 }
