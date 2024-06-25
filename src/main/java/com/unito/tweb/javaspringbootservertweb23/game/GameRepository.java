@@ -219,7 +219,7 @@ public interface GameRepository extends JpaRepository<Game, Long> {
      * @param id The ID of the game
      * @return A {@link Map} that contains the data of the game to visualize
      */
-    @Query(value = "select g.game_id, g.game_date, g.competition_id, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, cg1.own_manager_name as manager1, cg1.hosting as hosting1, cg1.club_formation as formation1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2, cg2.own_manager_name as manager2, cg2.hosting as hosting2, cg2.club_formation as formation2 " +
+    @Query(value = "select g.game_id, g.game_date, g.competition_id, g.season, c1.club_name as clubName1, c1.club_id as clubId1, cg1.own_goal as goal1, cg1.own_manager_name as manager1, cg1.hosting as hosting1, cg1.club_formation as formation1, c2.club_name as clubName2, c2.club_id as clubId2, cg2.own_goal as goal2, cg2.own_manager_name as manager2, cg2.hosting as hosting2, cg2.club_formation as formation2 " +
             "from games g " +
             "join club_games cg1 on g.game_id = cg1.game_id " +
             "join clubs c1 on c1.club_id = cg1.club_id " +

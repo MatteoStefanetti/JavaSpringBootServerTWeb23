@@ -25,6 +25,7 @@ public record GameDetails(
         Long gameId,
         Timestamp gameDate,
         String competitionId,
+        Integer season,
         String clubName1,
         Long clubId1,
         Integer goal1,

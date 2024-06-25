@@ -97,6 +97,7 @@ public class GameService {
                 (Long) map.get("game_id"),
                 (Timestamp) map.get("game_date"),
                 (String) map.get("competition_id"),
+                (Integer) map.get("season"),
                 (String) map.get("clubName1"),
                 (Long) map.get("clubId1"),
                 (Integer) map.get("goal1"),
